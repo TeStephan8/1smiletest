@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1SMILE – Professionisti al tuo servizio</title>
+  <meta name="description" content="1SMILE – Studio fiscale a Milano Bicocca. 730, IMU, TASI, ISEE, dichiarazioni fiscali. Professionisti al tuo servizio dal 2010." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:    #0ea5e9;
+      --sky-d:  #0284c7;
+      --sky-l:  #e0f2fe;
+      --gold:   #fbbf24;
+      --dark:   #0c1a2e;
+      --mid:    #1e3a5f;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --white:  #ffffff;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(12,26,46,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      animation: slideDown .6s ease both;
+    }
+    @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .logo-icon {
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .logo-icon img { width: 52px; height: 52px; object-fit: contain; display: block; }
+    .nav-logo:hover .logo-icon { transform: scale(1.1) rotate(-5deg); }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--white); letter-spacing: -0.5px;
+    }
+    .logo-text span { color: var(--sky); }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.75); text-decoration: none;
+      font-size: .875rem; font-weight: 500; letter-spacing: .3px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+
+    .nav-cta {
+      background: var(--sky); color: var(--white) !important;
+      padding: 9px 22px; border-radius: 50px;
+      font-weight: 600 !important;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--sky-d) !important; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(150deg, var(--dark) 0%, var(--mid) 60%, #1a5276 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 120px 40px 80px;
+    }
+
+    /* Animated background circles */
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+    .hero-bg span {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,165,233,.18) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    .hero-bg span:nth-child(1) { width: 600px; height: 600px; top: -150px; right: -100px; animation-delay: 0s; }
+    .hero-bg span:nth-child(2) { width: 400px; height: 400px; bottom: -80px; left: 10%; animation-delay: 3s; }
+    .hero-bg span:nth-child(3) { width: 300px; height: 300px; top: 40%; right: 20%; animation-delay: 5s; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .6; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Grid pattern overlay */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 780px; text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(14,165,233,.15);
+      border: 1px solid rgba(14,165,233,.35);
+      color: var(--sky); font-size: .8rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 50px;
+      margin-bottom: 28px;
+      animation: fadeUp .8s .2s ease both;
+    }
+
+    .hero-logo-big {
+      margin-bottom: 12px;
+      animation: fadeUp .8s .3s ease both;
+    }
+    .hero-logo-big img {
+      width: 210px;
+      height: auto;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 20px rgba(14,165,233,.4));
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -2px;
+      animation: fadeUp .8s .4s ease both;
+    }
+    h1 .accent { color: var(--sky); }
+    h1 .gold { color: var(--gold); }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 1.2rem; font-weight: 300;
+      color: rgba(255,255,255,.7);
+      line-height: 1.7;
+      animation: fadeUp .8s .55s ease both;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 600; }
+
+    .hero-slogan {
+      margin-top: 20px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--gold);
+      animation: fadeUp .8s .65s ease both;
+    }
+
+    .hero-btns {
+      margin-top: 44px;
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .8s .75s ease both;
+    }
+    .btn-primary {
+      background: var(--sky); color: var(--white);
+      padding: 16px 36px; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 8px 30px rgba(14,165,233,.4);
+    }
+    .btn-primary:hover { background: var(--sky-d); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(14,165,233,.5); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,.3);
+      padding: 14px 34px; border-radius: 50px;
+      font-weight: 500; font-size: 1rem; text-decoration: none;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--sky); background: rgba(14,165,233,.1); transform: translateY(-2px); }
+
+    .hero-stats {
+      margin-top: 64px;
+      display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .8s .9s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 900;
+      color: var(--white); line-height: 1;
+    }
+    .stat-num span { color: var(--sky); }
+    .stat-label { font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.5); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+    .stat-sep { width: 1px; background: rgba(255,255,255,.15); height: 50px; align-self: center; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SERVIZI ─── */
+    .section { padding: 100px 40px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--sky-l);
+      color: var(--sky-d);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 50px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; line-height: 1.15;
+      color: var(--dark); letter-spacing: -1px;
+    }
+    h2 .accent { color: var(--sky); }
+
+    .section-lead {
+      margin-top: 16px;
+      font-size: 1.1rem; color: var(--muted); max-width: 560px; line-height: 1.7;
+    }
+
+    .services { background: #f8faff; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      border: 1px solid #e2eaf6;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--sky-d));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(14,165,233,.12); border-color: var(--sky-l); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      font-size: 2.4rem; margin-bottom: 20px;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 12px;
+    }
+    .service-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── CHI SIAMO ─── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+      margin-top: 16px;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 100%);
+      border-radius: 24px;
+      padding: 48px 40px;
+      color: var(--white);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,165,233,.25) 0%, transparent 70%);
+    }
+    .about-emoji { display: block; margin: 0 auto 20px; width: 140px; height: auto; object-fit: contain; mix-blend-mode: screen; filter: drop-shadow(0 4px 14px rgba(14,165,233,.3)); }
+    .about-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;
+    }
+    .about-card-sub { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+    .about-floating {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--gold);
+      color: var(--dark);
+      font-weight: 700; font-size: .85rem;
+      padding: 12px 20px; border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(251,191,36,.4);
+    }
+
+    .about-text h2 { margin-bottom: 16px; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-text p strong { color: var(--dark); }
+    .about-highlights {
+      margin-top: 28px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .highlight {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--sky-l); border-radius: 12px; padding: 14px 18px;
+    }
+    .highlight-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .highlight-text { font-size: .9rem; color: var(--sky-d); font-weight: 500; }
+
+    /* ─── PERCORSO ─── */
+    .timeline-section { background: var(--dark); color: var(--white); }
+    .timeline-section h2 { color: var(--white); }
+    .timeline-section .accent { color: var(--sky); }
+    .timeline-section .section-lead { color: rgba(255,255,255,.55); }
+
+    .timeline {
+      margin-top: 56px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; top: 28px; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--sky), transparent);
+    }
+    .tl-item { text-align: center; padding: 0 20px; padding-top: 0; }
+    .tl-dot {
+      width: 56px; height: 56px;
+      background: var(--sky); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.4rem;
+      box-shadow: 0 0 0 6px rgba(14,165,233,.2), 0 0 0 12px rgba(14,165,233,.08);
+      position: relative; z-index: 1;
+    }
+    .tl-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900; color: var(--sky);
+      margin-bottom: 8px;
+    }
+    .tl-item h3 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .tl-item p { font-size: .85rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+    /* ─── CONTATTI ─── */
+    .contact-section { background: #f8faff; }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 18px;
+      background: var(--white); border-radius: 14px; padding: 24px;
+      border: 1px solid #e2eaf6;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .contact-item:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(14,165,233,.1); }
+    .ci-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--sky-l);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .ci-label { font-size: .75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .ci-value { font-size: 1rem; font-weight: 600; color: var(--dark); }
+    .ci-value a { color: var(--sky-d); text-decoration: none; }
+    .ci-value a:hover { text-decoration: underline; }
+    .ci-sub { font-size: .8rem; color: var(--muted); margin-top: 2px; }
+
+    .map-box {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 100%);
+      border-radius: 20px; padding: 40px;
+      color: var(--white); display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .map-box::after {
+      content: '📍';
+      position: absolute; right: 30px; bottom: 20px;
+      font-size: 6rem; opacity: .08;
+    }
+    .map-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 12px;
+    }
+    .map-box p { font-size: .95rem; color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 24px; }
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--sky); color: var(--white);
+      padding: 12px 24px; border-radius: 50px;
+      font-weight: 600; font-size: .9rem; text-decoration: none;
+      width: fit-content;
+      transition: background .2s, transform .2s;
+    }
+    .map-btn:hover { background: var(--sky-d); transform: translateY(-2px); }
+
+    .map-detail { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .map-detail span:first-child { font-size: 1.1rem; }
+    .map-detail span:last-child { font-size: .9rem; color: rgba(255,255,255,.7); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 32px 40px;
+      font-size: .85rem;
+      line-height: 1.8;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    footer strong { color: var(--white); }
+    footer a { color: var(--sky); text-decoration: none; }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .section { padding: 70px 20px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+      .tl-item { padding: 0 0 32px 0; }
+      .hero-stats { gap: 24px; }
+      .stat-sep { display: none; }
+      h1 { letter-spacing: -1px; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="logo-icon"><img src="img/logo.png" alt="1SMILE" /></div>
+      <span class="logo-text"><span>1</span>SMILE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#contatti" class="nav-cta">Contattaci</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">📍 Milano Bicocca · Studio Fiscale</div>
+      <div class="hero-logo-big"><img src="img/logo.png" alt="1SMILE" /></div>
+      <h1><span class="accent">1</span>SMILE<br><span class="gold">Studio Fiscale</span></h1>
+      <p class="hero-sub">
+        <strong>730 · IMU · TASI · ISEE · Dichiarazioni fiscali</strong><br>
+        Assistenza completa per privati e imprese. Esperienza, competenza e un sorriso.
+      </p>
+      <p class="hero-slogan">"Professionisti al tuo servizio. Sorridi, al resto pensiamo noi!"</p>
+      <div class="hero-btns">
+        <a href="#contatti" class="btn-primary">📞 Contattaci subito</a>
+        <a href="#servizi" class="btn-outline">Scopri i servizi ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">+15<span>anni</span></div>
+          <div class="stat-label">di esperienza</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <div class="stat-num">2010</div>
+          <div class="stat-label">anno fondazione</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">soddisfazione</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section class="section services" id="servizi">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-tag">I nostri servizi</span>
+        <h2>Tutto ciò di cui hai bisogno,<br><span class="accent">in un unico studio</span></h2>
+        <p class="section-lead">Dalla dichiarazione dei redditi alle pratiche IMU/TASI, fino all'ISEE: gestiamo ogni aspetto fiscale con professionalità e cura.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="service-icon">📄</span>
+          <h3>Modello 730</h3>
+          <p>Dichiarazione dei redditi per lavoratori dipendenti e pensionati. Massimo rimborso, zero preoccupazioni. Assistenza completa dalla raccolta documenti alla presentazione.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-icon">🏠</span>
+          <h3>IMU &amp; TASI</h3>
+          <p>Calcolo e gestione delle imposte municipali sugli immobili. Verifichiamo esenzioni, aliquote comunali e scadenze per ottimizzare il tuo carico fiscale.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-icon">📊</span>
+          <h3>ISEE</h3>
+          <p>Elaborazione della Dichiarazione Sostitutiva Unica per l'accesso alle prestazioni sociali agevolate: bonus, rette scolastiche, agevolazioni sanitarie e molto altro.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-icon">📋</span>
+          <h3>Dichiarazioni fiscali</h3>
+          <p>Unico Persone Fisiche, Redditi PF, gestione di redditi da affitti, investimenti, plusvalenze e situazioni fiscali complesse. Sempre aggiornati sulle normative.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-icon">🤝</span>
+          <h3>Consulenza CAF</h3>
+          <p>Servizi CAF integrati: pratiche INPS, Naspi, RedditiOnline, successioni, contratti di affitto, bonus edilizi, detrazioni e agevolazioni fiscali di ogni tipo.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-icon">💼</span>
+          <h3>Consulenza commercialistica</h3>
+          <p>Supporto per partite IVA, piccole imprese e professionisti. Contabilità, adempimenti fiscali periodici, apertura/chiusura partite IVA, ravvedimenti operosi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section class="section" id="chi-siamo">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-card">
+            <img src="img/logo.png" alt="1SMILE" class="about-emoji" />
+            <div class="about-card-title">1SMILE – Il tuo studio di fiducia</div>
+            <div class="about-card-sub">Una squadra di professionisti che mette al centro la persona, non solo la pratica fiscale.</div>
+          </div>
+          <div class="about-floating">✅ Dal 2010 con te</div>
+        </div>
+        <div class="about-text reveal">
+          <span class="section-tag">Chi siamo</span>
+          <h2>Esperienza e<br><span class="accent">passione fiscale</span></h2>
+          <p>Il nome <strong>1SMILE</strong> non è casuale: il nostro obiettivo è che tu possa sorridere tranquillo, sapendo che i tuoi adempimenti fiscali sono in mani competenti e affidabili.</p>
+          <p>Fondato nel <strong>2010</strong>, il nostro studio nasce dall'esperienza pluriennale dei soci, già operativi nel settore come professionisti dipendenti. Una continuità di competenza che oggi mettiamo al servizio dei nostri clienti a Milano Bicocca e dintorni.</p>
+          <p>Siamo una via di mezzo tra un <strong>CAF e uno studio commercialista</strong>: offriamo la comodità del primo con la profondità professionale del secondo. Un punto di riferimento unico per ogni necessità fiscale.</p>
+          <div class="about-highlights">
+            <div class="highlight">
+              <span class="highlight-icon">⚡</span>
+              <span class="highlight-text">Risposte rapide e pratiche gestite nei tempi</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">🔒</span>
+              <span class="highlight-text">Massima riservatezza e tutela dei dati personali</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">📱</span>
+              <span class="highlight-text">Presto online: area clienti con documenti digitali</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section timeline-section">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-tag" style="background:rgba(14,165,233,.15);color:var(--sky);">Il nostro percorso</span>
+        <h2>Una storia di<br><span class="accent">professionalità</span></h2>
+        <p class="section-lead">Anni di lavoro, formazione continua e migliaia di dichiarazioni gestite con cura.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot">🌱</div>
+          <div class="tl-year">Prima del 2010</div>
+          <h3>Le radici</h3>
+          <p>I soci fondatori accumulano esperienza nel settore fiscale lavorando come professionisti dipendenti, costruendo competenze solide e un approccio orientato al cliente.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot">🚀</div>
+          <div class="tl-year">2010</div>
+          <h3>Nasce 1SMILE</h3>
+          <p>Fondazione dello studio a Milano Bicocca. Un nuovo inizio con un nome che dice tutto: professionalità con il sorriso, per rendere la fiscalità meno complicata.</p>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-dot">⭐</div>
+          <div class="tl-year">Oggi</div>
+          <h3>Il futuro è digitale</h3>
+          <p>Studio consolidato con centinaia di clienti fidelizzati. In arrivo: area clienti online per la gestione digitale dei documenti e comunicazioni in tempo reale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATTI -->
+  <section class="section contact-section" id="contatti">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-tag">Dove trovarci</span>
+        <h2>Vieni a trovarci o<br><span class="accent">scrivici subito</span></h2>
+        <p class="section-lead">Siamo a Milano Bicocca, facilmente raggiungibili. Chiamaci, scrivici o vieni in studio: un caffè e rispondiamo a tutte le tue domande.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item reveal">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Telefono</div>
+              <div class="ci-value"><a href="tel:026175760">02 6175760</a></div>
+              <div class="ci-sub">Lun–Ven, orari d'ufficio</div>
+            </div>
+          </div>
+          <div class="contact-item reveal">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-value"><a href="/cdn-cgi/l/email-protection#2d44434b426d1c5e40444148034459"><span class="__cf_email__" data-cfemail="caa3a4aca58afbb9a7a3a6afe4a3be">[email&#160;protected]</span></a></div>
+              <div class="ci-sub">Risposta entro 24 ore lavorative</div>
+            </div>
+          </div>
+          <div class="contact-item reveal">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div class="ci-label">Dove siamo</div>
+              <div class="ci-value">Milano Bicocca</div>
+              <div class="ci-sub">Milano, Lombardia</div>
+            </div>
+          </div>
+        </div>
+        <div class="map-box reveal">
+          <h3>📍 Milano Bicocca</h3>
+          <div class="map-detail"><span>🚇</span><span>Metro M5 – Fermata Bicocca (linea lilla)</span></div>
+          <div class="map-detail"><span>🏙️</span><span>Zona nord di Milano, facilmente raggiungibile</span></div>
+          <div class="map-detail"><span>🕐</span><span>Orari su appuntamento</span></div>
+          <p style="margin-top:16px;">Per dichiarazioni fiscali urgenti o semplici informazioni, siamo qui. Il nostro team risponde sempre con professionalità e cordialità.</p>
+          <a href="https://maps.google.com/?q=Milano+Bicocca" target="_blank" class="map-btn">🗺️ Apri in Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>1SMILE</strong> – Studio Fiscale &amp; CAF · Milano Bicocca</p>
+    <p>
+      📞 <a href="tel:026175760">02 6175760</a> &nbsp;·&nbsp;
+      ✉️ <a href="/cdn-cgi/l/email-protection#afc6c1c9c0ef9edcc2c6c3ca81c6db"><span class="__cf_email__" data-cfemail="2b42454d446b1a584642474e05425f">[email&#160;protected]</span></a>
+    </p>
+    <p style="margin-top:12px;font-size:.78rem;">
+      © 2010–2025 1SMILE Snc · P.IVA in fase di aggiornamento ·
+      <a href="#" style="color:rgba(255,255,255,.35)">Privacy Policy</a>
+    </p>
+    <p style="margin-top:8px;font-style:italic;color:rgba(255,255,255,.3);font-size:.8rem;">"Professionisti al tuo servizio. Sorridi, al resto pensiamo noi! 👍😊"</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('v
