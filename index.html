@@ -353,27 +353,26 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+function toggleMenu(e) { e.preventDefault(); navLinks.classList.toggle('open'); }
+hamburger.addEventListener('click', toggleMenu);
+hamburger.addEventListener('touchend', toggleMenu);
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => navLinks.classList.remove('open'));
 });
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), 80 * i);
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 const sections = document.querySelectorAll('section[id]');
 const navLinkEls = document.querySelectorAll('.nav-links a[href^="#"]');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
-  navLinkEls.fo
+  navLinkEls.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue-light)' : '';
+    a.style.borderColor = a.getAttribute('href') === '#' + current ? 'var(--blue-light)' : '';
+  });
+});
+</script>
+</body>
+</html>
