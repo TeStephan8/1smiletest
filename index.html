@@ -124,7 +124,7 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .urgency-box p em{font-style:normal;color:var(--gold);font-weight:700}
 
 /* FOOTER */
-footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5rem;font-size:.85rem}
+footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5rem;font-size:.85rem;position:sticky;bottom:0;z-index:1000;box-shadow:0 -2px 16px rgba(13,45,107,.15)}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .footer-wordmark{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;line-height:1}
 .fw-one{color:var(--gold)}
@@ -324,7 +324,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
           <div class="contact-item-icon">✉️</div>
           <div>
             <strong>Email</strong>
-            <a href="mailto:info@1smile.it">info@1smile.it</a>
+            <a href="/cdn-cgi/l/email-protection#cfa6a1a9a08ffebca2a6a3aae1a6bb"><span class="__cf_email__" data-cfemail="1a73747c755a2b697773767f34736e">[email&#160;protected]</span></a>
             <span>Risposta entro 24 ore</span>
           </div>
         </div>
@@ -373,7 +373,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 function toggleMenu(e) { e.preventDefault(); navLinks.classList.toggle('open'); }
@@ -384,8 +384,4 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 });
 
 const sections = document.querySelectorAll('section[id]');
-const navLinkEls = document.querySelectorAll('.nav-links a[href^="#"]');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
-  navLinkEls.fo
+cons
