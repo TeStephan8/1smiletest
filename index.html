@@ -163,10 +163,9 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
   .timeline-steps::before{display:none}
 }
 @media(max-width:720px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;padding:1.5rem;gap:1.2rem;box-shadow:0 10px 30px rgba(13,45,107,.12)}
+  .nav-links{display:none;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:#fff;padding:1.5rem;gap:1.2rem;box-shadow:0 10px 30px rgba(13,45,107,.12);z-index:999}
   .nav-links.open{display:flex}
   .hamburger{display:flex}
-  nav{position:relative}
 }
 @media(max-width:480px){
   .hero{padding:3.5rem 1.2rem 3rem}
