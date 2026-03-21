@@ -124,11 +124,25 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .urgency-box p em{font-style:normal;color:var(--gold);font-weight:700}
 
 /* FOOTER */
-footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5rem;font-size:.85rem}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.5rem;font-size:.85rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem}
+.footer-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .footer-wordmark{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;line-height:1}
 .fw-one{color:var(--gold)}
 .fw-smile{color:#fff}
+.footer-nav{display:flex;align-items:center;gap:1.8rem;flex-wrap:wrap}
+.footer-nav a{color:rgba(255,255,255,.65);font-weight:600;font-size:.9rem;transition:color .25s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-top-btn{
+  display:flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:.85rem;font-weight:600;
+  padding:.45rem 1rem;border-radius:50px;cursor:pointer;
+  transition:background .25s,transform .25s;text-decoration:none;
+}
+.footer-top-btn:hover{background:var(--gold);color:var(--blue-dark);transform:translateY(-2px)}
+.footer-top-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.footer-copy{text-align:center;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;color:rgba(255,255,255,.4)}
 
 /* MOBILE BOTTOM BAR */
 .mobile-bar{display:none}
@@ -150,6 +164,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
   .mobile-bar a.active,.mobile-bar a:hover{color:var(--blue-mid)}
   .mobile-bar svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
   body{padding-bottom:72px}
+  .footer-nav,.footer-top-btn{display:none}
 }
 
 /* RESPONSIVE */
@@ -390,8 +405,19 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem 1.5r
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span></span>
-    <p>&copy; 2025 1SMILE Studio Fiscale &middot; Via Angelo Belloni 1, 20162 Milano &middot; P.IVA e C.F. 01234567890</p>
+    <div class="footer-row">
+      <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span></span>
+      <div class="footer-nav">
+        <a href="#servizi">Servizi</a>
+        <a href="#chi-siamo">Chi siamo</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+      <a href="#" class="footer-top-btn" id="footerTopBtn">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>
+        Torna su
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2025 1SMILE Studio Fiscale &middot; Via Angelo Belloni 1, 20162 Milano &middot; P.IVA e C.F. 01234567890</p>
   </div>
 </footer>
 
@@ -455,6 +481,9 @@ window.addEventListener('scroll', () => {
   document.getElementById('mobileMenuBtn').addEventListener('touchend', function(e){
     e.preventDefault();
     _navLinks.classList.toggle('open');
+  });
+  document.getElementById('footerTopBtn').addEventListener('click', function(e){
+    e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});
   });
   document.getElementById('scrollTopBtn').addEventListener('click', function(e){
     e.preventDefault();
