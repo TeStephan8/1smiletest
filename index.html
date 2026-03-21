@@ -42,7 +42,8 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 55%,var(--blue-light) 100%);position:relative;overflow:hidden;padding:5rem 1.5rem 4rem}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.hero-inner{max-width:860px;margin:0 auto;display:block;position:relative;z-index:1}
+.hero-cta-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.6rem;margin-top:1.5rem}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:.4rem 1rem;border-radius:50px;font-size:.85rem;font-weight:600;color:#fff;margin-bottom:1.2rem}
 .hero-badge span{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
@@ -76,6 +77,30 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .service-icon{width:56px;height:56px;border-radius:14px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem}
 .service-card h3{font-size:1.1rem;font-weight:700;color:var(--blue-dark);margin-bottom:.6rem}
 .service-card p{color:var(--gray-mid);font-size:.92rem;line-height:1.65}
+.service-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.45rem}
+.service-list li{color:var(--gray-mid);font-size:.9rem;line-height:1.5;padding-left:1.1rem;position:relative}
+.service-list li::before{content:'›';position:absolute;left:0;color:var(--blue-mid);font-weight:700}
+.service-callout{
+  margin:1.5rem 0 0;padding:1rem 1.4rem;
+  background:var(--blue-pale);border-left:4px solid var(--blue-mid);
+  border-radius:0 var(--radius) var(--radius) 0;
+  color:var(--blue-dark);font-size:.95rem;font-weight:500;line-height:1.5;
+}
+.section-head--mt{margin-top:3.5rem}[id]{scroll-margin-top:90px}
+.why-us{
+  margin-top:3rem;padding:2rem;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));
+  border-radius:var(--radius-lg);
+}
+.why-us__title{color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:1.2rem;text-align:center}
+.why-us__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.why-item{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:var(--radius);padding:.8rem 1rem;
+  color:#fff;font-size:.92rem;font-weight:600;
+  transition:background .25s;
+}
+.why-item:hover{background:rgba(255,255,255,.2)}
 
 /* ABOUT */
 .about{padding:5rem 1.5rem;background:#fff}
@@ -201,7 +226,8 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
   <div class="nav-inner">
     <a href="#" class="nav-logo"><img src="logo.png" alt="1SMILE Studio Fiscale"></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#servizi-imprese">Imprese</a></li>
+      <li><a href="#servizi-privati">Privati</a></li>
       <li><a href="#chi-siamo">Chi siamo</a></li>
       <li><a href="#contatti">Contatti</a></li>
     </ul>
@@ -218,28 +244,11 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
       <div class="hero-badge"><span></span> Studio Commercialista &amp; CAF &middot; Milano Bicocca</div>
       <h1>Professionisti<br>al tuo <em>servizio</em></h1>
       <p class="hero-sub">Il tuo commercialista di fiducia, con tutti i servizi CAF</p>
-      <p class="hero-desc">Consulenza fiscale professionale rivolta a privati, lavoratori autonomi ed imprese. Offriamo anche servizi CAF completi, per garantirti un unico punto di riferimento affidabile a Milano Bicocca.</p>
+      <p class="hero-desc">Un unico punto di riferimento a Milano Bicocca per privati, famiglie, lavoratori autonomi e imprese. Dalla dichiarazione dei redditi all&rsquo;apertura della Partita IVA, dai bonus fiscali alla gestione contabile.</p>
+      <p class="hero-cta-label">SEI UN PRIVATO O UNA FAMIGLIA?</p>
       <div class="hero-btns">
-        <a href="#contatti" class="btn-primary">Prenota una consulenza</a>
-        <a href="#servizi" class="btn-outline">Scopri i servizi</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-card">
-        <div class="hero-card-icon">📋</div>
-        <div class="hero-card-text"><strong>Dichiarazione 730 &amp; Unico</strong><span>Massimizzazione rimborso garantita</span></div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-icon">🏠</div>
-        <div class="hero-card-text"><strong>IMU &amp; Imposte Immobiliari</strong><span>Calcolo, versamento e ottimizzazione</span></div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-icon">📊</div>
-        <div class="hero-card-text"><strong>Consulenza Commercialistica</strong><span>Partite IVA, ditte individuali, imprese</span></div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-icon">🔐</div>
-        <div class="hero-card-text"><strong>SPID, CNS &amp; Firma Digitale</strong><span>Attivazione rapida in studio</span></div>
+        <a href="#servizi-privati" class="btn-primary">📋 Servizi per Privati</a>
+        <a href="#servizi-imprese" class="btn-outline">💼 Servizi per Imprese</a>
       </div>
     </div>
   </div>
@@ -248,26 +257,96 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
 <!-- SERVICES -->
 <section class="services" id="servizi">
   <div style="max-width:1200px;margin:0 auto">
-    <div class="section-head fade-up">
-      <span class="section-label">I nostri servizi</span>
-      <h2 class="section-title">Tutto quello che ti serve,<br>in un unico studio</h2>
-      <p class="section-sub">730 &middot; IMU &middot; ISEE &middot; CAF &middot; SPID &ndash; Assistenza fiscale completa per privati, lavoratori autonomi e imprese.</p>
+
+    <!-- IMPRESE -->
+    <div class="section-head fade-up" id="servizi-imprese">
+      <span class="section-label">Servizi per Imprese e Professionisti</span>
+      <h2 class="section-title">Tutto quello che serve per gestire<br>e far crescere la tua attivit&agrave;</h2>
+      <p class="section-sub">Un unico interlocutore, dalla nascita dell&rsquo;attivit&agrave; alla gestione quotidiana.</p>
     </div>
     <div class="services-grid">
       <div class="service-card fade-up">
-        <div class="service-icon">💼</div>
-        <h3>Consulenza Commercialistica</h3>
-        <p>Partite IVA, ditte individuali e piccole imprese: contabilit&agrave;, dichiarazioni annuali, apertura e chiusura attivit&agrave;, ravvedimenti operosi e consulenza fiscale personalizzata.</p>
+        <div class="service-icon">🚀</div>
+        <h3>Avvio attivit&agrave;</h3>
+        <ul class="service-list">
+          <li>Apertura Partita IVA</li>
+          <li>Scelta del regime fiscale pi&ugrave; conveniente</li>
+          <li>Iscrizione Camera di Commercio</li>
+          <li>Avvio attivit&agrave; artigiani, commercianti e professionisti</li>
+        </ul>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">📄</div>
-        <h3>Dichiarazioni Fiscali</h3>
-        <p>Modello 730, Unico Persone Fisiche, redditi da lavoro dipendente, autonomo, affitti, investimenti e plusvalenze. Gestione completa con massimizzazione del rimborso.</p>
+        <div class="service-icon">📊</div>
+        <h3>Gestione fiscale e contabile</h3>
+        <ul class="service-list">
+          <li>Dichiarazioni fiscali (Redditi, IVA, ecc.)</li>
+          <li>Tenuta contabilit&agrave; semplificata</li>
+          <li>Liquidazioni IVA</li>
+          <li>Modelli F24 e pagamenti</li>
+        </ul>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">🏘️</div>
-        <h3>IMU &amp; Imposte Immobiliari</h3>
-        <p>Calcolo e versamento IMU, verifica esenzioni, aliquote comunali aggiornate, F24 e scadenze. Ottimizzazione del carico fiscale sugli immobili di privati e imprese.</p>
+        <div class="service-icon">📑</div>
+        <h3>Pratiche amministrative</h3>
+        <ul class="service-list">
+          <li>Comunicazioni con Agenzia delle Entrate</li>
+          <li>Adempimenti fiscali periodici</li>
+          <li>Supporto nella gestione documentale</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-callout fade-up">
+      👉 Un supporto concreto e continuativo, dalla nascita dell&rsquo;attivit&agrave; alla gestione quotidiana.
+    </div>
+
+    <!-- PRIVATI -->
+    <div class="section-head section-head--mt fade-up" id="servizi-privati">
+      <span class="section-label">Servizi Fiscali per Privati</span>
+      <h2 class="section-title">Assistenza semplice,<br>chiara e senza pensieri</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🧾</div>
+        <h3>Dichiarazioni e imposte</h3>
+        <ul class="service-list">
+          <li>Modello 730</li>
+          <li>Modello Redditi Persone Fisiche</li>
+          <li>Dichiarazioni integrative</li>
+          <li>Calcolo IMU e F24</li>
+          <li>Detrazioni e bonus fiscali</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎯</div>
+        <h3>Bonus, Agevolazioni e Crediti</h3>
+        <ul class="service-list">
+          <li>Bonus casa e ristrutturazioni</li>
+          <li>Ecobonus e incentivi fiscali</li>
+          <li>Crediti d&rsquo;imposta</li>
+          <li>Visti di conformit&agrave;</li>
+          <li>Consulenza su agevolazioni disponibili</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🌐</div>
+        <h3>Servizi Telematici e Certificati</h3>
+        <ul class="service-list">
+          <li>Visure catastali e camerali</li>
+          <li>Accesso a banche dati pubbliche</li>
+          <li>Invio pratiche telematiche</li>
+          <li>Certificazioni fiscali</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">👨‍👩‍👧</div>
+        <h3>Servizi Previdenziali e Assistenziali</h3>
+        <ul class="service-list">
+          <li>Pensioni e pratiche INPS</li>
+          <li>NASpI e disoccupazione</li>
+          <li>Invalidit&agrave; civile</li>
+          <li>Assegno unico</li>
+          <li>Maternit&agrave; e sostegni familiari</li>
+        </ul>
       </div>
       <div class="service-card fade-up">
         <div class="service-icon">📑</div>
@@ -275,16 +354,26 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
         <p>DSU e ISEE per bonus, rette scolastiche, agevolazioni sanitarie, assegno unico e tutte le prestazioni sociali agevolate. Elaborazione rapida e precisa.</p>
       </div>
       <div class="service-card fade-up">
-        <div class="service-icon">🤝</div>
-        <h3>CAF &amp; Patronato</h3>
-        <p>Pratiche INPS, Naspi, pensioni, successioni, contratti d&rsquo;affitto, bonus edilizi, detrazioni e agevolazioni fiscali. Assistenza completa per lavoratori e pensionati.</p>
-      </div>
-      <div class="service-card fade-up">
         <div class="service-icon">🔐</div>
         <h3>SPID, CNS &amp; Firma Digitale</h3>
-        <p>Attivazione SPID di persona, rilascio CNS (Carta Nazionale dei Servizi) e firma digitale. Accesso semplice e sicuro a tutti i servizi della Pubblica Amministrazione.</p>
+        <p>Attivazione SPID di persona, rilascio CNS e firma digitale. Accesso semplice e sicuro a tutti i servizi della Pubblica Amministrazione.</p>
       </div>
     </div>
+    <div class="service-callout fade-up">
+      👉 Ti aiutiamo a ottenere tutti i benefici previsti dalla normativa &mdash; senza rischi e senza sorprese.
+    </div>
+
+    <!-- PERCHE' NOI -->
+    <div class="why-us fade-up">
+      <h3 class="why-us__title">⭐ Perch&eacute; scegliere noi</h3>
+      <div class="why-us__grid">
+        <div class="why-item">✔️ Un unico punto per privati e imprese</div>
+        <div class="why-item">✔️ Consulenza personalizzata</div>
+        <div class="why-item">✔️ Aggiornamento costante</div>
+        <div class="why-item">✔️ Rapidit&agrave; e affidabilit&agrave;</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -325,7 +414,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
         <div class="step-dot">😊</div>
         <h3>Nasce 1SMILE</h3>
         <p class="step-sub">La svolta</p>
-        <p>Fondato a Cinisello Balsamo e successivamente trasferito a Milano Bicocca, lo studio unisce professionalità e approccio cordiale, con l’obiettivo di rendere la fiscalità semplice e accessibile per tutti, privati ed imprese.</p>
+        <p>Nati nel 2010 e presenti a Milano Bicocca dal 2019, lo studio unisce professionalità e approccio cordiale, con l’obiettivo di rendere la fiscalità semplice e accessibile per tutti, privati ed imprese.</p>
       </div>
       <div class="timeline-step fade-up">
         <div class="step-dot">🚀</div>
@@ -408,7 +497,8 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
     <div class="footer-row">
       <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span></span>
       <div class="footer-nav">
-        <a href="#servizi">Servizi</a>
+        <a href="#servizi-imprese">Imprese</a>
+        <a href="#servizi-privati">Privati</a>
         <a href="#chi-siamo">Chi siamo</a>
         <a href="#contatti">Contatti</a>
       </div>
@@ -459,9 +549,13 @@ window.addEventListener('scroll', () => {
 </script>
 <!-- MOBILE BOTTOM BAR -->
 <div class="mobile-bar" id="mobileBar">
-  <a href="#" id="mobileMenuBtn" aria-label="Menu">
-    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    Menu
+  <a href="#servizi-imprese" aria-label="Imprese">
+    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    Imprese
+  </a>
+  <a href="#servizi-privati" aria-label="Privati">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Privati
   </a>
   <a href="#contatti" aria-label="Contatti">
     <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
