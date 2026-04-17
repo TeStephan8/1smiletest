@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1SMILE Studio Fiscale – Commercialista, CAF, 730, IMU, ISEE, SPID a Milano Bicocca. Assistenza fiscale completa per privati, lavoratori autonomi e imprese.">
+<meta name="keywords" content="commercialista Milano Bicocca, CAF Milano, 730 Milano, IMU, ISEE, SPID, studio fiscale, partita IVA">
+<meta name="robots" content="index, follow">
+<title>1SMILE Studio Fiscale – Commercialista &amp; CAF a Milano Bicocca</title>
+<meta property="og:title" content="1SMILE Studio Fiscale – Commercialista &amp; CAF">
+<meta property="og:description" content="Assistenza fiscale completa per privati, lavoratori autonomi e imprese a Milano Bicocca.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue-dark:#0d2d6b;--blue-mid:#1a4fa8;--blue-light:#2d7dd2;
+  --blue-pale:#e8f1fb;--gold:#f5a623;--gold-dark:#d4881a;
+  --white:#ffffff;--gray-light:#f4f7fc;--gray-mid:#8b9ab5;
+  --gray-text:#3d4d66;
+  --shadow-card:0 4px 24px rgba(13,45,107,.10);
+  --shadow-lg:0 12px 48px rgba(13,45,107,.18);
+  --radius:14px;--radius-lg:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--gray-text);background:#fff;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 16px rgba(13,45,107,.10)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;gap:1rem}
+.nav-logo img{height:52px;width:auto;transition:transform .3s}.nav-logo:hover img{transform:scale(1.04)}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-weight:600;font-size:.95rem;color:var(--blue-dark);padding:.3rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-links a:hover{color:var(--blue-light);border-color:var(--blue-light)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:26px;height:3px;background:var(--blue-dark);border-radius:3px;transition:.3s}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 55%,var(--blue-light) 100%);position:relative;overflow:hidden;padding:5rem 1.5rem 4rem}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{max-width:860px;margin:0 auto;display:block;position:relative;z-index:1}
+.hero-cta-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.6rem;margin-top:1.5rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:.4rem 1rem;border-radius:50px;font-size:.85rem;font-weight:600;color:#fff;margin-bottom:1.2rem}
+.hero-badge span{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hero h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;color:#fff;line-height:1.15;margin-bottom:1rem}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero-sub{font-family:'Lora',serif;font-style:italic;color:rgba(255,255,255,.85);font-size:1.15rem;margin-bottom:1rem}
+.hero-desc{color:rgba(255,255,255,.78);font-size:1rem;line-height:1.65;margin-bottom:2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--blue-dark);padding:.75rem 2rem;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 4px 16px rgba(245,166,35,.4);transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(245,166,35,.5)}
+.btn-outline{border:2px solid rgba(255,255,255,.6);color:#fff;padding:.75rem 2rem;border-radius:50px;font-weight:600;font-size:1rem;transition:background .2s,border-color .2s}
+.btn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.hero-visual{display:flex;flex-direction:column;gap:1rem}
+.hero-card{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);padding:1.2rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .3s}
+.hero-card:hover{transform:translateX(8px);background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
+.hero-card-icon{width:46px;height:46px;border-radius:12px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.hero-card-text strong{color:#fff;font-size:.95rem;display:block}
+.hero-card-text span{color:rgba(255,255,255,.7);font-size:.82rem}
+
+/* SERVICES */
+.services{background:var(--gray-light);padding:5rem 1.5rem}
+.section-label{display:inline-block;background:var(--blue-pale);color:var(--blue-mid);padding:.3rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem}
+.section-label--hero{background:var(--white);color:var(--blue-dark);border:2px solid var(--blue-mid);padding:.45rem 1.4rem;border-radius:50px;font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.8rem;display:inline-block;box-shadow:0 2px 8px rgba(13,45,107,.08)}
+.section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--blue-dark);margin-bottom:.5rem}
+.section-sub{color:var(--gray-mid);font-size:1.05rem;max-width:580px}
+.section-head{margin-bottom:3rem}
+.services-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.service-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-card);border:1px solid transparent;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue-mid),var(--blue-light));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.service-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 60px rgba(13,45,107,.18);border-color:var(--blue-light)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-icon{width:56px;height:56px;border-radius:14px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem}
+.service-card h3{font-size:1.1rem;font-weight:700;color:var(--blue-dark);margin-bottom:.6rem}
+.service-card p{color:var(--gray-mid);font-size:.92rem;line-height:1.65}
+.service-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.45rem}
+.service-list li{color:var(--gray-mid);font-size:.9rem;line-height:1.5;padding-left:1.1rem;position:relative}
+.service-list li::before{content:'›';position:absolute;left:0;color:var(--blue-mid);font-weight:700}
+.service-callout{
+  margin:1.5rem 0 0;padding:1rem 1.4rem;
+  background:var(--blue-pale);border-left:4px solid var(--blue-mid);
+  border-radius:0 var(--radius) var(--radius) 0;
+  color:var(--blue-dark);font-size:.95rem;font-weight:500;line-height:1.5;
+}
+.section-head--mt{margin-top:3.5rem}[id]{scroll-margin-top:90px}
+.why-us{
+  margin-top:3rem;padding:2rem;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));
+  border-radius:var(--radius-lg);
+}
+.why-us__title{color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:1.2rem;text-align:center}
+.why-us__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.why-item{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:var(--radius);padding:.8rem 1rem;
+  color:#fff;font-size:.92rem;font-weight:600;
+  transition:background .25s;
+}
+.why-item:hover{background:rgba(255,255,255,.2)}
+
+/* ABOUT */
+.about{padding:5rem 1.5rem;background:#fff}
+.about-inner{max-width:860px;margin:0 auto}
+.about-checks{margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.check-item{display:flex;align-items:center;gap:.7rem;font-size:.95rem;color:var(--gray-text);transition:transform .25s}.check-item:hover{transform:translateX(5px)}
+.check-item::before{content:'✓';width:22px;height:22px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;line-height:22px;text-align:center}
+
+/* TIMELINE */
+.timeline{padding:5rem 1.5rem;background:var(--gray-light)}
+.timeline-inner{max-width:900px;margin:0 auto}
+.timeline-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;position:relative}
+.timeline-steps::before{content:'';position:absolute;top:36px;left:50px;right:50px;height:3px;background:linear-gradient(90deg,var(--blue-mid),var(--blue-light));z-index:0}
+.timeline-step{position:relative;z-index:1;text-align:center;transition:transform .3s}
+.step-dot{width:72px;height:72px;border-radius:50%;background:var(--white);border:3px solid var(--blue-mid);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1.2rem;box-shadow:var(--shadow-card);transition:transform .3s,box-shadow .3s}.timeline-step:hover .step-dot{transform:scale(1.12);box-shadow:0 8px 24px rgba(13,45,107,.2)}
+.timeline-step h3{font-size:1rem;font-weight:700;color:var(--blue-dark);margin-bottom:.3rem}
+.timeline-step .step-sub{font-size:.8rem;color:var(--blue-light);font-weight:600;margin-bottom:.5rem}
+.timeline-step p{font-size:.88rem;color:var(--gray-mid);line-height:1.6}
+
+/* CONTACT */
+.contact{padding:5rem 1.5rem;background:var(--white)}
+.contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem}
+.contact-item-icon{width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.contact-item strong{display:block;font-weight:700;color:var(--blue-dark);margin-bottom:.2rem}
+.contact-item a{color:var(--blue-mid);font-weight:600;font-size:1.05rem}
+.contact-item span{color:var(--gray-mid);font-size:.85rem}
+.map-box{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--blue-pale)}
+.map-box iframe{display:block;width:100%;height:360px;border:0}
+.map-caption{padding:1.2rem 1.4rem;background:var(--blue-dark);display:flex;align-items:center;gap:.8rem}
+.map-caption .dot{width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.map-caption p{color:#fff;font-size:.9rem}
+.map-caption p span{color:rgba(255,255,255,.65);font-size:.82rem}
+
+/* WHATSAPP */
+.wa-badge{display:inline-flex;align-items:center;gap:.4rem;background:#25d366;color:#fff;font-size:.75rem;font-weight:700;padding:.2rem .6rem;border-radius:50px;margin-top:.3rem;text-decoration:none;transition:background .2s}
+.wa-badge:hover{background:#1ebe5d}
+.wa-badge svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
+
+/* URGENCY BOX */
+.urgency-box{margin-top:2rem;background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:var(--radius-lg);padding:1.4rem 1.6rem;display:flex;align-items:flex-start;gap:1rem;box-shadow:var(--shadow-lg)}
+.urgency-icon{font-size:1.6rem;flex-shrink:0;animation:ring 2.5s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:rotate(0)}10%{transform:rotate(-15deg)}20%{transform:rotate(15deg)}30%{transform:rotate(-10deg)}40%{transform:rotate(10deg)}50%{transform:rotate(0)}}
+.urgency-box p{color:#fff;font-size:.95rem;line-height:1.55;margin:0}
+.urgency-box p em{font-style:normal;color:var(--gold);font-weight:700}
+
+/* FOOTER */
+footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.5rem;font-size:.85rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem}
+.footer-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-wordmark{font-size:1.4rem;font-weight:800;letter-spacing:-.01em;line-height:1}
+.fw-one{color:var(--gold)}
+.fw-smile{color:#fff}
+.footer-nav{display:flex;align-items:center;gap:1.8rem;flex-wrap:wrap}
+.footer-nav a{color:rgba(255,255,255,.65);font-weight:600;font-size:.9rem;transition:color .25s}
+.footer-nav a:hover{color:var(--gold)}
+.footer-top-btn{
+  display:flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:.85rem;font-weight:600;
+  padding:.45rem 1rem;border-radius:50px;cursor:pointer;
+  transition:background .25s,transform .25s;text-decoration:none;
+}
+.footer-top-btn:hover{background:var(--gold);color:var(--blue-dark);transform:translateY(-2px)}
+.footer-top-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.footer-copy{text-align:center;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;color:rgba(255,255,255,.4)}
+
+/* MOBILE BOTTOM BAR */
+.mobile-bar{display:none}
+@media(max-width:720px){
+  .mobile-bar{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:2000;
+    background:#fff;border-top:1px solid #e2e8f0;
+    box-shadow:0 -4px 20px rgba(13,45,107,.12);
+    padding:.5rem 0 calc(.5rem + env(safe-area-inset-bottom));
+  }
+  .mobile-bar a{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:.3rem;color:var(--gray-mid);font-size:.7rem;font-weight:600;
+    text-decoration:none;padding:.4rem 0;
+    transition:color .25s,transform .25s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mobile-bar a:active{transform:scale(.92)}
+  .mobile-bar a.active,.mobile-bar a:hover{color:var(--blue-mid)}
+  .mobile-bar svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
+  body{padding-bottom:72px}
+  .footer-nav,.footer-top-btn{display:none}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .about-inner{grid-template-columns:1fr}
+  .about-visual{display:none}
+  .contact-inner{grid-template-columns:1fr}
+  .timeline-steps{grid-template-columns:1fr;gap:1.5rem}
+  .timeline-steps::before{display:none}
+}
+@media(max-width:720px){
+  .nav-links{display:none;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:#fff;padding:1.5rem;gap:1.2rem;box-shadow:0 10px 30px rgba(13,45,107,.12);z-index:999}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+}
+@media(max-width:480px){
+  .hero{padding:3.5rem 1.2rem 3rem}
+  .services,.about,.timeline,.contact,.blog-news{padding:3.5rem 1.2rem}
+  .hero-btns{flex-direction:column}
+  .btn-primary,.btn-outline{text-align:center}
+  .blog-grid{grid-template-columns:1fr;gap:1.5rem}
+  .blog-filter{gap:.5rem}
+  .filter-btn{padding:.5rem 1rem;font-size:.85rem}
+  .newsletter-form{flex-direction:column;gap:1rem}
+  .newsletter-input,.newsletter-btn{width:100%}
+}
+
+/* BLOG & NEWS */
+.blog-news{background:var(--gray-light);padding:5rem 1.5rem}
+.blog-news-inner{max-width:1200px;margin:0 auto}
+.blog-filter{display:flex;justify-content:center;gap:1rem;margin:2rem 0 3rem;flex-wrap:wrap}
+.filter-btn{background:var(--white);border:2px solid var(--blue-pale);color:var(--blue-mid);padding:.6rem 1.4rem;border-radius:50px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s}
+.filter-btn:hover{border-color:var(--blue-mid);background:var(--blue-pale)}
+.filter-btn.active{background:var(--blue-mid);color:#fff;border-color:var(--blue-mid)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem;margin-bottom:3rem}
+.blog-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);transition:transform .3s,box-shadow .3s;position:relative}
+.blog-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(13,45,107,.18)}
+.blog-card-image{position:relative;padding:1.5rem 1.5rem 0;background:linear-gradient(135deg,var(--blue-pale),var(--white))}
+.blog-category{display:inline-block;background:var(--blue-mid);color:#fff;padding:.3rem .9rem;border-radius:50px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.blog-source{display:block;color:var(--gray-mid);font-size:.75rem;margin-top:.3rem}
+.blog-error{background:var(--white);border-radius:var(--radius);padding:2rem;border:2px solid var(--gray-light)}
+.blog-card-content{padding:1.5rem}
+.blog-card h3{font-size:1.15rem;font-weight:700;color:var(--blue-dark);margin-bottom:.8rem;line-height:1.4}
+.blog-card p{color:var(--gray-mid);font-size:.92rem;line-height:1.65;margin-bottom:1rem}
+.blog-meta{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--gray-light)}
+.reading-time{color:var(--gray-mid);font-size:.8rem}
+.read-more{color:var(--blue-mid);font-weight:600;font-size:.9rem;text-decoration:none;transition:color .2s}
+.read-more:hover{color:var(--blue-light)}
+.blog-cta{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:var(--radius-lg);padding:2.5rem;text-align:center;box-shadow:var(--shadow-lg)}
+.blog-cta-content{max-width:600px;margin:0 auto}
+.blog-cta h3{color:#fff;font-size:1.4rem;font-weight:700;margin-bottom:1rem}
+.blog-cta p{color:rgba(255,255,255,.8);font-size:1rem;margin-bottom:2rem}
+.newsletter-form{display:flex;gap:1rem;max-width:400px;margin:0 auto}
+.newsletter-input{flex:1;padding:.8rem 1.2rem;border:2px solid rgba(255,255,255,.3);border-radius:50px;background:rgba(255,255,255,.1);color:#fff;font-size:.95rem;outline:none;transition:border-color .3s}
+.newsletter-input::placeholder{color:rgba(255,255,255,.6)}
+.newsletter-input:focus{border-color:var(--gold)}
+.newsletter-btn{background:var(--gold);color:var(--blue-dark);padding:.8rem 2rem;border-radius:50px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.newsletter-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.5)}
+
+/* SCROLL FADE */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="logo.png" alt="1SMILE Studio Fiscale"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#servizi-imprese">Imprese</a></li>
+      <li><a href="#servizi-privati">Privati</a></li>
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#blog-news">Blog & News</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> Studio Commercialista &amp; CAF &middot; Milano Bicocca</div>
+      <h1>Professionisti<br>al tuo <em>servizio</em></h1>
+      <p class="hero-sub">Il tuo commercialista di fiducia, con tutti i servizi CAF</p>
+      <p class="hero-desc">Un unico punto di riferimento a Milano Bicocca per privati, famiglie, lavoratori autonomi e imprese. Dalla dichiarazione dei redditi all&rsquo;apertura della Partita IVA, dai bonus fiscali alla gestione contabile.</p>
+      <div class="hero-btns">
+        <a href="#servizi-imprese" class="btn-primary">💼 Servizi per Imprese</a>
+        <a href="#servizi-privati" class="btn-outline">📋 Servizi per Privati</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servizi">
+  <div style="max-width:1200px;margin:0 auto">
+
+    <!-- IMPRESE -->
+    <div class="section-head fade-up" id="servizi-imprese">
+      <span class="section-label section-label--hero">Servizi per Imprese e Professionisti</span>
+      <h2 class="section-title">Tutto quello che serve per gestire e far crescere la tua attivit&agrave;</h2>
+      <p class="section-sub">Un unico interlocutore, dalla nascita dell&rsquo;attivit&agrave; alla gestione quotidiana.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🚀</div>
+        <h3>Avvio attivit&agrave;</h3>
+        <ul class="service-list">
+          <li>Apertura Partita IVA</li>
+          <li>Scelta del regime fiscale pi&ugrave; conveniente</li>
+          <li>Iscrizione Camera di Commercio</li>
+          <li>Avvio attivit&agrave; artigiani, commercianti e professionisti</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📊</div>
+        <h3>Gestione fiscale e contabile</h3>
+        <ul class="service-list">
+          <li>Dichiarazioni fiscali (Redditi, IVA, ecc.)</li>
+          <li>Tenuta contabilit&agrave; semplificata</li>
+          <li>Liquidazioni IVA</li>
+          <li>Modelli F24 e pagamenti</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📑</div>
+        <h3>Pratiche amministrative</h3>
+        <ul class="service-list">
+          <li>Comunicazioni con Agenzia delle Entrate</li>
+          <li>Adempimenti fiscali periodici</li>
+          <li>Supporto nella gestione documentale</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-callout fade-up">
+      👉 Un supporto concreto e continuativo, dalla nascita dell&rsquo;attivit&agrave; alla gestione quotidiana.
+    </div>
+
+    <!-- PRIVATI -->
+    <div class="section-head section-head--mt fade-up" id="servizi-privati">
+      <span class="section-label section-label--hero">Servizi Fiscali per Privati</span>
+      <h2 class="section-title">Assistenza semplice, chiara e senza pensieri</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🧾</div>
+        <h3>Dichiarazioni e imposte</h3>
+        <ul class="service-list">
+          <li>Modello 730</li>
+          <li>Modello Redditi Persone Fisiche</li>
+          <li>Dichiarazioni integrative</li>
+          <li>Calcolo IMU e F24</li>
+          <li>Detrazioni e bonus fiscali</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎯</div>
+        <h3>Bonus, Agevolazioni e Crediti</h3>
+        <ul class="service-list">
+          <li>Bonus casa e ristrutturazioni</li>
+          <li>Ecobonus e incentivi fiscali</li>
+          <li>Crediti d&rsquo;imposta</li>
+          <li>Visti di conformit&agrave;</li>
+          <li>Consulenza su agevolazioni disponibili</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🌐</div>
+        <h3>Servizi Telematici e Certificati</h3>
+        <ul class="service-list">
+          <li>Visure catastali e camerali</li>
+          <li>Accesso a banche dati pubbliche</li>
+          <li>Invio pratiche telematiche</li>
+          <li>Certificazioni fiscali</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">👨‍👩‍👧</div>
+        <h3>Servizi Previdenziali e Assistenziali</h3>
+        <ul class="service-list">
+          <li>Pensioni e pratiche INPS</li>
+          <li>NASpI e disoccupazione</li>
+          <li>Invalidit&agrave; civile</li>
+          <li>Assegno unico</li>
+          <li>Maternit&agrave; e sostegni familiari</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📑</div>
+        <h3>ISEE &amp; Servizi CAF</h3>
+        <p>DSU e ISEE per bonus, rette scolastiche, agevolazioni sanitarie, assegno unico e tutte le prestazioni sociali agevolate. Elaborazione rapida e precisa.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🔐</div>
+        <h3>SPID, CNS &amp; Firma Digitale</h3>
+        <p>Attivazione SPID di persona, rilascio CNS e firma digitale. Accesso semplice e sicuro a tutti i servizi della Pubblica Amministrazione.</p>
+      </div>
+    </div>
+    <div class="service-callout fade-up">
+      👉 Ti aiutiamo a ottenere tutti i benefici previsti dalla normativa &mdash; senza rischi e senza sorprese.
+    </div>
+
+    <!-- PERCHE' NOI -->
+    <div class="why-us fade-up">
+      <h3 class="why-us__title">⭐ Perch&eacute; scegliere noi</h3>
+      <div class="why-us__grid">
+        <div class="why-item">✔️ Un unico punto per privati e imprese</div>
+        <div class="why-item">✔️ Consulenza personalizzata</div>
+        <div class="why-item">✔️ Aggiornamento costante</div>
+        <div class="why-item">✔️ Rapidit&agrave; e affidabilit&agrave;</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="chi-siamo">
+  <div class="about-inner">
+    <div class="fade-up">
+      <span class="section-label">Chi siamo</span>
+      <h2 class="section-title">Esperienza e passione fiscale</h2>
+      <p style="color:var(--gray-mid);font-size:1rem;line-height:1.7;margin:1rem 0 1.5rem">Il nome <strong style="color:var(--blue-mid)">1SMILE</strong> non &egrave; casuale: vogliamo che tu possa sorridere tranquillo, sapendo che i tuoi adempimenti fiscali sono in mani competenti ed affidabili.</p>
+      <p style="color:var(--gray-mid);font-size:.95rem;line-height:1.7;margin-bottom:1.5rem">Il nostro studio nasce dall&rsquo;esperienza pluriennale dei soci, gi&agrave; operativi nel settore come professionisti dipendenti. Siamo il punto d&rsquo;incontro tra studio commercialista e CAF: offriamo la profondit&agrave; professionale del primo con la comodit&agrave; e completezza del secondo.</p>
+      <div class="about-checks">
+        <div class="check-item">Risposte rapide e pratiche gestite nei tempi</div>
+        <div class="check-item">Massima riservatezza e tutela dei dati personali</div>
+        <div class="check-item">Professionisti aggiornati e certificati</div>
+        <div class="check-item">Presto online: area clienti con documenti digitali</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="timeline-inner">
+    <div class="section-head fade-up" style="text-align:center">
+      <span class="section-label">Il nostro percorso</span>
+      <h2 class="section-title">Una storia di professionalit&agrave;</h2>
+      <p class="section-sub" style="margin:0 auto">Anni di lavoro sul campo, aggiornamento continuo e migliaia di pratiche gestite con cura e precisione.</p>
+    </div>
+    <div class="timeline-steps">
+      <div class="timeline-step fade-up">
+        <div class="step-dot">🌱</div>
+        <h3>Le origini</h3>
+        <p class="step-sub">Le radici</p>
+        <p>I soci fondatori accumulano solida esperienza nel settore fiscale come professionisti dipendenti, costruendo competenze e un approccio orientato al cliente.</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="step-dot">😊</div>
+        <h3>Nasce 1SMILE</h3>
+        <p class="step-sub">La svolta</p>
+        <p>Nati nel 2010 e presenti a Milano Bicocca dal 2019, lo studio unisce professionalità e approccio cordiale, con l’obiettivo di rendere la fiscalità semplice e accessibile per tutti, privati ed imprese.</p>
+      </div>
+      <div class="timeline-step fade-up">
+        <div class="step-dot">🚀</div>
+        <h3>Il futuro &egrave; digitale</h3>
+        <p class="step-sub">Oggi</p>
+        <p>Studio consolidato con centinaia di clienti fidelizzati. In arrivo: area clienti online per la gestione digitale di documenti e comunicazioni in tempo reale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG & NEWS -->
+<section class="blog-news" id="blog-news">
+  <div class="blog-news-inner">
+    <div class="section-head fade-up" style="text-align:center">
+      <span class="section-label">Blog & News</span>
+      <h2 class="section-title">Aggiornamenti fiscali e novità</h2>
+      <p class="section-sub" style="margin:0 auto">Resta informato su tutte le novità fiscali, agevolazioni e scadenze importanti per privati e imprese.</p>
+    </div>
+
+    <!-- FILTRO CATEGORIE -->
+    <div class="blog-filter fade-up">
+      <button class="filter-btn active" data-filter="all">Tutti</button>
+      <button class="filter-btn" data-filter="privati">Privati</button>
+      <button class="filter-btn" data-filter="imprese">Imprese</button>
+      <button class="filter-btn" data-filter="bonus">Bonus & Agevolazioni</button>
+      <button class="filter-btn" data-filter="scadenze">Scadenze</button>
+    </div>
+
+    <!-- ARTICOLI RECENTI -->
+    <div class="blog-grid">
+      <article class="blog-card fade-up" data-category="privati bonus">
+        <div class="blog-card-image">
+          <div class="blog-category">Privati</div>
+          <div class="blog-date">15 Aprile 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Novità Bonus Casa 2026: tutte le agevolazioni confermate</h3>
+          <p>Il governo ha prorogato i principali bonus per la casa. Ecco cosa cambia e come beneficiare delle detrazioni per ristrutturazioni, ecobonus e sismabonus.</p>
+          <div class="blog-meta">
+            <span class="reading-time">5 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card fade-up" data-category="imprese scadenze">
+        <div class="blog-card-image">
+          <div class="blog-category">Imprese</div>
+          <div class="blog-date">12 Aprile 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Scadenza 30 aprile: adempimenti fiscali per le imprese</h3>
+          <p>Si avvicina la scadenza per il versamento delle ritenute d'acconto e degli acconti IVA. Ecco la checklist completa per non dimenticare nessun adempimento.</p>
+          <div class="blog-meta">
+            <span class="reading-time">3 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card fade-up" data-category="privati">
+        <div class="blog-card-image">
+          <div class="blog-category">Privati</div>
+          <div class="blog-date">8 Aprile 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Modello 730/2026: le novità e chi può presentarlo</h3>
+          <p>Parte la stagione della dichiarazione dei redditi. Nuove regole per i redditi da lavoro autonomo e aggiornamenti sulle detrazioni familiari.</p>
+          <div class="blog-meta">
+            <span class="reading-time">4 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card fade-up" data-category="imprese bonus">
+        <div class="blog-card-image">
+          <div class="blog-category">Imprese</div>
+          <div class="blog-date">5 Aprile 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Credito d'imposta R&S 2026: come accedere alle agevolazioni</h3>
+          <p>Nuove opportunità per le imprese che investono in ricerca e sviluppo. Guida completa ai requisiti e alle modalità di presentazione delle domande.</p>
+          <div class="blog-meta">
+            <span class="reading-time">6 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card fade-up" data-category="bonus">
+        <div class="blog-card-image">
+          <div class="blog-category">Bonus</div>
+          <div class="blog-date">2 Aprile 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Assegno Unico 2026: importi aggiornati e novità</h3>
+          <p>Confermati gli importi per l'assegno unico universale. Ecco le novità per le famiglie con figli a carico e come fare richiesta.</p>
+          <div class="blog-meta">
+            <span class="reading-time">4 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="blog-card fade-up" data-category="scadenze">
+        <div class="blog-card-image">
+          <div class="blog-category">Scadenze</div>
+          <div class="blog-date">28 Marzo 2026</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>Calendario fiscale Aprile 2026: tutte le scadenze</h3>
+          <p>Il mese di aprile è ricco di adempimenti fiscali. Ecco il calendario completo con le scadenze da non dimenticare per privati e imprese.</p>
+          <div class="blog-meta">
+            <span class="reading-time">3 min lettura</span>
+            <a href="#" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- CALL TO ACTION -->
+    <div class="blog-cta fade-up">
+      <div class="blog-cta-content">
+        <h3>Ricevi le novità fiscali direttamente via email</h3>
+        <p>Iscriviti alla nostra newsletter per non perdere nessun aggiornamento importante su scadenze, bonus e agevolazioni.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="La tua email" class="newsletter-input">
+          <button class="newsletter-btn">Iscriviti</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contatti">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <span class="section-label">Contatti</span>
+      <h2 class="section-title">Dove trovarci</h2>
+      <p style="color:var(--gray-mid);margin:.5rem 0 0">Vieni a trovarci o scrivici subito. Siamo a Milano Bicocca, facilmente raggiungibili. Chiamaci, scrivici o vieni in studio: un caff&egrave; e risposta a tutte le tue domande.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <strong>Telefono</strong>
+            <a href="tel:0261757660">02 6175760</a>
+            <span>Lun&ndash;Ven, orari d&rsquo;ufficio</span>
+            <a class="wa-badge" href="https://wa.me/390261757660" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.528 5.845L.057 23.62a.75.75 0 0 0 .92.92l5.775-1.471A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.695 9.695 0 0 1-4.95-1.36l-.355-.21-3.43.874.891-3.43-.23-.366A9.694 9.694 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+              Anche su WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <a href="/cdn-cgi/l/email-protection#a2cbccc4cde293d1cfcbcec78ccbd6"><span class="__cf_email__" data-cfemail="177e7971785726647a7e7b72397e63">[email&#160;protected]</span></a>
+            <span>Risposta entro 24 ore</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <strong>Dove siamo</strong>
+            <span style="color:var(--blue-mid);font-weight:600;font-size:1rem">Via Angelo Belloni 1, 20162 Milano</span>
+            <span>Metro M5 &ndash; Fermata Ponale (linea lilla)<br>Zona nord di Milano, facilmente raggiungibile</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <strong>Orari</strong>
+            <span>Ricevimento su appuntamento</span>
+          </div>
+        </div>
+      </div>
+      <div class="urgency-box">
+        <div class="urgency-icon">💬</div>
+        <p>Hai un&rsquo;<em>urgenza</em> o ti serve solo un&rsquo;informazione?<br>Contattaci: ti risponderemo rapidamente, <em>senza alcun impegno.</em></p>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="map-box">
+        <iframe
+          src="https://maps.google.com/maps?q=Via+Angelo+Belloni+1,+20162+Milano&output=embed"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Mappa 1SMILE Studio Fiscale Milano Bicocca">
+        </iframe>
+        <div class="map-caption">
+          <div class="dot"></div>
+          <p>Via Angelo Belloni 1, Milano <span>&middot; Metro M5 Fermata Ponale</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-row">
+      <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span></span>
+      <div class="footer-nav">
+        <a href="#servizi-imprese">Imprese</a>
+        <a href="#servizi-privati">Privati</a>
+        <a href="#chi-siamo">Chi siamo</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+      <a href="#" class="footer-top-btn" id="footerTopBtn">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>
+        Torna su
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2026 1SMILE Studio Fiscale &middot; Via Angelo Belloni 1, 20162 Milano &middot; P.IVA e C.F. 01234567890</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+function toggleMenu(e){ e.preventDefault(); navLinks.classList.toggle('open'); }
+hamburger.addEventListener('click', toggleMenu);
+hamburger.addEventListener('touchend', toggleMenu);
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Scroll fade-in con stagger
+const observer = new IntersectionObserver((entries) => {
+  let delay = 0;
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('visible'), delay);
+      delay += 100;
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav active highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinkEls = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinkEls.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue-light)' : '';
+    a.style.borderColor = a.getAttribute('href') === '#' + current ? 'var(--blue-light)' : '';
+  });
+});
+
+// Blog filter functionality
+function initBlogFilter() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const blogCards = document.querySelectorAll('.blog-card');
+
+  if (filterBtns.length === 0 || blogCards.length === 0) {
+    // Prova di nuovo dopo 1 secondo se gli elementi non sono ancora caricati
+    setTimeout(initBlogFilter, 1000);
+    return;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      btn.classList.add('active');
+      
+      const filter = btn.getAttribute('data-filter');
+      
+      blogCards.forEach(card => {
+        if (filter === 'all') {
+          card.style.display = 'block';
+        } else {
+          const categories = card.getAttribute('data-category') || '';
+          const categoryArray = categories.split(' ');
+          card.style.display = categoryArray.includes(filter) ? 'block' : 'none';
+        }
+      });
+    });
+  });
+
+  // Evidenzia automaticamente le scadenze del mese corrente
+  highlightCurrentMonthDeadlines();
+}
+
+function highlightCurrentMonthDeadlines() {
+  const currentMonth = new Date().toLocaleDateString('it-IT', { month: 'long' }).toLowerCase();
+  const currentYear = new Date().getFullYear();
+  
+  const blogCards = document.querySelectorAll('.blog-card');
+  blogCards.forEach(card => {
+    const dateElement = card.querySelector('.blog-date');
+    const categoryElement = card.querySelector('.blog-category');
+    
+    if (dateElement && categoryElement) {
+      const cardDate = new Date(dateElement.textContent);
+      const cardMonth = cardDate.toLocaleDateString('it-IT', { month: 'long' }).toLowerCase();
+      const cardYear = cardDate.getFullYear();
+      
+      // Se l'articolo è una scadenza ed è del mese corrente
+      if (card.getAttribute('data-category')?.includes('scadenze') && 
+          cardMonth === currentMonth && 
+          cardYear === currentYear) {
+        
+        // Evidenzia la card
+        card.style.border = '2px solid var(--gold)';
+        card.style.boxShadow = '0 8px 32px rgba(245,166,35,.3)';
+        
+        // Aggiungi badge "Scadenza Corrente"
+        const badge = document.createElement('div');
+        badge.className = 'current-deadline-badge';
+        badge.textContent = '⚠️ Scadenza Corrente';
+        badge.style.cssText = `
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: var(--gold);
+          color: var(--blue-dark);
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          z-index: 10;
+          animation: pulse 2s infinite;
+        `;
+        
+        // Rimuovi badge esistente se presente
+        const existingBadge = card.querySelector('.current-deadline-badge');
+        if (existingBadge) existingBadge.remove();
+        
+        card.appendChild(badge);
+      }
+    }
+  });
+}
+
+// Inizializza il filtro quando il DOM è pronto
+document.addEventListener('DOMContentLoaded', () => {
+  initBlogFilter();
+  
+  // Ri-inizializza dopo il caricamento dei feed RSS
+  setTimeout(() => {
+    initBlogFilter();
+  }, 3000);
+});
+
+// RSS Feed System
+class RSSFeedManager {
+  constructor() {
+    this.feeds = [
+      {
+        name: 'Agenzia delle Entrate',
+        url: 'https://www.agenziaentrate.gov.it/portale/c/portal/rss/entrate?idrss=79b071d0-a537-4a3d-86cc-7a7d5a36f2a9',
+        category: 'scadenze',
+        priority: 1
+      },
+      {
+        name: 'Fisco Oggi',
+        url: 'https://www.fiscooggi.it/feed',
+        category: 'privati',
+        priority: 2
+      },
+      {
+        name: 'Commercialista Telematico',
+        url: 'https://www.commercialistatelematico.com/feed',
+        category: 'imprese',
+        priority: 2
+      }
+    ];
+    
+    this.cacheKey = 'rss_feed_cache';
+    this.cacheExpiry = 60 * 60 * 1000; // 1 ora
+    this.maxArticles = 12;
+  }
+
+  async init() {
+    await this.loadFeeds();
+    setInterval(() => this.loadFeeds(), 60 * 60 * 1000); // Aggiorna ogni ora
+  }
+
+  async loadFeeds() {
+    const cached = this.getCachedData();
+    if (cached) {
+      this.renderArticles(cached);
+      return;
+    }
+
+    try {
+      const allArticles = [];
+      
+      for (const feed of this.feeds) {
+        const articles = await this.fetchFeed(feed);
+        allArticles.push(...articles);
+      }
+
+      // Ordina per data e prendi i più recenti
+      const sortedArticles = allArticles
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, this.maxArticles);
+
+      this.cacheData(sortedArticles);
+      this.renderArticles(sortedArticles);
+    } catch (error) {
+      console.error('Errore caricamento feed RSS:', error);
+      this.showFallbackContent();
+    }
+  }
+
+  async fetchFeed(feed) {
+    const proxies = [
+      `https://api.allorigins.win/get?url=${encodeURIComponent(feed.url)}`,
+      `https://corsproxy.io/?${encodeURIComponent(feed.url)}`,
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`
+    ];
+
+    for (const proxy of proxies) {
+      try {
+        console.log(`Tentativo con proxy: ${proxy.split('?')[0]}`);
+        const response = await fetch(proxy);
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        let data;
+        if (proxy.includes('rss2json')) {
+          data = await response.json();
+          return this.parseRSS2JSON(data, feed);
+        } else {
+          data = await response.json();
+          return this.parseXML(data.contents, feed);
+        }
+      } catch (error) {
+        console.warn(`Proxy ${proxy.split('?')[0]} fallito:`, error.message);
+        continue;
+      }
+    }
+
+    console.error(`Tutti i proxy falliti per ${feed.name}`);
+    return [];
+  }
+
+  parseXML(xmlString, feed) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+    
+    const items = xmlDoc.querySelectorAll('item');
+    const articles = [];
+
+    items.forEach(item => {
+      const title = item.querySelector('title')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || '';
+      const description = item.querySelector('description')?.textContent || '';
+      const pubDate = item.querySelector('pubDate')?.textContent || '';
+      const categories = Array.from(item.querySelectorAll('category')).map(cat => cat.textContent);
+
+      if (title && link) {
+        articles.push({
+          title: this.cleanText(title),
+          link: link,
+          description: this.cleanText(description),
+          date: new Date(pubDate),
+          source: feed.name,
+          category: this.categorizeArticle(title, description, categories, feed.category),
+          readingTime: this.estimateReadingTime(description)
+        });
+      }
+    });
+
+    return articles;
+  }
+
+  parseRSS2JSON(data, feed) {
+    if (!data.items) return [];
+    
+    return data.items.map(item => ({
+      title: this.cleanText(item.title || ''),
+      link: item.link || '',
+      description: this.cleanText(item.description || ''),
+      date: new Date(item.pubDate || ''),
+      source: feed.name,
+      category: this.categorizeArticle(item.title || '', item.description || '', item.categories || [], feed.category),
+      readingTime: this.estimateReadingTime(item.description || '')
+    }));
+  }
+
+  categorizeArticle(title, description, categories, defaultCategory) {
+    const text = (title + ' ' + description).toLowerCase();
+    
+    // Keywords per categoria
+    const keywords = {
+      'privati': ['730', 'redditi', 'bonus', 'agevolazioni', 'detrazione', 'famiglia', 'casa', 'imu', 'isee'],
+      'imprese': ['iva', 'partita iva', 'impresa', 'società', 'bilancio', 'fatturazione', 'contributi', 'iritrap'],
+      'bonus': ['bonus', 'agevolazione', 'detrazione', 'credito', 'incentivo'],
+      'scadenze': ['scadenza', 'termine', 'versamento', 'adempimento', 'presentazione', 'trasmissione']
+    };
+
+    for (const [category, words] of Object.entries(keywords)) {
+      if (words.some(word => text.includes(word))) {
+        return category;
+      }
+    }
+
+    return defaultCategory;
+  }
+
+  cleanText(text) {
+    return text
+      .replace(/<[^>]*>/g, '')
+      .replace(/&[^;]+;/g, ' ')
+      .trim()
+      .substring(0, 200) + (text.length > 200 ? '...' : '');
+  }
+
+  estimateReadingTime(text) {
+    const wordsPerMinute = 200;
+    const words = text.split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / wordsPerMinute));
+  }
+
+  formatDate(date) {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('it-IT', options);
+  }
+
+  renderArticles(articles) {
+    const blogGrid = document.querySelector('.blog-grid');
+    if (!blogGrid) return;
+
+    // Svuota il contenuto esistente
+    blogGrid.innerHTML = '';
+
+    articles.forEach((article, index) => {
+      const card = document.createElement('article');
+      card.className = 'blog-card fade-up';
+      card.setAttribute('data-category', article.category);
+      card.style.animationDelay = `${index * 0.1}s`;
+
+      card.innerHTML = `
+        <div class="blog-card-image">
+          <div class="blog-category">${this.getCategoryLabel(article.category)}</div>
+          <div class="blog-date">${this.formatDate(article.date)}</div>
+          <div class="blog-source">Fonte: ${article.source}</div>
+        </div>
+        <div class="blog-card-content">
+          <h3>${article.title}</h3>
+          <p>${article.description}</p>
+          <div class="blog-meta">
+            <span class="reading-time">${article.readingTime} min lettura</span>
+            <a href="${article.link}" target="_blank" rel="noopener" class="read-more">Leggi tutto →</a>
+          </div>
+        </div>
+      `;
+
+      blogGrid.appendChild(card);
+    });
+
+    // Ri-applica l'observer per le animazioni
+    this.reinitScrollAnimations();
+    
+    // Ri-inizializza il filtro dopo il rendering
+    setTimeout(() => {
+      initBlogFilter();
+    }, 100);
+  }
+
+  getCategoryLabel(category) {
+    const labels = {
+      'privati': 'Privati',
+      'imprese': 'Imprese',
+      'bonus': 'Bonus',
+      'scadenze': 'Scadenze'
+    };
+    return labels[category] || 'Fisco';
+  }
+
+  getCachedData() {
+    try {
+      const cached = localStorage.getItem(this.cacheKey);
+      if (!cached) return null;
+
+      const { data, timestamp } = JSON.parse(cached);
+      const now = Date.now();
+
+      if (now - timestamp > this.cacheExpiry) {
+        localStorage.removeItem(this.cacheKey);
+        return null;
+      }
+
+      return data.map(article => ({
+        ...article,
+        date: new Date(article.date)
+      }));
+    } catch {
+      return null;
+    }
+  }
+
+  cacheData(articles) {
+    try {
+      const cacheData = {
+        data: articles,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
+    } catch (error) {
+      console.error('Errore salvataggio cache:', error);
+    }
+  }
+
+  showFallbackContent() {
+    const blogGrid = document.querySelector('.blog-grid');
+    if (blogGrid) {
+      // Mostra contenuti di esempio come fallback
+      const fallbackArticles = [
+        {
+          title: "Aggiornamento: Il blog si sta caricando...",
+          description: "Stiamo recuperando le ultime notizie fiscali dalle fonti ufficiali. Potrebbero essere necessari alcuni istanti.",
+          date: new Date(),
+          source: "1SMILE",
+          category: "privati",
+          readingTime: 1
+        },
+        {
+          title: "Fonti RSS: Agenzia delle Entrate, Fisco Oggi, Commercialista Telematico",
+          description: "Il nostro blog si aggiorna automaticamente ogni ora con le novità fiscali più importanti.",
+          date: new Date(Date.now() - 3600000),
+          source: "1SMILE",
+          category: "scadenze",
+          readingTime: 2
+        }
+      ];
+
+      this.renderArticles(fallbackArticles);
+      
+      // Aggiungi messaggio di stato
+      const statusMsg = document.createElement('div');
+      statusMsg.className = 'blog-status';
+      statusMsg.innerHTML = `
+        <div style="background: var(--gold); color: var(--blue-dark); padding: 1rem; border-radius: var(--radius); margin-bottom: 2rem; text-align: center;">
+          <p style="margin: 0; font-weight: 600;">🔄 Caricamento notizie in corso...</p>
+          <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Se vedi questo messaggio a lungo, ricarica la pagina.</p>
+        </div>
+      `;
+      blogGrid.parentNode.insertBefore(statusMsg, blogGrid);
+
+      // Prova a ricaricare dopo 3 secondi
+      setTimeout(() => {
+        statusMsg.remove();
+        this.loadFeeds();
+      }, 3000);
+    }
+  }
+
+  reinitScrollAnimations() {
+    const fadeElements = document.querySelectorAll('.fade-up');
+    fadeElements.forEach(el => {
+      el.classList.remove('visible');
+      observer.observe(el);
+    });
+  }
+}
+
+// Inizializza il sistema RSS
+document.addEventListener('DOMContentLoaded', () => {
+  const rssManager = new RSSFeedManager();
+  rssManager.init();
+});
+</script>
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bar" id="mobileBar">
+  <a href="#servizi-imprese" aria-label="Imprese">
+    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+    Imprese
+  </a>
+  <a href="#servizi-privati" aria-label="Privati">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Privati
+  </a>
+  <a href="#contatti" aria-label="Contatti">
+    <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    Contatti
+  </a>
+  <a href="#" id="scrollTopBtn" aria-label="Torna su">
+    <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H15v-5h-6v5H4a1 1 0 0 1-1-1V9.5z"/></svg>
+    Torna su
+  </a>
+</div>
+<script>
+  var _navLinks = document.getElementById('navLinks');
+  document.getElementById('mobileMenuBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    _navLinks.classList.toggle('open');
+  });
+  document.getElementById('mobileMenuBtn').addEventListener('touchend', function(e){
+    e.preventDefault();
+    _navLinks.classList.toggle('open');
+  });
+  document.getElementById('footerTopBtn').addEventListener('click', function(e){
+    e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.getElementById('scrollTopBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+</script>
