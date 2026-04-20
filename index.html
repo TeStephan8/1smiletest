@@ -889,20 +889,63 @@ class RSSFeedManager {
     }
 
     try {
+      console.log('🚀 Inizio caricamento feed RSS da', this.feeds.length, 'fonti');
       const allArticles = [];
+      const feedResults = [];
       
-      for (const feed of this.feeds) {
-        const articles = await this.fetchFeed(feed);
-        allArticles.push(...articles);
-      }
+      // Carica tutti i feed in parallelo con tracking
+      const feedPromises = this.feeds.map(async (feed) => {
+        try {
+          const startTime = Date.now();
+          const articles = await this.fetchFeed(feed);
+          const loadTime = Date.now() - startTime;
+          
+          feedResults.push({
+            name: feed.name,
+            success: true,
+            articlesCount: articles.length,
+            loadTime: loadTime,
+            priority: feed.priority
+          });
+          
+          console.log(`✅ ${feed.name}: ${articles.length} articoli in ${loadTime}ms`);
+          return articles;
+        } catch (error) {
+          feedResults.push({
+            name: feed.name,
+            success: false,
+            error: error.message,
+            priority: feed.priority
+          });
+          console.warn(`❌ ${feed.name} fallito:`, error.message);
+          return [];
+        }
+      });
 
-      // Ordina per data e prendi i più recenti
+      const feedArticles = await Promise.all(feedPromises);
+      feedArticles.forEach(articles => allArticles.push(...articles));
+
+      // Ordinamento deterministico: prima per priorità, poi per data
       const sortedArticles = allArticles
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .sort((a, b) => {
+          // Prima per priorità della fonte (1 = più alta)
+          if (a.priority !== b.priority) {
+            return a.priority - b.priority;
+          }
+          // Poi per data (più recenti prima)
+          return new Date(b.date) - new Date(a.date);
+        })
         .slice(0, this.maxArticles);
+
+      // Log dei risultati
+      console.log('📊 Risultati feed:', feedResults);
+      console.log('📰 Articoli caricati:', allArticles.length, '-> mostrati:', sortedArticles.length);
 
       this.cacheData(sortedArticles);
       this.renderArticles(sortedArticles);
+      
+      // Salva statistiche per debug
+      this.saveDebugInfo(feedResults);
     } catch (error) {
       console.error('Errore caricamento feed RSS:', error);
       this.showFallbackContent();
@@ -965,10 +1008,34 @@ class RSSFeedManager {
         date: new Date(today.getTime() - Math.random() * 86400000), // Random time today
         source: feed.name,
         category: feed.category,
-        readingTime: 2
+        readingTime: 2,
+        priority: feed.priority
       }
     ];
     return mockArticles;
+  }
+
+  saveDebugInfo(feedResults) {
+    try {
+      const debugInfo = {
+        timestamp: Date.now(),
+        userAgent: navigator.userAgent,
+        results: feedResults,
+        totalFeeds: this.feeds.length,
+        successfulFeeds: feedResults.filter(r => r.success).length
+      };
+      localStorage.setItem('rss_debug_info', JSON.stringify(debugInfo));
+    } catch (error) {
+      console.warn('Impossibile salvare debug info:', error);
+    }
+  }
+
+  getDebugInfo() {
+    try {
+      return JSON.parse(localStorage.getItem('rss_debug_info') || '{}');
+    } catch {
+      return {};
+    }
   }
 
   parseXML(xmlString, feed) {
@@ -1107,6 +1174,21 @@ class RSSFeedManager {
 
   getCachedData() {
     try {
+      // Prima controlla cache centralizzata (sessionStorage per sincronizzazione tra tab)
+      const sessionCache = sessionStorage.getItem('rss_feed_session');
+      if (sessionCache) {
+        const { data, timestamp } = JSON.parse(sessionCache);
+        const now = Date.now();
+        if (now - timestamp < this.cacheExpiry) {
+          console.log('📱 Usando cache di sessione (sincronizzata)');
+          return data.map(article => ({
+            ...article,
+            date: new Date(article.date)
+          }));
+        }
+      }
+
+      // Poi controlla cache locale
       const cached = localStorage.getItem(this.cacheKey);
       if (!cached) return null;
 
@@ -1118,11 +1200,16 @@ class RSSFeedManager {
         return null;
       }
 
+      // Sincronizza con sessionStorage
+      sessionStorage.setItem('rss_feed_session', cached);
+      console.log('💾 Cache locale sincronizzata con sessione');
+      
       return data.map(article => ({
         ...article,
         date: new Date(article.date)
       }));
-    } catch {
+    } catch (error) {
+      console.warn('Errore lettura cache:', error);
       return null;
     }
   }
@@ -1131,9 +1218,15 @@ class RSSFeedManager {
     try {
       const cacheData = {
         data: articles,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        version: '2.0' // Versione per gestire aggiornamenti
       };
+      
+      // Salva in entrambi gli storage per sincronizzazione
       localStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
+      sessionStorage.setItem('rss_feed_session', JSON.stringify(cacheData));
+      
+      console.log('💾 Dati salvati in localStorage e sessionStorage');
     } catch (error) {
       console.error('Errore salvataggio cache:', error);
     }
