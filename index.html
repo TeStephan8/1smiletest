@@ -834,16 +834,40 @@ class RSSFeedManager {
         priority: 1
       },
       {
+        name: 'MEF - Ministero Economia',
+        url: 'https://www.mef.gov.it/feed/rss',
+        category: 'scadenze',
+        priority: 1
+      },
+      {
+        name: 'Gazzetta Ufficiale',
+        url: 'https://www.gazzettaufficiale.it/rss',
+        category: 'scadenze',
+        priority: 1
+      },
+      {
+        name: 'INPS',
+        url: 'https://www.inps.it/nuovoportaleinps/default.aspx?itemdir=5001',
+        category: 'privati',
+        priority: 2
+      },
+      {
+        name: 'Sole 24 Ore - Norme e Tributi',
+        url: 'https://www.ilsole24ore.com/rss/norme-e-tributi.xml',
+        category: 'imprese',
+        priority: 2
+      },
+      {
         name: 'Fisco Oggi',
         url: 'https://www.fiscooggi.it/feed',
         category: 'privati',
-        priority: 2
+        priority: 3
       },
       {
         name: 'Commercialista Telematico',
         url: 'https://www.commercialistatelematico.com/feed',
         category: 'imprese',
-        priority: 2
+        priority: 3
       }
     ];
     
@@ -996,10 +1020,10 @@ class RSSFeedManager {
     
     // Keywords per categoria
     const keywords = {
-      'privati': ['730', 'redditi', 'bonus', 'agevolazioni', 'detrazione', 'famiglia', 'casa', 'imu', 'isee'],
-      'imprese': ['iva', 'partita iva', 'impresa', 'società', 'bilancio', 'fatturazione', 'contributi', 'iritrap'],
-      'bonus': ['bonus', 'agevolazione', 'detrazione', 'credito', 'incentivo'],
-      'scadenze': ['scadenza', 'termine', 'versamento', 'adempimento', 'presentazione', 'trasmissione']
+      'privati': ['730', 'redditi', 'bonus', 'agevolazioni', 'detrazione', 'famiglia', 'casa', 'imu', 'isee', 'pensione', 'naspi', 'disoccupazione', 'invalidità', 'maternità', 'assegno unico'],
+      'imprese': ['iva', 'partita iva', 'impresa', 'società', 'bilancio', 'fatturazione', 'contributi', 'iritrap', 'dichiarazione', 'versamento', 'acconto', 'ritenuta'],
+      'bonus': ['bonus', 'agevolazione', 'detrazione', 'credito', 'incentivo', 'superbonus', 'ecobonus', 'sismabonus', 'bonus casa'],
+      'scadenze': ['scadenza', 'termine', 'versamento', 'adempimento', 'presentazione', 'trasmissione', 'ravvedimento', 'proroga', 'prorogato', 'decorrenza']
     };
 
     for (const [category, words] of Object.entries(keywords)) {
