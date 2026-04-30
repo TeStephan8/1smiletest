@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Calcolatore IPCA – Rivalutazione monetaria ISTAT. Strumento gratuito di 1SMILE Studio Fiscale Milano Bicocca.">
+<title>Calcolatore IPCA – Rivalutazione Monetaria | 1SMILE Studio Fiscale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue-dark:#0d2d6b;--blue-mid:#1a4fa8;--blue-light:#2d7dd2;
+  --blue-pale:#e8f1fb;--gold:#f5a623;--gold-dark:#d4881a;
+  --white:#ffffff;--gray-light:#f4f7fc;--gray-mid:#8b9ab5;
+  --gray-text:#3d4d66;--green:#2e9e6b;--red:#d94f4f;
+  --shadow-card:0 4px 24px rgba(13,45,107,.10);
+  --shadow-lg:0 12px 48px rgba(13,45,107,.18);
+  --radius:14px;--radius-lg:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--gray-text);background:var(--gray-light);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 16px rgba(13,45,107,.10)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;gap:1rem}
+.nav-logo img{height:52px;width:auto;transition:transform .3s}
+.nav-logo:hover img{transform:scale(1.04)}
+.nav-back{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;color:var(--blue-mid);padding:.4rem .9rem;border:2px solid var(--blue-pale);border-radius:50px;transition:all .25s}
+.nav-back:hover{background:var(--blue-pale);border-color:var(--blue-mid)}
+.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 55%,var(--blue-light) 100%);padding:3rem 1.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:600;color:#fff;margin-bottom:1rem}
+.hero h1{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:.5rem}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.6;max-width:700px}
+
+/* LAYOUT */
+.page-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem;display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:start}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-card);margin-bottom:1.5rem}
+.card-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.card-title::before{content:'';width:4px;height:16px;background:var(--blue-mid);border-radius:2px;flex-shrink:0}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group.full{grid-column:1/-1}
+label{font-size:.8rem;font-weight:600;color:var(--blue-dark);text-transform:uppercase;letter-spacing:.04em}
+input[type="text"],input[type="number"],select{
+  width:100%;padding:.65rem .9rem;
+  border:2px solid var(--blue-pale);border-radius:var(--radius);
+  font-family:'Outfit',sans-serif;font-size:.95rem;color:var(--gray-text);
+  background:var(--white);outline:none;transition:border-color .25s;
+}
+input:focus,select:focus{border-color:var(--blue-mid)}
+input::placeholder{color:var(--gray-mid)}
+.currency-wrapper{position:relative}
+.currency-symbol{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--gray-mid);font-weight:600;pointer-events:none}
+.currency-wrapper input{padding-left:2rem}
+.section-divider{grid-column:1/-1;border:none;border-top:1px solid var(--blue-pale);margin:.2rem 0}
+.section-sublabel{grid-column:1/-1;font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue-mid);padding:.2rem 0}
+.month-year-row{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:end}
+.year-arrow{color:var(--blue-mid);font-size:1.2rem;font-weight:700;padding-bottom:.65rem;text-align:center}
+.month-year-pair{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+
+/* BUTTONS */
+.btn{background:var(--gold);color:var(--blue-dark);padding:.7rem 1.5rem;border-radius:50px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.92rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(245,166,35,.35)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.5)}
+.btn.secondary{background:var(--blue-pale);color:var(--blue-dark);box-shadow:none}
+.btn.secondary:hover{background:#d4e5f7;box-shadow:none}
+.actions-row{grid-column:1/-1;display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.5rem}
+.error-msg{grid-column:1/-1;color:var(--red);font-size:.87rem;font-weight:600;display:none;padding:.5rem .8rem;background:#fdf0f0;border-radius:var(--radius);border-left:3px solid var(--red)}
+
+/* RESULT CARD */
+.result-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-lg);margin-bottom:1.5rem;display:none;border-top:4px solid var(--blue-mid)}
+.result-card.visible{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.result-client-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-pale);color:var(--blue-dark);padding:.35rem .9rem;border-radius:50px;font-size:.82rem;font-weight:600;margin-bottom:1.2rem}
+.result-main{text-align:center;padding:1.5rem 0;border-bottom:1px solid var(--blue-pale);margin-bottom:1.5rem}
+.result-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-mid);margin-bottom:.4rem}
+.result-value{font-size:2.4rem;font-weight:800;color:var(--blue-dark);line-height:1}
+.result-period{margin-top:.6rem;font-size:.88rem;color:var(--gray-mid)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-box{background:var(--gray-light);border-radius:var(--radius);padding:1rem;text-align:center}
+.stat-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-mid);margin-bottom:.3rem}
+.stat-value{font-size:1.05rem;font-weight:700;color:var(--blue-dark)}
+.stat-value.positive{color:var(--green)}
+.breakdown-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue-mid);margin-bottom:.8rem}
+.breakdown-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.breakdown-table th{text-align:left;padding:.5rem .7rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-mid);border-bottom:2px solid var(--blue-pale)}
+.breakdown-table td{padding:.5rem .7rem;border-bottom:1px solid var(--gray-light)}
+.year-cell{font-weight:700;color:var(--blue-dark)}
+.val-after{font-weight:600;color:var(--blue-dark);text-align:right}
+.rate-bar{display:flex;align-items:center;gap:.5rem}
+.rate-bar-fill{height:8px;border-radius:4px;background:var(--blue-mid);min-width:4px;flex-shrink:0}
+.rate-bar-fill.neg{background:var(--red)}
+.rate-num{font-weight:700;font-size:.82rem}
+.rate-num.pos{color:var(--green)}
+.rate-num.neg{color:var(--red)}
+.save-row{display:flex;align-items:center;gap:1rem;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--blue-pale)}
+.save-feedback{color:var(--green);font-weight:600;font-size:.88rem;display:none}
+
+/* RATES / STORICO TOGGLE */
+.rates-collapsible{overflow:hidden;max-height:0;transition:max-height .4s ease}
+.rates-collapsible.open{max-height:600px}
+.rates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem;margin-top:1rem}
+.rate-item{background:var(--gray-light);border-radius:var(--radius);padding:.5rem .7rem;display:flex;justify-content:space-between;align-items:center;font-size:.82rem}
+.rate-item-year{font-weight:600;color:var(--blue-dark)}
+.rate-item-val.pos{color:var(--green);font-weight:700}
+.rate-item-val.neg{color:var(--red);font-weight:700}
+.rate-item-val.zero{color:var(--gray-mid);font-weight:600}
+.toggle-btn{background:none;border:2px solid var(--blue-pale);color:var(--blue-mid);padding:.45rem 1rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.4rem}
+.toggle-btn:hover{background:var(--blue-pale)}
+.toggle-btn .arrow{transition:transform .3s;display:inline-block}
+.toggle-btn.open .arrow{transform:rotate(180deg)}
+.info-box{background:var(--blue-pale);border-radius:var(--radius);padding:1rem 1.2rem;font-size:.82rem;color:var(--blue-dark);line-height:1.6}
+.info-box a{color:var(--blue-mid);font-weight:600}
+.info-box a:hover{text-decoration:underline}
+
+/* QUICK CALC */
+.quick-calc-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:.3rem}
+.quick-calc-help{font-size:.78rem;color:var(--gray-mid);margin-bottom:.8rem}
+.quick-calc-display{width:100%;padding:.7rem 1rem;border:2px solid var(--blue-pale);border-radius:var(--radius);font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:600;color:var(--blue-dark);text-align:right;margin-bottom:.8rem;transition:border-color .25s}
+.quick-calc-display:focus{outline:none;border-color:var(--blue-mid)}
+.quick-calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+.calc-key{background:var(--gray-light);border:2px solid transparent;border-radius:var(--radius);padding:.7rem .3rem;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;color:var(--blue-dark);cursor:pointer;transition:all .15s}
+.calc-key:hover{background:var(--blue-pale);border-color:var(--blue-mid)}
+.calc-key:active{transform:scale(.94)}
+.calc-key.op{background:#eef3ff;color:var(--blue-mid)}
+.calc-key.eq{background:var(--gold);color:var(--blue-dark);box-shadow:0 2px 8px rgba(245,166,35,.3)}
+.calc-key.eq:hover{background:var(--gold-dark)}
+.calc-key.wide{grid-column:span 2}
+
+/* DB CARD */
+.db-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-card)}
+.storico-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.5rem}
+.storico-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn-sm{background:var(--gray-light);border:none;color:var(--blue-mid);padding:.4rem .8rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-sm:hover{background:var(--blue-pale)}
+.btn-sm.clear-all{color:var(--red)}
+.btn-sm.clear-all:hover{background:#fdf0f0}
+.storico-empty{text-align:center;padding:2rem;color:var(--gray-mid);font-size:.9rem;line-height:1.7}
+.storico-empty span{display:block;font-size:2rem;margin-bottom:.5rem}
+.storico-list{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem}
+.storico-item{background:var(--gray-light);border-radius:var(--radius);padding:1rem 1.2rem;border:1px solid var(--blue-pale)}
+.si-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.6rem}
+.si-client{font-weight:700;color:var(--blue-dark);font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.si-contract{display:flex;align-items:center;gap:.4rem;margin-top:.2rem}
+.si-original{font-size:.8rem;color:var(--gray-mid)}
+.si-tag{background:var(--blue-pale);color:var(--blue-mid);padding:.15rem .5rem;border-radius:4px;font-size:.75rem;font-weight:600}
+.si-value-wrap{text-align:right;flex-shrink:0}
+.si-result{font-weight:800;color:var(--blue-dark);font-size:1.05rem}
+.si-pct{font-size:.8rem;font-weight:700;color:var(--green)}
+.si-period{display:flex;gap:.5rem;align-items:center;font-size:.8rem;margin-bottom:.6rem}
+.si-period-label{color:var(--gray-mid);font-weight:600}
+.si-period-value{color:var(--blue-dark);font-weight:600}
+.si-foot{display:flex;justify-content:space-between;align-items:center}
+.si-date{font-size:.75rem;color:var(--gray-mid)}
+.si-actions{display:flex;gap:.4rem}
+.si-reuse{background:var(--blue-pale);border:none;color:var(--blue-mid);padding:.3rem .7rem;border-radius:50px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.si-reuse:hover{background:var(--blue-mid);color:#fff}
+.si-reuse-flash{background:var(--green)!important;color:#fff!important}
+.si-delete{background:none;border:none;color:var(--gray-mid);font-size:.9rem;cursor:pointer;padding:.3rem .5rem;border-radius:50px;transition:all .2s}
+.si-delete:hover{color:var(--red);background:#fdf0f0}
+
+/* FOOTER */
+footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.5rem;font-size:.85rem;margin-top:2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.footer-wordmark{font-size:1.2rem;font-weight:800}
+.fw-one{color:var(--gold)}
+.fw-smile{color:#fff}
+.footer-back{color:rgba(255,255,255,.65);font-size:.85rem;transition:color .2s}
+.footer-back:hover{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:1}
+  .section-divider{grid-column:1}
+  .section-sublabel{grid-column:1}
+  .actions-row{grid-column:1}
+  .error-msg{grid-column:1}
+  .month-year-row{grid-template-columns:1fr;gap:.8rem}
+  .year-arrow{display:none}
+  .stats-grid{grid-template-columns:1fr}
+  .hero{padding:2rem 1.2rem}
+  .page-wrap{padding:1.5rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="1SMILE Studio Fiscale"></a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+      Torna al sito
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📊 Strumento gratuito · 1SMILE Studio Fiscale</div>
+    <h1>Calcolo <em>rivalutazione</em> IPCA</h1>
+    <p>Indice dei Prezzi al Consumo Armonizzato per l'Unione Europea. Aggiorna il valore di un importo tenendo conto dell'inflazione dal 1997.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="page-wrap">
+  <div class="col-left">
+
+    <!-- FORM -->
+    <div class="card">
+      <div class="card-title">Rivalutazione monetaria</div>
+      <div class="form-grid">
+
+        <div class="section-sublabel">Dati contratto</div>
+
+        <div class="form-group full">
+          <label>Cliente</label>
+          <input type="text" id="cliente" placeholder="Es. Rossi Srl, Mario Bianchi…" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Mese partenza contratto</label>
+          <select id="meseContratto"></select>
+        </div>
+        <div class="form-group">
+          <label>Anno contratto</label>
+          <select id="annoContratto"></select>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-sublabel">Calcolo IPCA</div>
+
+        <div class="form-group full">
+          <label>Importo da rivalutare (€)</label>
+          <div class="currency-wrapper">
+            <span class="currency-symbol">€</span>
+            <input type="number" id="amount" placeholder="Es. 1000.00" min="0" step="0.01" value="1000">
+          </div>
+        </div>
+
+        <div class="month-year-row">
+          <div class="form-group">
+            <label>Da (mese / anno)</label>
+            <div class="month-year-pair">
+              <select id="monthFrom"></select>
+              <select id="yearFrom"></select>
+            </div>
+          </div>
+          <div class="year-arrow">→</div>
+          <div class="form-group">
+            <label>A (mese / anno)</label>
+            <div class="month-year-pair">
+              <select id="monthTo"></select>
+              <select id="yearTo"></select>
+            </div>
+          </div>
+        </div>
+
+        <p class="error-msg" id="error-msg"></p>
+
+        <div class="actions-row">
+          <button class="btn" onclick="calculate()">Calcola rivalutazione IPCA</button>
+          <button class="btn secondary" onclick="resetForm()">⟳ Pulisci</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISULTATO -->
+    <div class="result-card" id="resultCard">
+      <div class="card-title">Risultato</div>
+      <div id="resultClientBadge"></div>
+      <div class="result-main">
+        <div class="result-label">Importo rivalutato</div>
+        <div class="result-value" id="resultValue">—</div>
+        <div class="result-period" id="resultPeriod"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">Importo originale</div>
+          <div class="stat-value" id="statOriginal">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Differenza</div>
+          <div class="stat-value positive" id="statDiff">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Inflazione totale</div>
+          <div class="stat-value positive" id="statTotal">—</div>
+        </div>
+      </div>
+      <div class="breakdown-title">Dettaglio anno per anno</div>
+      <table class="breakdown-table">
+        <thead>
+          <tr><th>Anno</th><th>Tasso IPCA</th><th style="text-align:right">Valore dopo</th></tr>
+        </thead>
+        <tbody id="breakdownBody"></tbody>
+      </table>
+      <div class="save-row">
+        <button class="btn" onclick="saveRecord()" style="flex:1">💾 Salva nel database</button>
+        <span class="save-feedback" id="saveFeedback">✓ Salvato!</span>
+      </div>
+    </div>
+
+    <!-- SERIE STORICA -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+        <div class="card-title" style="margin-bottom:0">Serie storica IPCA — variazioni medie annue</div>
+        <button class="toggle-btn" id="ratesToggleBtn" onclick="toggleRates()">
+          Apri serie storica <span class="arrow">&#9660;</span>
+        </button>
+      </div>
+      <div class="rates-collapsible" id="ratesCollapsible">
+        <div class="rates-grid" id="ratesGrid"></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Fonte:</strong>
+      <a href="https://www.istat.it" target="_blank" rel="noopener">ISTAT.it</a>
+      — Indice dei Prezzi al Consumo Armonizzato (IPCA), base 2015=100;&nbsp;
+      <a href="https://www.rivaluta.it/serie-inflazione-media.asp?t=ipca" target="_blank" rel="noopener">Rivaluta.it</a>
+      — serie storica variazioni medie annue IPCA.<br>
+      Il calcolo usa le variazioni medie annue; il mese identifica il periodo contrattuale di riferimento.
+      <strong>* dato provvisorio/parziale.</strong> &nbsp;|&nbsp; <strong>Ultimo aggiornamento:</strong> aprile 2026.
+    </div>
+
+    <!-- CALCOLATRICE RAPIDA -->
+    <div class="card" style="margin-top:1.5rem">
+      <div class="quick-calc-title">Calcolatrice rapida</div>
+      <div class="quick-calc-help">Scrivi un'espressione e premi Invio o = per calcolare. Esc per pulire.</div>
+      <input id="quickCalcDisplay" class="quick-calc-display" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="0" aria-label="Calcolatrice rapida">
+      <div class="quick-calc-grid">
+        <button class="calc-key op" type="button" data-calc="(">(</button>
+        <button class="calc-key op" type="button" data-calc=")">)</button>
+        <button class="calc-key op" type="button" data-calc="back">⌫</button>
+        <button class="calc-key op" type="button" data-calc="clear">C</button>
+        <button class="calc-key" type="button" data-calc="7">7</button>
+        <button class="calc-key" type="button" data-calc="8">8</button>
+        <button class="calc-key" type="button" data-calc="9">9</button>
+        <button class="calc-key op" type="button" data-calc="/">÷</button>
+        <button class="calc-key" type="button" data-calc="4">4</button>
+        <button class="calc-key" type="button" data-calc="5">5</button>
+        <button class="calc-key" type="button" data-calc="6">6</button>
+        <button class="calc-key op" type="button" data-calc="*">×</button>
+        <button class="calc-key" type="button" data-calc="1">1</button>
+        <button class="calc-key" type="button" data-calc="2">2</button>
+        <button class="calc-key" type="button" data-calc="3">3</button>
+        <button class="calc-key op" type="button" data-calc="-">−</button>
+        <button class="calc-key wide" type="button" data-calc="0">0</button>
+        <button class="calc-key" type="button" data-calc=".">.</button>
+        <button class="calc-key op" type="button" data-calc="+">+</button>
+        <button class="calc-key eq wide" type="button" data-calc="=">=</button>
+      </div>
+    </div>
+
+  </div><!-- /col-left -->
+
+  <!-- DB ARCHIVIO -->
+  <div class="col-right">
+    <div class="db-card">
+      <div class="storico-header">
+        <div class="card-title" style="margin-bottom:0">Archivio calcoli</div>
+        <div class="storico-actions">
+          <button class="btn-sm export" onclick="exportJSON()" title="Esporta in JSON">&#11015; Esporta JSON</button>
+          <button class="btn-sm clear-all" onclick="clearAll()" title="Elimina tutti">&#10005;</button>
+        </div>
+      </div>
+      <div style="margin-top:.5rem;color:var(--gray-mid);font-size:.78rem;line-height:1.5">I calcoli vengono salvati localmente nel tuo browser.</div>
+      <div id="storicoList" style="margin-top:1rem"></div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span> Studio Fiscale</span>
+    <span>Strumento gratuito · Solo per uso professionale interno</span>
+    <a href="index.html" class="footer-back">← Torna al sito</a>
+  </div>
+</footer>
+
+<script>
+const ipcaData = {
+  1997:1.9, 1998:2.0, 1999:1.7, 2000:2.6,
+  2001:2.3, 2002:2.6, 2003:2.8, 2004:2.3,
+  2005:2.2, 2006:2.2, 2007:2.0, 2008:3.5,
+  2009:0.8, 2010:1.6, 2011:2.9, 2012:3.3,
+  2013:1.2, 2014:0.2, 2015:0.1, 2016:-0.1,
+  2017:1.3, 2018:1.3, 2019:0.6, 2020:-0.2,
+  2021:1.9, 2022:8.7, 2023:5.7, 2024:1.1,
+  2025:1.7,
+  2026:1.4
+};
+
+const MESI     = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+const MESI_EXT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const years    = Object.keys(ipcaData).map(Number).sort((a,b)=>a-b);
+const DB_KEY   = 'ipca_calcolatore_db';
+
+function addOptions(id, arr, selected) {
+  const s = document.getElementById(id);
+  arr.forEach(([v,l]) => s.appendChild(new Option(l, v)));
+  if (selected != null) s.value = selected;
+}
+
+const mesiOpts = MESI.map((m,i)=>[i+1,m]);
+addOptions('monthFrom', mesiOpts, 1);
+addOptions('monthTo',   mesiOpts, 1);
+addOptions('meseContratto', mesiOpts, 1);
+addOptions('yearFrom', years.map(y=>[y,y]), 2025);
+addOptions('yearTo',   years.map(y=>[y,y]), 2025);
+const cYears = [];
+for (let y=2030;y>=1990;y--) cYears.push([y,y]);
+addOptions('annoContratto', cYears, 2026);
+
+const rg = document.getElementById('ratesGrid');
+[...years].reverse().forEach(y=>{
+  const r=ipcaData[y], cls=r>0.1?'pos':r<-0.05?'neg':'zero', sign=r>0?'+':'', prov=y>=2025?'*':'';
+  rg.innerHTML+=`<div class="rate-item"><span class="rate-item-year">${y}${prov}</span><span class="rate-item-val ${cls}">${sign}${r.toFixed(1)}%</span></div>`;
+});
+
+const fmtEuro = n => new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+const fmtDate = iso => new Date(iso).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const uid = () => Date.now().toString(36)+Math.random().toString(36).substr(2,5);
+
+const loadDB = () => { try { return JSON.parse(localStorage.getItem(DB_KEY))||[]; } catch { return []; } };
+const saveDB = d => localStorage.setItem(DB_KEY, JSON.stringify(d));
+
+let lastResult = null;
+
+function calculate() {
+  const amount = parseFloat(document.getElementById('amount').value);
+  const mFrom  = +document.getElementById('monthFrom').value;
+  const yFrom  = +document.getElementById('yearFrom').value;
+  const mTo    = +document.getElementById('monthTo').value;
+  const yTo    = +document.getElementById('yearTo').value;
+  const err    = document.getElementById('error-msg');
+  const card   = document.getElementById('resultCard');
+
+  if (isNaN(amount)||amount<=0) {
+    err.textContent='⚠ Inserisci un importo valido.'; err.style.display='block';
+    card.classList.remove('visible'); return;
+  }
+  if (yFrom*100+mFrom >= yTo*100+mTo) {
+    err.textContent='⚠ Il periodo iniziale deve essere precedente a quello finale.'; err.style.display='block';
+    card.classList.remove('visible'); return;
+  }
+  err.style.display='none';
+
+  let current=amount; const rows=[];
+  for (let y=yFrom+1; y<=yTo; y++) {
+    const rate=ipcaData[y]??null;
+    if(rate===null) continue;
+    const before=current;
+    current=current*(1+rate/100);
+    rows.push({year:y,rate,before,after:current});
+  }
+  const totalPct=((current-amount)/amount)*100;
+  const cliente = document.getElementById('cliente').value.trim();
+  const meseC   = +document.getElementById('meseContratto').value;
+  const annoC   = +document.getElementById('annoContratto').value;
+  const anniTot = yTo-yFrom;
+
+  lastResult = {
+    id:uid(), savedAt:new Date().toISOString(),
+    cliente:cliente||'—', meseContratto:meseC, annoContratto:annoC,
+    importo:amount, monthFrom:mFrom, yearFrom:yFrom, monthTo:mTo, yearTo:yTo,
+    risultato:current, totalPct, rows
+  };
+
+  const badgeEl = document.getElementById('resultClientBadge');
+  badgeEl.innerHTML = cliente
+    ? `<div class="result-client-badge">👤 ${cliente} · Contr. ${MESI_EXT[meseC-1]} ${annoC}</div>`
+    : '';
+
+  document.getElementById('resultValue').textContent  = fmtEuro(current);
+  document.getElementById('resultPeriod').textContent = `${MESI[mFrom-1]} ${yFrom} → ${MESI[mTo-1]} ${yTo}  (${anniTot} ${anniTot===1?'anno':'anni'})`;
+  document.getElementById('statOriginal').textContent = fmtEuro(amount);
+  const diff=current-amount;
+  document.getElementById('statDiff').textContent = (diff>=0?'+':'')+fmtEuro(diff);
+  document.getElementById('statDiff').className   = 'stat-value'+(diff>=0?' positive':'');
+  document.getElementById('statTotal').textContent= (totalPct>=0?'+':'')+totalPct.toFixed(2)+'%';
+  document.getElementById('statTotal').className  = 'stat-value'+(totalPct>=0?' positive':'');
+
+  const maxR=Math.max(...rows.map(r=>Math.abs(r.rate)),0.01);
+  const tbody=document.getElementById('breakdownBody');
+  tbody.innerHTML='';
+  rows.forEach(r=>{
+    const bw=Math.round((Math.abs(r.rate)/maxR)*80);
+    const neg=r.rate<0, sign=r.rate>0?'+':'';
+    tbody.innerHTML+=`<tr>
+      <td class="year-cell">${r.year}</td>
+      <td><div class="rate-bar"><div class="rate-bar-fill ${neg?'neg':''}" style="width:${bw}px"></div><span class="rate-num ${neg?'neg':'pos'}">${sign}${r.rate.toFixed(1)}%</span></div></td>
+      <td class="val-after">${fmtEuro(r.after)}</td>
+    </tr>`;
+  });
+
+  document.getElementById('saveFeedback').style.display='none';
+  card.classList.add('visible');
+  setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function saveRecord() {
+  if (!lastResult) return;
+  const db = loadDB();
+  const record = { id:String(Date.now()), ...lastResult, savedAt:new Date().toISOString() };
+  const isSame = (a,b) => !(!a||!b) &&
+    String(a.cliente||'')===String(b.cliente||'') &&
+    Number(a.importo)===Number(b.importo) &&
+    Number(a.monthFrom)===Number(b.monthFrom) &&
+    Number(a.yearFrom)===Number(b.yearFrom) &&
+    Number(a.monthTo)===Number(b.monthTo) &&
+    Number(a.yearTo)===Number(b.yearTo);
+  if (db.some(item=>isSame(item,record))) {
+    const fb=document.getElementById('saveFeedback');
+    fb.textContent='✓ Già presente'; fb.style.display='inline';
+    setTimeout(()=>{fb.style.display='none';fb.textContent='✓ Salvato!'},2200); return;
+  }
+  db.unshift(record); saveDB(db);
+  const fb=document.getElementById('saveFeedback');
+  fb.textContent='✓ Salvato!'; fb.style.display='inline';
+  setTimeout(()=>fb.style.display='none',3000);
+  renderStorico();
+}
+
+function deleteRecord(id) { saveDB(loadDB().filter(r=>r.id!==id)); renderStorico(); }
+function clearAll() { if (!confirm('Eliminare tutti i calcoli salvati?')) return; saveDB([]); renderStorico(); }
+function exportJSON() {
+  const db=loadDB();
+  if (!db.length) { alert('Nessun calcolo salvato.'); return; }
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));
+  a.download=`ipca_database_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+
+function reuseRecord(id) {
+  const r=loadDB().find(x=>x.id===id); if (!r) return;
+  document.getElementById('cliente').value=r.cliente==='—'?'':r.cliente;
+  document.getElementById('meseContratto').value=r.meseContratto;
+  document.getElementById('annoContratto').value=r.annoContratto;
+  document.getElementById('amount').value=r.risultato.toFixed(2);
+  document.getElementById('monthFrom').value=r.monthTo;
+  document.getElementById('yearFrom').value=r.yearTo;
+  document.getElementById('monthTo').value=1;
+  document.getElementById('yearTo').value=Math.max(...years);
+  const btn=document.querySelector(`.si-reuse[data-id="${id}"]`);
+  if (btn) { btn.textContent='✓ Caricato'; btn.classList.add('si-reuse-flash');
+    setTimeout(()=>{ btn.textContent='↩ Riusa'; btn.classList.remove('si-reuse-flash'); },1500); }
+  document.querySelector('.card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderStorico() {
+  const db=loadDB();
+  const el=document.getElementById('storicoList');
+  if (!db.length) {
+    el.innerHTML=`<div class="storico-empty"><span>📂</span>Nessun calcolo salvato.<br>Usa "Salva" dopo ogni calcolo.</div>`;
+    return;
+  }
+  el.innerHTML='<div class="storico-list">'+db.map(r=>{
+    const sign=r.totalPct>=0?'+':'';
+    const contr=r.annoContratto?`<span class="si-tag">${r.annoContratto}</span>`:'';
+    return `<div class="storico-item">
+      <div class="si-head">
+        <div class="si-main">
+          <div class="si-client" title="${r.cliente}">${r.cliente}</div>
+          <div class="si-contract"><span class="si-original">${fmtEuro(r.importo)}</span>${contr}</div>
+        </div>
+        <div class="si-value-wrap">
+          <div class="si-result">${fmtEuro(r.risultato)}</div>
+          <div class="si-pct">${sign}${r.totalPct.toFixed(2)}%</div>
+        </div>
+      </div>
+      <div class="si-period">
+        <span class="si-period-label">Periodo</span>
+        <span class="si-period-value">${MESI[r.monthFrom-1]} ${r.yearFrom} → ${MESI[r.monthTo-1]} ${r.yearTo}</span>
+      </div>
+      <div class="si-foot">
+        <div class="si-date">${fmtDate(r.savedAt)}</div>
+        <div class="si-actions">
+          <button class="si-reuse" data-id="${r.id}" onclick="reuseRecord('${r.id}')">↩ Riusa</button>
+          <button class="si-delete" onclick="deleteRecord('${r.id}')">✕</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function toggleRates() {
+  const box=document.getElementById('ratesCollapsible');
+  const btn=document.getElementById('ratesToggleBtn');
+  const isOpen=box.classList.toggle('open');
+  btn.classList.toggle('open',isOpen);
+  btn.innerHTML=isOpen
+    ?'Nascondi serie storica <span class="arrow">&#9650;</span>'
+    :'Apri serie storica <span class="arrow">&#9660;</span>';
+}
+
+function resetForm() {
+  document.getElementById('cliente').value='';
+  document.getElementById('meseContratto').value=1;
+  document.getElementById('annoContratto').value=2026;
+  document.getElementById('amount').value='';
+  document.getElementById('monthFrom').value=1;
+  document.getElementById('yearFrom').value=2025;
+  document.getElementById('monthTo').value=1;
+  document.getElementById('yearTo').value=Math.max(...years);
+  document.getElementById('resultCard').classList.remove('visible');
+  document.getElementById('error-msg').style.display='none';
+  lastResult=null;
+  document.getElementById('cliente').focus();
+}
+
+function initQuickCalc() {
+  const display=document.getElementById('quickCalcDisplay');
+  if (!display) return;
+  const sanitize=v=>v.replace(/,/g,'.').replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-').replace(/[^0-9+\-*/(). ]/g,'');
+  const evaluate=()=>{
+    const expr=sanitize(display.value).trim(); if (!expr) return;
+    try {
+      const result=Function('"use strict"; return ('+expr+')')();
+      if (typeof result!=='number'||!isFinite(result)) throw new Error();
+      display.value=String(result); display.select();
+    } catch { display.value='Errore'; setTimeout(()=>{if(display.value==='Errore')display.value='';},900); }
+  };
+  document.querySelectorAll('[data-calc]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const val=btn.getAttribute('data-calc');
+      if(val==='clear'){display.value='';display.focus();return;}
+      if(val==='back'){display.value=display.value.slice(0,-1);display.focus();return;}
+      if(val==='='){evaluate();return;}
+      display.value+=val; display.focus();
+    });
+  });
+  display.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();evaluate();}
+    if(e.key==='Escape'){e.preventDefault();display.value='';}
+  });
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Enter'&&document.activeElement.tagName!=='INPUT') calculate(); });
+initQuickCalc();
+renderStorico();
+</script>
+</body>
+</html>
