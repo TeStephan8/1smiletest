@@ -64,7 +64,7 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .calc-header p{color:var(--gray-mid);font-size:.9rem;margin-top:.3rem}
 
 /* CALC LAYOUT */
-.calc-wrap{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;align-items:start}
+.calc-wrap{display:grid;grid-template-columns:420px 1fr;gap:1.5rem;align-items:start}
 
 /* CALCULATOR BODY */
 .calc-body{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden}
@@ -659,6 +659,7 @@ document.addEventListener('keydown', e => {
   if(k==='Enter'||k==='=') { kEquals(); return; }
   if(k==='Backspace') { kBack(); return; }
   if(k==='Escape') { kClear(); return; }
+  if(k==='Delete') { kClear(); return; } // CANC key functionality
 });
 
 // Initial tape render
