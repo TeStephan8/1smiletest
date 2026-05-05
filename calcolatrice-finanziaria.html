@@ -101,12 +101,15 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .tape-roll{background:var(--tape-bg);min-height:400px;max-height:500px;overflow-y:auto;padding:1.2rem;font-family:'Source Code Pro',monospace;font-size:.75rem;line-height:1.6;border-bottom:2px dashed var(--tape-line)}
 .tape-header-line{font-weight:700;color:var(--blue-dark);text-align:center;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--tape-line)}
 .tape-empty{text-align:center;color:var(--gray-mid);padding:3rem 1rem;line-height:1.5}
-.tape-entry{margin-bottom:.4rem;display:flex;justify-content:space-between;align-items:baseline}
-.tape-entry.sep{border-top:1px solid var(--tape-line);padding-top:.6rem;margin-top:.8rem}
-.tape-entry.result{font-weight:700;color:var(--blue-dark)}
-.tape-entry.memory{color:var(--green)}
-.tape-entry.error{color:var(--red)}
-.tape-time{font-size:.65rem;color:var(--gray-mid);font-family:'Outfit',sans-serif}
+.tape-entry{margin-bottom:.4rem;display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;background:var(--white);border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.tape-entry.sep{border-top:1px solid var(--tape-line);padding-top:.6rem;margin-top:.8rem;background:transparent;box-shadow:none}
+.tape-entry.result{background:linear-gradient(135deg,#e8f5e8 0%,#d4edda 100%);border-left:4px solid var(--green)}
+.tape-entry.operation{background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);border-left:4px solid var(--blue-mid)}
+.tape-entry.memory{background:linear-gradient(135deg,#fff3cd 0%,#ffeaa7 100%);border-left:4px solid var(--gold)}
+.tape-entry.error{background:linear-gradient(135deg,#f8d7da 0%,#f5c6cb 100%);border-left:4px solid var(--red)}
+.tape-operation{font-weight:600;color:var(--blue-dark);font-size:.85rem}
+.tape-result{font-weight:800;color:var(--green);font-size:.95rem}
+.tape-time{font-size:.6rem;color:var(--gray-mid);font-family:'Outfit',sans-serif;text-align:right}
 .tape-footer{background:var(--blue-dark);padding:.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center}
 .tape-total-label{color:rgba(255,255,255,.7);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .tape-total-val{color:#fff;font-size:1.1rem;font-weight:700;font-family:'Source Code Pro',monospace}
@@ -364,18 +367,41 @@ function renderTape() {
     const date = new Date(e.ts).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit',year:'2-digit'});
     const time = new Date(e.ts).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
     const dateTime = `${date} ${time}`;
+    
     if (e.type==='sep') {
-      d.innerHTML = `<span>─</span><span>${e.label||'─'}</span>`;
+      d.innerHTML = `<div style="flex:1;text-align:center">─</div>`;
     } else if (e.type==='result') {
-      d.innerHTML = `<span>= ${fmtNum(e.val)}</span><span>[${e.expr}] <span class="tape-time">${dateTime}</span></span>`;
+      // Estrai operazione e risultato dall'espressione completa
+      const parts = e.expr.split(' = ');
+      const operation = parts[0] || e.expr;
+      const result = parts[1] || fmtNum(e.val);
+      d.innerHTML = `
+        <div style="display:flex;flex-direction:column;flex:1;gap:.2rem">
+          <div class="tape-operation">${operation}</div>
+          <div class="tape-result">= ${result}</div>
+        </div>
+        <div class="tape-time">${dateTime}</div>
+      `;
     } else if (e.type==='operation') {
-      d.innerHTML = `<span>${e.expr}</span><span class="tape-time">${dateTime}</span></span>`;
+      d.innerHTML = `
+        <div class="tape-operation">${e.expr}</div>
+        <div class="tape-time">${dateTime}</div>
+      `;
     } else if (e.type==='memory') {
-      d.innerHTML = `<span>${e.label} ${fmtNum(e.val)}</span><span class="tape-time">${dateTime}</span></span>`;
+      d.innerHTML = `
+        <div class="tape-operation">${e.label} ${fmtNum(e.val)}</div>
+        <div class="tape-time">${dateTime}</div>
+      `;
     } else if (e.type==='error') {
-      d.innerHTML = `<span>${e.val}</span><span class="tape-time">${dateTime}</span></span>`;
+      d.innerHTML = `
+        <div class="tape-operation" style="color:var(--red)">${e.val}</div>
+        <div class="tape-time">${dateTime}</div>
+      `;
     } else {
-      d.innerHTML = `<span>${e.expr}</span><span class="tape-time">${dateTime}</span></span>`;
+      d.innerHTML = `
+        <div class="tape-operation">${e.expr}</div>
+        <div class="tape-time">${dateTime}</div>
+      `;
     }
     roll.appendChild(d);
   });
