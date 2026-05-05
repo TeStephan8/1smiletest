@@ -38,6 +38,18 @@ nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 
 .nav-links a:hover{color:var(--blue-light);border-color:var(--blue-light)}
 .nav-links a.nav-cta{background:var(--gold);color:var(--blue-dark);padding:.4rem 1rem;border-radius:50px;border-bottom:none;font-weight:700;box-shadow:0 3px 10px rgba(245,166,35,.35);transition:background .2s,transform .2s}
 .nav-links a.nav-cta:hover{background:var(--gold-dark);border-color:transparent;color:var(--blue-dark);transform:translateY(-1px)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{font-weight:700;font-size:.95rem;color:var(--blue-dark);padding:.4rem 1rem;border-radius:50px;border:none;background:var(--gold);cursor:pointer;font-family:'Outfit',sans-serif;box-shadow:0 3px 10px rgba(245,166,35,.35);transition:background .2s,transform .2s;display:flex;align-items:center;gap:.4rem}
+.nav-dropdown-btn:hover{background:var(--gold-dark);transform:translateY(-1px)}
+.nav-dropdown-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .25s}
+.nav-dropdown-btn.open svg{transform:rotate(180deg)}
+.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + .5rem);right:0;background:var(--white);border-radius:var(--radius);box-shadow:0 8px 30px rgba(13,45,107,.15);border:1px solid var(--blue-pale);min-width:200px;overflow:hidden;z-index:999}
+.nav-dropdown-menu.open{display:block;animation:ddFade .18s ease}
+@keyframes ddFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.nav-dropdown-menu a{display:flex;align-items:center;gap:.7rem;padding:.75rem 1.1rem;font-size:.9rem;font-weight:600;color:var(--blue-dark);border-bottom:1px solid var(--blue-pale);transition:background .2s}
+.nav-dropdown-menu a:last-child{border-bottom:none}
+.nav-dropdown-menu a:hover{background:var(--blue-pale);color:var(--blue-mid)}
+.nav-dropdown-menu a span.dd-icon{font-size:1.1rem;flex-shrink:0}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .hamburger span{display:block;width:26px;height:3px;background:var(--blue-dark);border-radius:3px;transition:.3s}
 
@@ -277,7 +289,16 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
       <li><a href="#chi-siamo">Chi siamo</a></li>
       <li><a href="#blog-news">Blog & News</a></li>
       <li><a href="#contatti">Contatti</a></li>
-      <li><a href="calcolatore-ipca.html" class="nav-cta">📊 Calcola IPCA</a></li>
+      <li class="nav-dropdown" id="utilityDropdown">
+        <button class="nav-dropdown-btn" id="utilityBtn" onclick="toggleUtility()">
+          🛠️ Utility
+          <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" id="utilityMenu">
+          <a href="calcolatore-ipca.html"><span class="dd-icon">📊</span>Calcolatore IPCA</a>
+          <a href="utility.html#calcolatrice"><span class="dd-icon">🧮</span>Calcolatrice finanziaria</a>
+        </div>
+      </li>
     </ul>
     <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
@@ -421,13 +442,6 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
       </div>
     </div>
 
-    <div class="tool-card fade-up">
-      <div class="tool-card-text">
-        <h3>📊 Calcolatore IPCA gratuito</h3>
-        <p>Rivaluta importi contrattuali con i dati ufficiali ISTAT. Strumento professionale con archivio calcoli, serie storica e calcolatrice rapida.</p>
-      </div>
-      <a href="calcolatore-ipca.html" class="tool-card-btn">Apri il calcolatore →</a>
-    </div>
 
   </div>
 </section>
@@ -707,7 +721,21 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.5rem 1.
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Hamburger
+// Utility dropdown
+function toggleUtility() {
+  const btn = document.getElementById('utilityBtn');
+  const menu = document.getElementById('utilityMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const dd = document.getElementById('utilityDropdown');
+  if (dd && !dd.contains(e.target)) {
+    document.getElementById('utilityBtn')?.classList.remove('open');
+    document.getElementById('utilityMenu')?.classList.remove('open');
+  }
+});
+
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 function toggleMenu(e){ e.preventDefault(); navLinks.classList.toggle('open'); }

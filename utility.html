@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utility – Strumenti Professionali | 1SMILE Studio Fiscale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue-dark:#0d2d6b;--blue-mid:#1a4fa8;--blue-light:#2d7dd2;
+  --blue-pale:#e8f1fb;--gold:#f5a623;--gold-dark:#d4881a;
+  --white:#ffffff;--gray-light:#f4f7fc;--gray-mid:#8b9ab5;
+  --gray-text:#3d4d66;--green:#2e9e6b;--red:#d94f4f;
+  --tape-bg:#fdf9f0;--tape-line:#e8e0cc;
+  --shadow-card:0 4px 24px rgba(13,45,107,.10);
+  --shadow-lg:0 12px 48px rgba(13,45,107,.18);
+  --radius:14px;--radius-lg:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;color:var(--gray-text);background:var(--gray-light);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:var(--white);box-shadow:0 2px 16px rgba(13,45,107,.10)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;gap:1rem}
+.nav-logo img{height:52px;width:auto;transition:transform .3s}
+.nav-logo:hover img{transform:scale(1.04)}
+.nav-back{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.92rem;color:var(--blue-mid);padding:.4rem .9rem;border:2px solid var(--blue-pale);border-radius:50px;transition:all .25s}
+.nav-back:hover{background:var(--blue-pale);border-color:var(--blue-mid)}
+.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 55%,var(--blue-light) 100%);padding:2.5rem 1.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:600;color:#fff;margin-bottom:.8rem}
+.hero h1{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{color:rgba(255,255,255,.75);font-size:.92rem}
+
+/* HUB */
+.hub{max-width:1200px;margin:0 auto;padding:2rem 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.hub-card{background:var(--white);border-radius:var(--radius-lg);padding:1.8rem;box-shadow:var(--shadow-card);border:2px solid transparent;transition:transform .3s,box-shadow .3s,border-color .3s;display:flex;flex-direction:column;gap:1rem}
+.hub-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--blue-pale)}
+.hub-icon{width:56px;height:56px;border-radius:14px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.hub-card h2{font-size:1.1rem;font-weight:700;color:var(--blue-dark)}
+.hub-card p{color:var(--gray-mid);font-size:.88rem;line-height:1.6;flex:1}
+.hub-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-mid);color:#fff;padding:.6rem 1.2rem;border-radius:50px;font-weight:700;font-size:.88rem;transition:background .2s,transform .2s;align-self:flex-start}
+.hub-btn:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.hub-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* DIVIDER */
+.section-divider{max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem}
+.divider-line{border:none;border-top:2px solid var(--blue-pale)}
+
+/* CALC SECTION */
+.calc-section{max-width:1200px;margin:0 auto;padding:0 1.5rem 3rem}
+.calc-header{margin-bottom:1.5rem}
+.calc-label{display:inline-block;background:var(--blue-pale);color:var(--blue-mid);padding:.3rem .9rem;border-radius:50px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+.calc-header h2{font-size:1.5rem;font-weight:800;color:var(--blue-dark)}
+.calc-header p{color:var(--gray-mid);font-size:.9rem;margin-top:.3rem}
+
+/* CALC LAYOUT */
+.calc-wrap{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;align-items:start}
+
+/* CALCULATOR BODY */
+.calc-body{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden}
+.calc-screen-wrap{background:var(--blue-dark);padding:1.2rem 1.2rem .8rem}
+.calc-mode-row{display:flex;gap:.4rem;margin-bottom:.8rem;flex-wrap:wrap}
+.mode-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:.25rem .65rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn.active{background:var(--gold);color:var(--blue-dark);border-color:var(--gold)}
+.calc-memory-row{display:flex;gap:.3rem;margin-bottom:.5rem}
+.mem-val{font-size:.72rem;color:rgba(255,255,255,.5);font-family:'Source Code Pro',monospace}
+.calc-expression{font-family:'Source Code Pro',monospace;font-size:.8rem;color:rgba(255,255,255,.55);text-align:right;min-height:1rem;margin-bottom:.2rem;word-break:break-all}
+.calc-display{font-family:'Source Code Pro',monospace;font-size:2rem;font-weight:600;color:#fff;text-align:right;line-height:1.1;word-break:break-all;min-height:2.4rem}
+.calc-display.error{color:var(--red);font-size:1.4rem}
+.calc-hint{font-size:.7rem;color:rgba(255,255,255,.35);text-align:right;margin-top:.3rem;min-height:.9rem}
+
+.calc-keys{padding:.8rem}
+.calc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem}
+.key{border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;padding:.7rem .3rem;transition:transform .12s,background .15s;user-select:none;-webkit-tap-highlight-color:transparent}
+.key:active{transform:scale(.91)}
+.key.num{background:var(--gray-light);color:var(--blue-dark)}
+.key.num:hover{background:#e0e8f5}
+.key.op{background:#ddeaf8;color:var(--blue-mid)}
+.key.op:hover{background:#c8dcf5}
+.key.fn{background:#eef3ff;color:var(--blue-dark);font-size:.75rem}
+.key.fn:hover{background:#dde8ff}
+.key.eq{background:var(--gold);color:var(--blue-dark);box-shadow:0 3px 10px rgba(245,166,35,.3)}
+.key.eq:hover{background:var(--gold-dark)}
+.key.clear{background:#fde8e8;color:var(--red)}
+.key.clear:hover{background:#fbd2d2}
+.key.back{background:#fde8e8;color:var(--red)}
+.key.wide2{grid-column:span 2}
+.key.wide3{grid-column:span 3}
+
+/* FINANCIAL FUNCTIONS */
+.fin-section{background:var(--blue-pale);border-top:1px solid #d4e5f7;padding:.7rem .8rem}
+.fin-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue-mid);margin-bottom:.5rem}
+.fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+.fin-key{background:var(--white);border:1px solid #c8dcf5;border-radius:8px;font-family:'Outfit',sans-serif;font-size:.68rem;font-weight:600;color:var(--blue-dark);cursor:pointer;padding:.45rem .2rem;text-align:center;transition:all .2s;line-height:1.2}
+.fin-key:hover{background:var(--blue-mid);color:#fff;border-color:var(--blue-mid)}
+
+/* TAPE / SCONTRINO */
+.tape-wrap{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);overflow:hidden;display:flex;flex-direction:column}
+.tape-header{background:var(--blue-dark);padding:.9rem 1.2rem;display:flex;align-items:center;justify-content:space-between}
+.tape-title{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.tape-title svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tape-actions{display:flex;gap:.5rem}
+.tape-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:.25rem .6rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s}
+.tape-btn:hover{background:rgba(255,255,255,.25)}
+.tape-btn.danger:hover{background:rgba(217,79,79,.5);color:#fff}
+.tape-roll{
+  flex:1;overflow-y:auto;
+  background:var(--tape-bg);
+  min-height:480px;max-height:600px;
+  padding:1rem;
+  font-family:'Source Code Pro',monospace;
+  font-size:.82rem;
+  scroll-behavior:smooth;
+}
+.tape-roll::-webkit-scrollbar{width:5px}
+.tape-roll::-webkit-scrollbar-track{background:var(--tape-bg)}
+.tape-roll::-webkit-scrollbar-thumb{background:var(--tape-line);border-radius:3px}
+
+/* Tape lines */
+.tape-entry{border-bottom:1px dashed var(--tape-line);padding:.35rem 0;display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;animation:tapeIn .18s ease}
+@keyframes tapeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.tape-entry .t-expr{color:#7a6a50;font-size:.78rem;flex:1;word-break:break-all}
+.tape-entry .t-val{font-weight:600;color:var(--blue-dark);text-align:right;white-space:nowrap}
+.tape-entry .t-val.neg{color:var(--red)}
+.tape-entry .t-val.zero{color:var(--gray-mid)}
+.tape-entry.separator{border-bottom:2px solid var(--tape-line);margin:.3rem 0;padding:0}
+.tape-entry.memory-line{background:rgba(245,166,35,.08);border-radius:4px;padding:.3rem .4rem}
+.tape-entry .t-label{font-size:.72rem;color:var(--gray-mid);text-transform:uppercase;letter-spacing:.04em}
+.tape-entry.result-line{background:rgba(26,79,168,.06);border-radius:4px;padding:.35rem .5rem;border-left:3px solid var(--blue-mid)}
+.tape-entry.result-line .t-val{color:var(--blue-mid);font-size:.95rem}
+.tape-entry.fin-line{background:rgba(46,158,107,.07);border-radius:4px;padding:.35rem .5rem;border-left:3px solid var(--green)}
+.tape-entry.fin-line .t-val{color:var(--green)}
+.tape-header-line{text-align:center;color:#a89878;font-size:.72rem;padding:.4rem 0;border-bottom:2px solid var(--tape-line);margin-bottom:.5rem;letter-spacing:.05em}
+.tape-empty{text-align:center;color:#c4b898;font-size:.85rem;padding:2rem;line-height:1.8}
+.tape-empty span{display:block;font-size:1.8rem;margin-bottom:.5rem;opacity:.5}
+.tape-footer{background:var(--blue-dark);padding:.6rem 1.2rem;display:flex;align-items:center;justify-content:space-between}
+.tape-total-label{color:rgba(255,255,255,.55);font-size:.75rem;font-weight:600;font-family:'Source Code Pro',monospace}
+.tape-total-val{color:var(--gold);font-size:1rem;font-weight:700;font-family:'Source Code Pro',monospace}
+
+/* FOOTER */
+footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.5rem;font-size:.85rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.footer-wordmark{font-size:1.2rem;font-weight:800}
+.fw-one{color:var(--gold)}.fw-smile{color:#fff}
+.footer-back{color:rgba(255,255,255,.65);font-size:.85rem;transition:color .2s}
+.footer-back:hover{color:var(--gold)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .calc-wrap{grid-template-columns:1fr}
+  .tape-roll{min-height:280px;max-height:320px}
+}
+@media(max-width:480px){
+  .hub{grid-template-columns:1fr}
+  .hero{padding:2rem 1.2rem}
+  .calc-section,.hub{padding-left:1rem;padding-right:1rem}
+  .calc-grid{gap:.3rem}
+  .key{font-size:.8rem;padding:.6rem .2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="1SMILE Studio Fiscale"></a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+      Torna al sito
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🛠️ Strumenti professionali · 1SMILE Studio Fiscale</div>
+    <h1>Utility <em>professionali</em></h1>
+    <p>Strumenti gratuiti per professionisti e privati — calcoli fiscali e finanziari in un click.</p>
+  </div>
+</section>
+
+<!-- HUB CARDS -->
+<div class="hub">
+  <div class="hub-card">
+    <div class="hub-icon">📊</div>
+    <h2>Calcolatore IPCA</h2>
+    <p>Rivaluta importi contrattuali con i dati ISTAT ufficiali. Serie storica dal 1997, archivio calcoli, dettaglio anno per anno.</p>
+    <a href="calcolatore-ipca.html" class="hub-btn">
+      Apri il calcolatore
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+  </div>
+  <div class="hub-card">
+    <div class="hub-icon">🧮</div>
+    <h2>Calcolatrice Finanziaria</h2>
+    <p>Calcolatrice professionale con scontrino a rullo, funzioni finanziarie (IVA, sconto, margine, interesse), memoria e storico completo.</p>
+    <a href="#calcolatrice" class="hub-btn">
+      Apri la calcolatrice
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+  </div>
+</div>
+
+<div class="section-divider"><hr class="divider-line"></div>
+
+<!-- CALCOLATRICE FINANZIARIA -->
+<section class="calc-section" id="calcolatrice" style="scroll-margin-top:90px">
+  <div class="calc-header">
+    <span class="calc-label">Calcolatrice Finanziaria</span>
+    <h2>Calcolatrice con scontrino a rullo</h2>
+    <p>Funzioni finanziarie, memoria, storico completo dei calcoli. Usa i tasti funzione per calcoli veloci su IVA, sconti e margini.</p>
+  </div>
+  <div class="calc-wrap">
+
+    <!-- BODY -->
+    <div class="calc-body">
+      <div class="calc-screen-wrap">
+        <div class="calc-mode-row">
+          <button class="mode-btn active" data-mode="std" onclick="setMode('std')">Standard</button>
+          <button class="mode-btn" data-mode="iva" onclick="setMode('iva')">IVA</button>
+          <button class="mode-btn" data-mode="pct" onclick="setMode('pct')">%</button>
+        </div>
+        <div class="calc-expression" id="calcExpr"></div>
+        <div class="calc-display" id="calcDisplay">0</div>
+        <div class="calc-hint" id="calcHint"></div>
+      </div>
+
+      <div class="calc-keys">
+        <div class="calc-grid">
+          <!-- Riga 1 -->
+          <button class="key fn" onclick="kFn('mc')">MC</button>
+          <button class="key fn" onclick="kFn('mr')">MR</button>
+          <button class="key fn" onclick="kFn('ms')">MS</button>
+          <button class="key fn" onclick="kFn('m+')">M+</button>
+          <button class="key fn" onclick="kFn('m-')">M−</button>
+          <!-- Riga 2 -->
+          <button class="key fn" onclick="kFn('sign')">+/−</button>
+          <button class="key fn" onclick="kFn('sqrt')">√</button>
+          <button class="key fn" onclick="kFn('pow2')">x²</button>
+          <button class="key fn" onclick="kFn('inv')">1/x</button>
+          <button class="key back" onclick="kBack()">⌫</button>
+          <!-- Riga 3 -->
+          <button class="key clear" onclick="kClear()">C</button>
+          <button class="key clear" onclick="kCE()">CE</button>
+          <button class="key op" onclick="kOp('/')" id="op-div">÷</button>
+          <button class="key op" onclick="kOp('*')" id="op-mul">×</button>
+          <button class="key op" onclick="kOp('%')" id="op-mod">%</button>
+          <!-- Riga 4 -->
+          <button class="key num" onclick="kNum('7')">7</button>
+          <button class="key num" onclick="kNum('8')">8</button>
+          <button class="key num" onclick="kNum('9')">9</button>
+          <button class="key op" onclick="kOp('-')" id="op-sub">−</button>
+          <button class="key fn" onclick="kFn('sep')">— —</button>
+          <!-- Riga 5 -->
+          <button class="key num" onclick="kNum('4')">4</button>
+          <button class="key num" onclick="kNum('5')">5</button>
+          <button class="key num" onclick="kNum('6')">6</button>
+          <button class="key op" onclick="kOp('+')" id="op-add">+</button>
+          <button class="key fn" onclick="kFn('tape')">📄</button>
+          <!-- Riga 6 -->
+          <button class="key num" onclick="kNum('1')">1</button>
+          <button class="key num" onclick="kNum('2')">2</button>
+          <button class="key num" onclick="kNum('3')">3</button>
+          <button class="key eq" onclick="kEquals()" style="grid-row:span 2">=</button>
+          <button class="key fn" onclick="kFn('last')">↑</button>
+          <!-- Riga 7 -->
+          <button class="key num wide2" onclick="kNum('0')">0</button>
+          <button class="key num" onclick="kDot()">.</button>
+          <button class="key fn" onclick="kFn('copy')">⎘</button>
+        </div>
+      </div>
+
+      <!-- FUNZIONI FINANZIARIE -->
+      <div class="fin-section">
+        <div class="fin-title">Funzioni finanziarie</div>
+        <div class="fin-grid">
+          <button class="fin-key" onclick="finFn('iva22')">+IVA 22%</button>
+          <button class="fin-key" onclick="finFn('iva10')">+IVA 10%</button>
+          <button class="fin-key" onclick="finFn('iva4')">+IVA 4%</button>
+          <button class="fin-key" onclick="finFn('scorporaIVA22')">Scorpora 22%</button>
+          <button class="fin-key" onclick="finFn('scorporaIVA10')">Scorpora 10%</button>
+          <button class="fin-key" onclick="finFn('scorporaIVA4')">Scorpora 4%</button>
+          <button class="fin-key" onclick="finFn('sconto')">Sconto %</button>
+          <button class="fin-key" onclick="finFn('margine')">Margine</button>
+          <button class="fin-key" onclick="finFn('ricarico')">Ricarico</button>
+          <button class="fin-key" onclick="finFn('interessi')">Interessi</button>
+          <button class="fin-key" onclick="finFn('rateizza')">Rateizza</button>
+          <button class="fin-key" onclick="finFn('arrotonda')">Arrotonda</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAPE / SCONTRINO -->
+    <div class="tape-wrap">
+      <div class="tape-header">
+        <div class="tape-title">
+          <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+          Scontrino a rullo
+        </div>
+        <div class="tape-actions">
+          <button class="tape-btn" onclick="tapePrint()">🖨 Stampa</button>
+          <button class="tape-btn danger" onclick="tapeClear()">✕ Pulisci</button>
+        </div>
+      </div>
+      <div class="tape-roll" id="tapeRoll">
+        <div class="tape-header-line">1SMILE Studio Fiscale · Utility</div>
+        <div class="tape-empty" id="tapeEmpty"><span>🧾</span>Lo scontrino è vuoto.<br>Inizia a calcolare<br>per vedere lo storico qui.</div>
+      </div>
+      <div class="tape-footer">
+        <span class="tape-total-label">TOTALE CORRENTE</span>
+        <span class="tape-total-val" id="tapeTotalVal">0,00</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-wordmark"><span class="fw-one">1</span><span class="fw-smile">SMILE</span> Studio Fiscale</span>
+    <span>Strumenti gratuiti · Solo per uso professionale interno</span>
+    <a href="index.html" class="footer-back">← Torna al sito</a>
+  </div>
+</footer>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────
+const state = {
+  display: '0',
+  expr: '',
+  operand1: null,
+  operator: null,
+  waitingForOperand2: false,
+  memory: 0,
+  lastResult: null,
+  mode: 'std',
+  ivaRate: 22,
+  decimalEntered: false,
+};
+
+const fmtNum = n => {
+  if (!isFinite(n)) return 'Errore';
+  const abs = Math.abs(n);
+  if (abs >= 1e12) return n.toExponential(4);
+  const parts = n.toFixed(abs < 1 && abs > 0 ? 8 : 2).replace(/\.?0+$/, '').split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return parts.join(',');
+};
+const parseDisp = () => parseFloat(state.display.replace(/\./g,'').replace(',','.'));
+const setDisplay = (val, hint='') => {
+  state.display = String(val);
+  document.getElementById('calcDisplay').textContent = state.display;
+  document.getElementById('calcDisplay').className = 'calc-display';
+  document.getElementById('calcHint').textContent = hint;
+};
+const setExpr = (e) => { document.getElementById('calcExpr').textContent = e; };
+const setError = (msg) => {
+  document.getElementById('calcDisplay').textContent = msg;
+  document.getElementById('calcDisplay').className = 'calc-display error';
+  state.display = '0'; state.operand1 = null; state.operator = null;
+};
+const highlightOp = (op) => {
+  ['add','sub','mul','div','mod'].forEach(id => {
+    const el = document.getElementById('op-'+id);
+    if (el) el.style.background = '';
+  });
+  const map = {'+':'add','-':'sub','*':'mul','/':'div','%':'mod'};
+  if (op && map[op]) {
+    const el = document.getElementById('op-'+map[op]);
+    if (el) el.style.background = '#b3cfed';
+  }
+};
+const updateTapeTotal = () => {
+  const val = state.lastResult !== null ? state.lastResult : parseDisp();
+  document.getElementById('tapeTotalVal').textContent = fmtNum(isFinite(val)?val:0);
+};
+
+// ─── TAPE ─────────────────────────────────────────────────
+let tapeEntries = [];
+
+function tapeAdd(type, expr, val, label='') {
+  const entry = {type, expr, val, label, ts: Date.now()};
+  tapeEntries.push(entry);
+  renderTape();
+  updateTapeTotal();
+}
+
+function renderTape() {
+  const roll = document.getElementById('tapeRoll');
+  const empty = document.getElementById('tapeEmpty');
+  if (!tapeEntries.length) {
+    empty.style.display = 'block'; return;
+  }
+  empty.style.display = 'none';
+  // Rebuild from scratch
+  const header = roll.querySelector('.tape-header-line');
+  roll.innerHTML = '';
+  if (header) roll.appendChild(header);
+  else {
+    const h = document.createElement('div');
+    h.className = 'tape-header-line';
+    h.textContent = '1SMILE Studio Fiscale · Utility';
+    roll.appendChild(h);
+  }
+  // Empty placeholder (hidden)
+  const ep = document.createElement('div');
+  ep.id = 'tapeEmpty'; ep.className = 'tape-empty'; ep.style.display = 'none';
+  ep.innerHTML = '<span>🧾</span>Lo scontrino è vuoto.';
+  roll.appendChild(ep);
+
+  tapeEntries.forEach(e => {
+    const div = document.createElement('div');
+    if (e.type === 'sep') {
+      div.className = 'tape-entry separator';
+    } else if (e.type === 'result') {
+      div.className = 'tape-entry result-line';
+      const valCls = e.val < 0 ? 'neg' : e.val === 0 ? 'zero' : '';
+      div.innerHTML = `<span class="t-expr">${e.expr}</span><span class="t-val ${valCls}">= ${fmtNum(e.val)}</span>`;
+    } else if (e.type === 'fin') {
+      div.className = 'tape-entry fin-line';
+      div.innerHTML = `<span class="t-expr">${e.expr}</span><span class="t-val">${fmtNum(e.val)}</span>`;
+    } else if (e.type === 'mem') {
+      div.className = 'tape-entry memory-line';
+      div.innerHTML = `<span class="t-label">${e.label}</span><span class="t-val">${fmtNum(e.val)}</span>`;
+    } else {
+      const valCls = e.val < 0 ? 'neg' : '';
+      div.className = 'tape-entry';
+      div.innerHTML = `<span class="t-expr">${e.expr}</span><span class="t-val ${valCls}">${fmtNum(e.val)}</span>`;
+    }
+    roll.appendChild(div);
+  });
+  roll.scrollTop = roll.scrollHeight;
+}
+
+function tapeClear() {
+  if (tapeEntries.length && !confirm('Pulire lo scontrino?')) return;
+  tapeEntries = [];
+  const roll = document.getElementById('tapeRoll');
+  roll.innerHTML = `
+    <div class="tape-header-line">1SMILE Studio Fiscale · Utility</div>
+    <div class="tape-empty" id="tapeEmpty"><span>🧾</span>Lo scontrino è vuoto.<br>Inizia a calcolare<br>per vedere lo storico qui.</div>`;
+  document.getElementById('tapeTotalVal').textContent = '0,00';
+}
+
+function tapePrint() {
+  if (!tapeEntries.length) { alert('Lo scontrino è vuoto.'); return; }
+  const lines = ['1SMILE Studio Fiscale – Scontrino calcoli','Data: '+new Date().toLocaleString('it-IT'),'─'.repeat(40)];
+  tapeEntries.forEach(e => {
+    if (e.type === 'sep') lines.push('─'.repeat(40));
+    else if (e.type === 'result') lines.push(`  = ${fmtNum(e.val)}   [${e.expr}]`);
+    else if (e.type === 'fin') lines.push(`  ${e.expr}: ${fmtNum(e.val)}`);
+    else if (e.type === 'mem') lines.push(`  [${e.label}]: ${fmtNum(e.val)}`);
+    else lines.push(`  ${e.expr}  ${fmtNum(e.val)}`);
+  });
+  lines.push('─'.repeat(40));
+  const w = window.open('','_blank','width=400,height=600');
+  w.document.write(`<pre style="font-family:monospace;font-size:13px;padding:20px">${lines.join('\n')}</pre>`);
+  w.print();
+}
+
+// ─── KEYS ─────────────────────────────────────────────────
+function kNum(n) {
+  if (state.waitingForOperand2) {
+    state.display = n; state.waitingForOperand2 = false;
+  } else {
+    state.display = state.display === '0' ? n : state.display + n;
+  }
+  state.decimalEntered = false;
+  setDisplay(state.display);
+}
+
+function kDot() {
+  if (state.waitingForOperand2) { state.display = '0,'; state.waitingForOperand2 = false; }
+  else if (!state.display.includes(',')) state.display += ',';
+  setDisplay(state.display);
+  state.decimalEntered = true;
+}
+
+function kOp(op) {
+  const val = parseDisp();
+  if (state.operator && !state.waitingForOperand2) {
+    const result = compute(state.operand1, val, state.operator);
+    if (!isFinite(result)) { setError('Errore'); return; }
+    tapeAdd('step', `${fmtNum(state.operand1)} ${opSym(state.operator)} ${fmtNum(val)}`, result);
+    state.operand1 = result;
+    setDisplay(fmtNum(result));
+    setExpr(`${fmtNum(result)} ${opSym(op)}`);
+  } else {
+    state.operand1 = val;
+    setExpr(`${fmtNum(val)} ${opSym(op)}`);
+  }
+  state.operator = op;
+  state.waitingForOperand2 = true;
+  highlightOp(op);
+}
+
+function kEquals() {
+  if (state.operator === null) {
+    tapeAdd('result', `${fmtNum(parseDisp())}`, parseDisp());
+    state.lastResult = parseDisp();
+    updateTapeTotal();
+    return;
+  }
+  const val2 = parseDisp();
+  const result = compute(state.operand1, val2, state.operator);
+  const exprStr = `${fmtNum(state.operand1)} ${opSym(state.operator)} ${fmtNum(val2)}`;
+  if (!isFinite(result)) { setError('Errore'); tapeAdd('result', exprStr + ' = Errore', 0); return; }
+  tapeAdd('result', exprStr, result);
+  state.lastResult = result;
+  setDisplay(fmtNum(result));
+  setExpr(exprStr + ' =');
+  state.operator = null; state.operand1 = null;
+  state.waitingForOperand2 = false;
+  highlightOp(null);
+  updateTapeTotal();
+}
+
+function kClear() {
+  state.display='0'; state.operand1=null; state.operator=null;
+  state.waitingForOperand2=false; state.lastResult=null;
+  setDisplay('0'); setExpr(''); highlightOp(null);
+  document.getElementById('calcHint').textContent='';
+}
+
+function kCE() {
+  state.display='0'; setDisplay('0');
+  state.waitingForOperand2 = false;
+}
+
+function kBack() {
+  if (state.waitingForOperand2) return;
+  if (state.display.length<=1||state.display==='-0') { state.display='0'; }
+  else state.display = state.display.slice(0,-1);
+  setDisplay(state.display);
+}
+
+function kFn(fn) {
+  const val = parseDisp();
+  switch(fn){
+    case 'sign':
+      state.display = fmtNum(-val); setDisplay(state.display); break;
+    case 'sqrt':
+      if(val<0){setError('Errore');return;}
+      const sq=Math.sqrt(val);
+      tapeAdd('fin',`√${fmtNum(val)}`,sq);
+      setDisplay(fmtNum(sq)); state.lastResult=sq; updateTapeTotal(); break;
+    case 'pow2':
+      const p2=val*val;
+      tapeAdd('fin',`${fmtNum(val)}²`,p2);
+      setDisplay(fmtNum(p2)); state.lastResult=p2; updateTapeTotal(); break;
+    case 'inv':
+      if(val===0){setError('Div/0');return;}
+      const inv=1/val;
+      tapeAdd('fin',`1/${fmtNum(val)}`,inv);
+      setDisplay(fmtNum(inv)); state.lastResult=inv; updateTapeTotal(); break;
+    case 'mc': state.memory=0; tapeAdd('mem','',0,'MC'); break;
+    case 'mr': setDisplay(fmtNum(state.memory),'← Memoria'); tapeAdd('mem','',state.memory,'MR'); break;
+    case 'ms': state.memory=val; tapeAdd('mem','',val,'MS'); break;
+    case 'm+': state.memory+=val; tapeAdd('mem','',state.memory,'M+'); break;
+    case 'm-': state.memory-=val; tapeAdd('mem','',state.memory,'M−'); break;
+    case 'sep': tapeAdd('sep','',0); break;
+    case 'tape': document.getElementById('tapeRoll').scrollTop=0; break;
+    case 'last':
+      if(state.lastResult!==null){ setDisplay(fmtNum(state.lastResult),'← Ultimo risultato'); } break;
+    case 'copy':
+      const txt=state.display.replace(/\./g,'').replace(',','.');
+      navigator.clipboard?.writeText(txt).catch(()=>{});
+      document.getElementById('calcHint').textContent='✓ Copiato';
+      setTimeout(()=>document.getElementById('calcHint').textContent='',1500); break;
+  }
+}
+
+function compute(a, b, op) {
+  switch(op){
+    case '+': return a+b;
+    case '-': return a-b;
+    case '*': return a*b;
+    case '/': return b===0?NaN:a/b;
+    case '%': return (a*b)/100;
+  }
+}
+
+function opSym(op){return{'+':'+','-':'−','*':'×','/':'÷','%':'%'}[op]||op;}
+
+// ─── FUNZIONI FINANZIARIE ─────────────────────────────────
+function finFn(fn) {
+  const val = parseDisp();
+  let result, label, desc;
+  switch(fn){
+    case 'iva22': result=val*1.22; label=`${fmtNum(val)} + IVA 22%`; tapeAdd('fin',label,result); tapeAdd('fin','→ IVA',result-val); break;
+    case 'iva10': result=val*1.10; label=`${fmtNum(val)} + IVA 10%`; tapeAdd('fin',label,result); tapeAdd('fin','→ IVA',result-val); break;
+    case 'iva4':  result=val*1.04; label=`${fmtNum(val)} + IVA 4%`;  tapeAdd('fin',label,result); tapeAdd('fin','→ IVA',result-val); break;
+    case 'scorporaIVA22': result=val/1.22; label=`Scorpora IVA22% da ${fmtNum(val)}`; tapeAdd('fin',label,result); tapeAdd('fin','→ IVA scorporata',val-result); break;
+    case 'scorporaIVA10': result=val/1.10; label=`Scorpora IVA10% da ${fmtNum(val)}`; tapeAdd('fin',label,result); tapeAdd('fin','→ IVA scorporata',val-result); break;
+    case 'scorporaIVA4':  result=val/1.04; label=`Scorpora IVA4% da ${fmtNum(val)}`; tapeAdd('fin',label,result); tapeAdd('fin','→ IVA scorporata',val-result); break;
+    case 'sconto':
+      const pct=parseFloat(prompt('Percentuale di sconto (%):','10'));
+      if(isNaN(pct)){return;}
+      result=val*(1-pct/100); label=`Sconto ${pct}% su ${fmtNum(val)}`;
+      tapeAdd('fin',label,result); tapeAdd('fin','→ Sconto',val-result); break;
+    case 'margine':
+      const costo=parseFloat(prompt('Costo di acquisto (€):',''));
+      if(isNaN(costo)||costo<=0){return;}
+      result=((val-costo)/val)*100; label=`Margine: PV ${fmtNum(val)} CA ${fmtNum(costo)}`;
+      tapeAdd('fin',label+' =',result); result=result; break;
+    case 'ricarico':
+      const ca=parseFloat(prompt('Costo di acquisto (€):',''));
+      if(isNaN(ca)||ca<=0){return;}
+      result=((val-ca)/ca)*100; label=`Ricarico: PV ${fmtNum(val)} CA ${fmtNum(ca)}`;
+      tapeAdd('fin',label+' =',result); break;
+    case 'interessi':
+      const rate=parseFloat(prompt('Tasso annuo (%):','5'));
+      const anni=parseFloat(prompt('Anni:','1'));
+      if(isNaN(rate)||isNaN(anni)){return;}
+      result=val*rate/100*anni; label=`Interessi ${fmtNum(val)} × ${rate}% × ${anni}a`;
+      tapeAdd('fin',label,result); tapeAdd('fin','→ Totale',val+result); result=val+result; break;
+    case 'rateizza':
+      const nRate=parseInt(prompt('Numero di rate:','12'));
+      if(isNaN(nRate)||nRate<=0){return;}
+      result=val/nRate; label=`${fmtNum(val)} ÷ ${nRate} rate`;
+      tapeAdd('fin',label+' =',result); break;
+    case 'arrotonda':
+      result=Math.round(val*100)/100; label=`Arrotonda ${fmtNum(val)}`;
+      tapeAdd('fin',label,result); break;
+    default: return;
+  }
+  if(result!==undefined){ state.display=fmtNum(result); setDisplay(state.display); state.lastResult=result; updateTapeTotal(); }
+}
+
+// ─── MODE ─────────────────────────────────────────────────
+function setMode(m) {
+  state.mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+  const hints = {std:'',iva:`IVA ${state.ivaRate}%`,pct:'Modalità %'};
+  document.getElementById('calcHint').textContent = hints[m]||'';
+}
+
+// ─── KEYBOARD ────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+  const k = e.key;
+  if(k>='0'&&k<='9') { kNum(k); return; }
+  if(k==='.') { kDot(); return; }
+  if(k===',') { kDot(); return; }
+  if(['+','-','*','/'].includes(k)) { kOp(k); return; }
+  if(k==='Enter'||k==='=') { kEquals(); return; }
+  if(k==='Backspace') { kBack(); return; }
+  if(k==='Escape') { kClear(); return; }
+});
+
+// Initial tape render
+renderTape();
+</script>
+</body>
+</html>

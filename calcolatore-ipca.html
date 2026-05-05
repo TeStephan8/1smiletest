@@ -125,20 +125,6 @@ input::placeholder{color:var(--gray-mid)}
 .info-box a{color:var(--blue-mid);font-weight:600}
 .info-box a:hover{text-decoration:underline}
 
-/* QUICK CALC */
-.quick-calc-title{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:.3rem}
-.quick-calc-help{font-size:.78rem;color:var(--gray-mid);margin-bottom:.8rem}
-.quick-calc-display{width:100%;padding:.7rem 1rem;border:2px solid var(--blue-pale);border-radius:var(--radius);font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:600;color:var(--blue-dark);text-align:right;margin-bottom:.8rem;transition:border-color .25s}
-.quick-calc-display:focus{outline:none;border-color:var(--blue-mid)}
-.quick-calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
-.calc-key{background:var(--gray-light);border:2px solid transparent;border-radius:var(--radius);padding:.7rem .3rem;font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:600;color:var(--blue-dark);cursor:pointer;transition:all .15s}
-.calc-key:hover{background:var(--blue-pale);border-color:var(--blue-mid)}
-.calc-key:active{transform:scale(.94)}
-.calc-key.op{background:#eef3ff;color:var(--blue-mid)}
-.calc-key.eq{background:var(--gold);color:var(--blue-dark);box-shadow:0 2px 8px rgba(245,166,35,.3)}
-.calc-key.eq:hover{background:var(--gold-dark)}
-.calc-key.wide{grid-column:span 2}
-
 /* DB CARD */
 .db-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;box-shadow:var(--shadow-card)}
 .storico-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.5rem}
@@ -206,9 +192,9 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="logo.png" alt="1SMILE Studio Fiscale"></a>
-    <a href="index.html" class="nav-back">
+    <a href="utility.html" class="nav-back">
       <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
-      Torna al sito
+      Torna alle Utility
     </a>
   </div>
 </nav>
@@ -218,7 +204,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
   <div class="hero-inner">
     <div class="hero-badge">📊 Strumento gratuito · 1SMILE Studio Fiscale</div>
     <h1>Calcolo <em>rivalutazione</em> IPCA</h1>
-    <p>Indice dei Prezzi al Consumo Armonizzato per l'Unione Europea. Aggiorna il valore di un importo tenendo conto dell'inflazione dal 1997.</p>
+    <p>Indice dei Prezzi al Consumo Armonizzato per l'Unione Europea. Aggiorna il valore di un importo tenendo conto dell'inflazione dal 1997. &nbsp;|&nbsp; <a href="utility.html" style="color:var(--gold);font-weight:700">← Torna alle Utility</a></p>
   </div>
 </section>
 
@@ -343,34 +329,6 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
       <strong>* dato provvisorio/parziale.</strong> &nbsp;|&nbsp; <strong>Ultimo aggiornamento:</strong> aprile 2026.
     </div>
 
-    <!-- CALCOLATRICE RAPIDA -->
-    <div class="card" style="margin-top:1.5rem">
-      <div class="quick-calc-title">Calcolatrice rapida</div>
-      <div class="quick-calc-help">Scrivi un'espressione e premi Invio o = per calcolare. Esc per pulire.</div>
-      <input id="quickCalcDisplay" class="quick-calc-display" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="0" aria-label="Calcolatrice rapida">
-      <div class="quick-calc-grid">
-        <button class="calc-key op" type="button" data-calc="(">(</button>
-        <button class="calc-key op" type="button" data-calc=")">)</button>
-        <button class="calc-key op" type="button" data-calc="back">⌫</button>
-        <button class="calc-key op" type="button" data-calc="clear">C</button>
-        <button class="calc-key" type="button" data-calc="7">7</button>
-        <button class="calc-key" type="button" data-calc="8">8</button>
-        <button class="calc-key" type="button" data-calc="9">9</button>
-        <button class="calc-key op" type="button" data-calc="/">÷</button>
-        <button class="calc-key" type="button" data-calc="4">4</button>
-        <button class="calc-key" type="button" data-calc="5">5</button>
-        <button class="calc-key" type="button" data-calc="6">6</button>
-        <button class="calc-key op" type="button" data-calc="*">×</button>
-        <button class="calc-key" type="button" data-calc="1">1</button>
-        <button class="calc-key" type="button" data-calc="2">2</button>
-        <button class="calc-key" type="button" data-calc="3">3</button>
-        <button class="calc-key op" type="button" data-calc="-">−</button>
-        <button class="calc-key wide" type="button" data-calc="0">0</button>
-        <button class="calc-key" type="button" data-calc=".">.</button>
-        <button class="calc-key op" type="button" data-calc="+">+</button>
-        <button class="calc-key eq wide" type="button" data-calc="=">=</button>
-      </div>
-    </div>
 
   </div><!-- /col-left -->
 
@@ -632,35 +590,6 @@ function resetForm() {
   document.getElementById('cliente').focus();
 }
 
-function initQuickCalc() {
-  const display=document.getElementById('quickCalcDisplay');
-  if (!display) return;
-  const sanitize=v=>v.replace(/,/g,'.').replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-').replace(/[^0-9+\-*/(). ]/g,'');
-  const evaluate=()=>{
-    const expr=sanitize(display.value).trim(); if (!expr) return;
-    try {
-      const result=Function('"use strict"; return ('+expr+')')();
-      if (typeof result!=='number'||!isFinite(result)) throw new Error();
-      display.value=String(result); display.select();
-    } catch { display.value='Errore'; setTimeout(()=>{if(display.value==='Errore')display.value='';},900); }
-  };
-  document.querySelectorAll('[data-calc]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const val=btn.getAttribute('data-calc');
-      if(val==='clear'){display.value='';display.focus();return;}
-      if(val==='back'){display.value=display.value.slice(0,-1);display.focus();return;}
-      if(val==='='){evaluate();return;}
-      display.value+=val; display.focus();
-    });
-  });
-  display.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){e.preventDefault();evaluate();}
-    if(e.key==='Escape'){e.preventDefault();display.value='';}
-  });
-}
-
-document.addEventListener('keydown',e=>{ if(e.key==='Enter'&&document.activeElement.tagName!=='INPUT') calculate(); });
-initQuickCalc();
 renderStorico();
 </script>
 </body>
