@@ -155,6 +155,35 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
 .footer-back{color:rgba(255,255,255,.65);font-size:.85rem;transition:color .2s}
 .footer-back:hover{color:var(--gold)}
 
+/* DATE CALCULATOR */
+.date-calc-wrap{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:2rem}
+.date-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:1.5rem}
+.date-input-group{display:flex;flex-direction:column;gap:.4rem}
+.date-input-group label{font-size:.85rem;font-weight:600;color:var(--blue-dark)}
+.date-input-group input{padding:.7rem 1rem;border:2px solid var(--blue-pale);border-radius:10px;font-family:'Outfit',sans-serif;font-size:.95rem;color:var(--gray-text);transition:border-color .2s}
+.date-input-group input:focus{outline:none;border-color:var(--blue-mid)}
+.date-options{margin-bottom:1.5rem}
+.date-options-title{font-size:.85rem;font-weight:600;color:var(--blue-dark);margin-bottom:.7rem}
+.date-mode-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.date-mode-btn{background:var(--blue-pale);border:2px solid transparent;color:var(--blue-mid);padding:.5rem 1rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.date-mode-btn:hover{background:#d4e5f7}
+.date-mode-btn.active{background:var(--blue-mid);color:#fff;border-color:var(--blue-mid)}
+.date-exclude-section{margin-top:1rem;padding:1rem;background:var(--gray-light);border-radius:12px;display:none}
+.date-exclude-section.show{display:block}
+.date-exclude-title{font-size:.8rem;font-weight:600;color:var(--gray-mid);margin-bottom:.6rem}
+.date-exclude-grid{display:flex;flex-wrap:wrap;gap:.5rem}
+.date-exclude-chk{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--gray-text);cursor:pointer}
+.date-exclude-chk input{width:16px;height:16px;accent-color:var(--blue-mid)}
+.date-calc-btn{background:var(--blue-mid);color:#fff;padding:.8rem 2rem;border-radius:50px;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s,transform .2s;border:none;display:inline-flex;align-items:center;gap:.5rem}
+.date-calc-btn:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.date-result{margin-top:1.5rem;padding:1.2rem;background:var(--blue-pale);border-radius:12px;display:none}
+.date-result.show{display:block}
+.date-result-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--blue-mid);margin-bottom:.5rem}
+.date-result-value{font-size:2rem;font-weight:800;color:var(--blue-dark);line-height:1.2}
+.date-result-detail{font-size:.9rem;color:var(--gray-mid);margin-top:.3rem}
+.date-result-breakdown{margin-top:1rem;padding-top:1rem;border-top:1px solid #d4e5f7;font-size:.85rem;color:var(--gray-mid)}
+.date-result-breakdown div{margin-bottom:.3rem}
+
 /* RESPONSIVE */
 @media(max-width:860px){
   .calc-wrap{grid-template-columns:1fr}
@@ -166,6 +195,7 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
   .calc-section,.hub{padding-left:1rem;padding-right:1rem}
   .calc-grid{gap:.3rem}
   .key{font-size:.8rem;padding:.6rem .2rem}
+  .date-inputs{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -208,6 +238,15 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
     <p>Calcolatrice professionale con scontrino a rullo, funzioni finanziarie (IVA, sconto, margine, interesse), memoria e storico completo.</p>
     <a href="calcolatrice-finanziaria.html" class="hub-btn">
       Apri la calcolatrice
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+  </div>
+  <div class="hub-card">
+    <div class="hub-icon">📅</div>
+    <h2>Calcolatore Giorni</h2>
+    <p>Calcola i giorni tra due date. Opzioni: tutti i giorni, solo lavorativi, o esclusione di giorni specifici (lunedì, domenica, ecc.).</p>
+    <a href="calcolatore-giorni.html" class="hub-btn">
+      Apri il calcolatore
       <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
     </a>
   </div>
@@ -324,6 +363,63 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:1.2rem 1.
       </div>
     </div>
 
+  </div>
+</section>
+
+<div class="section-divider"><hr class="divider-line"></div>
+
+<!-- CALCOLATORE GIORNI -->
+<section class="calc-section" id="calcolatore-giorni" style="scroll-margin-top:90px">
+  <div class="calc-header">
+    <span class="calc-label">Calcolatore Giorni</span>
+    <h2>Calcola i giorni tra due date</h2>
+    <p>Seleziona una modalità di calcolo e personalizza le esclusioni per ottenere il conteggio preciso dei giorni.</p>
+  </div>
+  <div class="date-calc-wrap">
+    <div class="date-inputs">
+      <div class="date-input-group">
+        <label for="dateFrom">Data di inizio</label>
+        <input type="date" id="dateFrom">
+      </div>
+      <div class="date-input-group">
+        <label for="dateTo">Data di fine</label>
+        <input type="date" id="dateTo">
+      </div>
+    </div>
+
+    <div class="date-options">
+      <div class="date-options-title">Modalità di calcolo</div>
+      <div class="date-mode-grid">
+        <button class="date-mode-btn active" data-mode="all" onclick="setDateMode('all')">Tutti i giorni</button>
+        <button class="date-mode-btn" data-mode="working" onclick="setDateMode('working')">Solo giorni lavorativi</button>
+        <button class="date-mode-btn" data-mode="custom" onclick="setDateMode('custom')">Personalizzato</button>
+      </div>
+    </div>
+
+    <div class="date-exclude-section" id="dateExcludeSection">
+      <div class="date-exclude-title">Escludi questi giorni della settimana:</div>
+      <div class="date-exclude-grid">
+        <label class="date-exclude-chk"><input type="checkbox" value="1" data-day="Lunedì"> Lunedì</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="2" data-day="Martedì"> Martedì</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="3" data-day="Mercoledì"> Mercoledì</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="4" data-day="Giovedì"> Giovedì</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="5" data-day="Venerdì"> Venerdì</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="6" data-day="Sabato"> Sabato</label>
+        <label class="date-exclude-chk"><input type="checkbox" value="0" data-day="Domenica"> Domenica</label>
+      </div>
+    </div>
+
+    <button class="date-calc-btn" onclick="calculateDays()">
+      <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+      Calcola giorni
+    </button>
+
+    <div class="date-result" id="dateResult">
+      <div class="date-result-title">Risultato</div>
+      <div class="date-result-value" id="dateResultValue">0 giorni</div>
+      <div class="date-result-detail" id="dateResultDetail"></div>
+      <div class="date-result-breakdown" id="dateResultBreakdown"></div>
+    </div>
   </div>
 </section>
 
@@ -664,6 +760,106 @@ document.addEventListener('keydown', e => {
 
 // Initial tape render
 renderTape();
+
+// ─── DATE CALCULATOR ─────────────────────────────────────────
+let dateMode = 'all';
+
+function setDateMode(mode) {
+  dateMode = mode;
+  document.querySelectorAll('.date-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  const excludeSection = document.getElementById('dateExcludeSection');
+  if (mode === 'custom') {
+    excludeSection.classList.add('show');
+  } else {
+    excludeSection.classList.remove('show');
+  }
+}
+
+function calculateDays() {
+  const fromInput = document.getElementById('dateFrom').value;
+  const toInput = document.getElementById('dateTo').value;
+  
+  if (!fromInput || !toInput) {
+    alert('Seleziona entrambe le date');
+    return;
+  }
+  
+  const fromDate = new Date(fromInput);
+  const toDate = new Date(toInput);
+  
+  if (fromDate > toDate) {
+    alert('La data di inizio deve essere precedente o uguale alla data di fine');
+    return;
+  }
+  
+  let totalDays = 0;
+  let excludedDays = 0;
+  let workingDays = 0;
+  let weekendDays = 0;
+  const dayCounts = {0:0,1:0,2:0,3:0,4:0,5:0,6:0};
+  const dayNames = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+  
+  const excludeDays = new Set();
+  if (dateMode === 'working') {
+    excludeDays.add(0); // Domenica
+    excludeDays.add(6); // Sabato
+  } else if (dateMode === 'custom') {
+    document.querySelectorAll('.date-exclude-chk input:checked').forEach(chk => {
+      excludeDays.add(parseInt(chk.value));
+    });
+  }
+  
+  const current = new Date(fromDate);
+  while (current <= toDate) {
+    const dayOfWeek = current.getDay();
+    dayCounts[dayOfWeek]++;
+    
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      weekendDays++;
+    } else {
+      workingDays++;
+    }
+    
+    if (excludeDays.has(dayOfWeek)) {
+      excludedDays++;
+    } else {
+      totalDays++;
+    }
+    
+    current.setDate(current.getDate() + 1);
+  }
+  
+  const resultDiv = document.getElementById('dateResult');
+  const resultValue = document.getElementById('dateResultValue');
+  const resultDetail = document.getElementById('dateResultDetail');
+  const resultBreakdown = document.getElementById('dateResultBreakdown');
+  
+  let modeText = '';
+  if (dateMode === 'all') modeText = 'Tutti i giorni';
+  else if (dateMode === 'working') modeText = 'Solo giorni lavorativi';
+  else modeText = 'Personalizzato';
+  
+  resultValue.textContent = `${totalDays} giorno${totalDays !== 1 ? 'i' : ''}`;
+  resultDetail.textContent = `${modeText} dal ${formatDateIt(fromDate)} al ${formatDateIt(toDate)}`;
+  
+  let breakdown = `<div>Totale giorni nel periodo: ${workingDays + weekendDays}</div>`;
+  breakdown += `<div>Giorni lavorativi (Lun-Ven): ${workingDays}</div>`;
+  breakdown += `<div>Weekend (Sab-Dom): ${weekendDays}</div>`;
+  
+  if (dateMode !== 'all') {
+    breakdown += `<div>Giorni esclusi: ${excludedDays}</div>`;
+    const excludedNames = [];
+    excludeDays.forEach(day => excludedNames.push(dayNames[day]));
+    breakdown += `<div>Giorni esclusi: ${excludedNames.join(', ')}</div>`;
+  }
+  
+  resultBreakdown.innerHTML = breakdown;
+  resultDiv.classList.add('show');
+}
+
+function formatDateIt(date) {
+  return date.toLocaleDateString('it-IT', {day:'2-digit',month:'2-digit',year:'numeric'});
+}
 </script>
 </body>
 </html>
