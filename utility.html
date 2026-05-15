@@ -847,7 +847,10 @@
             </div>
 
             <div class="results" id="ipcaResults" style="display: none;">
-                <h3>Risultato</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Risultato</h3>
+                    <button class="btn-primary" onclick="saveIPCAPDF()" style="padding: 0.5rem 1rem; font-size: 0.9rem;">📄 Salva PDF</button>
+                </div>
                 <div class="result-grid">
                     <div class="result-item">
                         <label>Importo rivalutato</label>
@@ -988,6 +991,10 @@
                     <div class="form-group">
                         <label>Data</label>
                         <input type="date" id="dayOfWeekDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Città (opzionale)</label>
+                        <input type="text" id="dayOfWeekCity" placeholder="es. Milano, Roma">
                     </div>
                 </div>
                 <button class="btn-primary" onclick="calculateDayOfWeek()">Calcola giorno</button>
@@ -1444,6 +1451,108 @@
             }
         }
 
+        function saveIPCAPDF() {
+            const cliente = document.getElementById('ipcaCliente').value || 'N/A';
+            const meseContratto = document.getElementById('ipcaMese');
+            const meseContrattoText = meseContratto.options[meseContratto.selectedIndex].text;
+            const annoContratto = document.getElementById('ipcaAnno').value;
+            const importo = document.getElementById('ipcaImporto').value;
+            const daMese = document.getElementById('ipcaDaMese');
+            const daMeseText = daMese.options[daMese.selectedIndex].text;
+            const daAnno = document.getElementById('ipcaDaAnno').value;
+            const aMese = document.getElementById('ipcaAMese');
+            const aMeseText = aMese.options[aMese.selectedIndex].text;
+            const aAnno = document.getElementById('ipcaAAnno').value;
+            const rivalutato = document.getElementById('resRivalutato').textContent;
+            const originale = document.getElementById('resOriginale').textContent;
+            const differenza = document.getElementById('resDifferenza').textContent;
+            const inflazione = document.getElementById('resInflazione').textContent;
+            const dettaglio = document.getElementById('ipcaDettaglio').innerHTML;
+
+            const now = new Date();
+            const dateTime = now.toLocaleString('it-IT', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            let pdfContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rivalutazione IPCA - 1SMILE Studio Fiscale</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+        h1 { color: #0d2d6b; border-bottom: 2px solid #0d2d6b; padding-bottom: 10px; }
+        h2 { color: #1a4fa8; margin-top: 20px; }
+        .header-info { margin-bottom: 20px; font-size: 12px; color: #666; }
+        .section { margin-bottom: 20px; padding: 15px; background: #f4f7fc; border-radius: 8px; }
+        .section h3 { margin-top: 0; color: #0d2d6b; }
+        .data-row { display: flex; justify-content: space-between; margin: 5px 0; }
+        .data-label { font-weight: bold; }
+        .data-value { color: #1a4fa8; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #0d2d6b; color: white; }
+        .footer { margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 11px; color: #666; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Rivalutazione Monetaria IPCA</h1>
+    <div class="header-info">
+        1SMILE Studio Fiscale · Via Angelo Belloni 1, 20162 Milano<br>
+        Generato il: ${dateTime}
+    </div>
+
+    <div class="section">
+        <h3>Dati Contratto</h3>
+        <div class="data-row"><span class="data-label">Cliente:</span><span class="data-value">${cliente}</span></div>
+        <div class="data-row"><span class="data-label">Mese partenza:</span><span class="data-value">${meseContrattoText} ${annoContratto}</span></div>
+    </div>
+
+    <div class="section">
+        <h3>Parametri Calcolo</h3>
+        <div class="data-row"><span class="data-label">Importo originale:</span><span class="data-value">${originale}</span></div>
+        <div class="data-row"><span class="data-label">Periodo:</span><span class="data-value">${daMeseText} ${daAnno} → ${aMeseText} ${aAnno}</span></div>
+    </div>
+
+    <div class="section">
+        <h3>Risultato</h3>
+        <div class="data-row"><span class="data-label">Importo rivalutato:</span><span class="data-value">${rivalutato}</span></div>
+        <div class="data-row"><span class="data-label">Differenza:</span><span class="data-value">${differenza}</span></div>
+        <div class="data-row"><span class="data-label">Inflazione totale:</span><span class="data-value">${inflazione}</span></div>
+    </div>
+
+    <h2>Dettaglio Anno per Anno</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Anno</th>
+                <th>Tasso IPCA</th>
+                <th>Valore dopo</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${dettaglio}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Fonte: ISTAT.it · Dati ufficiali dell'Indice dei Prezzi al Consumo Armonizzato per l'Unione Europea<br>
+        Ultimo aggiornamento: aprile 2026 · 1SMILE Studio Fiscale · P.IVA e C.F. 01234567890
+    </div>
+</body>
+</html>`;
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(pdfContent);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
         // ===== CALCOLATORE GIORNI =====
         document.querySelectorAll('input[name="calcMode"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -1501,14 +1610,15 @@
                 return;
             }
 
+            const cityInput = document.getElementById('dayOfWeekCity').value;
             const date = new Date(dateInput);
             const days = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
             const dayName = days[date.getDay()];
-            
+
             const today = new Date();
             const diffTime = today - date;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
+
             let timeAgo = '';
             if (diffDays < 0) {
                 timeAgo = `Tra ${Math.abs(diffDays)} giorni`;
@@ -1522,14 +1632,33 @@
 
             const year = date.getFullYear();
             const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-            
+
             const dayOfYear = Math.floor((date - new Date(year, 0, 0)) / (1000 * 60 * 60 * 24));
-            
+
             const weekNumber = getWeekNumber(date);
-            
+
             const zodiacSign = getZodiacSign(date.getDate(), date.getMonth() + 1);
             const saint = getSaintOfDay(date.getDate(), date.getMonth() + 1);
             const holiday = getItalianHoliday(date.getDate(), date.getMonth() + 1, year);
+
+            // Fetch weather if city is provided
+            if (cityInput && cityInput.trim()) {
+                fetchHistoricalWeather(cityInput, date).then(weatherInfo => {
+                    displayDayOfWeekResult(dayName, date, timeAgo, dayOfYear, weekNumber, saint, holiday, zodiacSign, isLeapYear, weatherInfo);
+                }).catch(error => {
+                    console.error('Errore meteo:', error);
+                    displayDayOfWeekResult(dayName, date, timeAgo, dayOfYear, weekNumber, saint, holiday, zodiacSign, isLeapYear, null);
+                });
+            } else {
+                displayDayOfWeekResult(dayName, date, timeAgo, dayOfYear, weekNumber, saint, holiday, zodiacSign, isLeapYear, null);
+            }
+        }
+
+        function displayDayOfWeekResult(dayName, date, timeAgo, dayOfYear, weekNumber, saint, holiday, zodiacSign, isLeapYear, weatherInfo) {
+            let weatherHtml = '';
+            if (weatherInfo) {
+                weatherHtml = `<strong>🌤️ Meteo:</strong> ${weatherInfo}<br>`;
+            }
 
             const content = `
                 <div style="font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem;">${dayName}</div>
@@ -1540,6 +1669,7 @@
                     <strong>📆 Settimana dell'anno:</strong> ${weekNumber}<br>
                     <strong>✝️ Santo del giorno:</strong> ${saint}<br>
                     <strong>🎉 Festività:</strong> ${holiday || 'Nessuna festività in questo giorno'}<br>
+                    ${weatherHtml}
                     <strong>♈ Segno zodiacale:</strong> ${zodiacSign}<br>
                     <strong>🌟 Anno bisestile:</strong> ${isLeapYear ? 'Sì' : 'No'}
                 </div>
@@ -1547,6 +1677,59 @@
 
             document.getElementById('dayOfWeekContent').innerHTML = content;
             document.getElementById('dayOfWeekResult').style.display = 'block';
+        }
+
+        async function fetchHistoricalWeather(city, date) {
+            // API KEY - Sostituisci con la tua chiave API OpenWeatherMap
+            const API_KEY = '1064ecc72b759163a061fce8b14248c3';
+
+            if (API_KEY === 'YOUR_OPENWEATHERMAP_API_KEY') {
+                return 'API key non configurata. Configura la tua chiave OpenWeatherMap per ottenere dati meteo storici.';
+            }
+
+            try {
+                // Prima geocodifica la città per ottenere lat/lon
+                const geoResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${API_KEY}`);
+
+                if (!geoResponse.ok) {
+                    throw new Error('Errore nella geocodifica della città');
+                }
+
+                const geoData = await geoResponse.json();
+
+                if (!geoData || geoData.length === 0) {
+                    return 'Città non trovata. Verifica il nome della città.';
+                }
+
+                const lat = geoData[0].lat;
+                const lon = geoData[0].lon;
+
+                // Converti la data in timestamp Unix
+                const timestamp = Math.floor(date.getTime() / 1000);
+
+                // Usa OpenWeatherMap Historical Weather API
+                const weatherResponse = await fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${timestamp}&appid=${API_KEY}&units=metric&lang=it`);
+
+                if (!weatherResponse.ok) {
+                    throw new Error('Errore nel recupero dei dati meteo storici');
+                }
+
+                const weatherData = await weatherResponse.json();
+
+                if (weatherData.current) {
+                    const temp = Math.round(weatherData.current.temp);
+                    const description = weatherData.current.weather[0].description;
+                    const humidity = weatherData.current.humidity;
+                    const wind = Math.round(weatherData.current.wind_speed);
+
+                    return `${temp}°C, ${description}, Umidità: ${humidity}%, Vento: ${wind} km/h`;
+                }
+
+                return 'Dati meteo non disponibili per questa data';
+            } catch (error) {
+                console.error('Errore meteo:', error);
+                return 'Impossibile recuperare i dati meteo storici. Verifica la città e la data.';
+            }
         }
 
         function getWeekNumber(d) {
