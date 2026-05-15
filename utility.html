@@ -1663,15 +1663,19 @@
             const content = `
                 <div style="font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem;">${dayName}</div>
                 <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">${date.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                <div style="margin-top: 1.5rem; text-align: left; font-size: 0.95rem; line-height: 1.8;">
-                    <strong>📅 Tempo trascorso:</strong> ${timeAgo}<br>
-                    <strong>🔢 Giorno dell'anno:</strong> ${dayOfYear}° su ${isLeapYear ? 366 : 365}<br>
-                    <strong>📆 Settimana dell'anno:</strong> ${weekNumber}<br>
-                    <strong>✝️ Santo del giorno:</strong> ${saint}<br>
-                    <strong>🎉 Festività:</strong> ${holiday || 'Nessuna festività in questo giorno'}<br>
-                    ${weatherHtml}
-                    <strong>♈ Segno zodiacale:</strong> ${zodiacSign}<br>
-                    <strong>🌟 Anno bisestile:</strong> ${isLeapYear ? 'Sì' : 'No'}
+                <div style="margin-top: 1.5rem; font-size: 0.95rem; line-height: 1.8; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="text-align: left;">
+                        <strong>📅 Tempo trascorso:</strong> ${timeAgo}<br>
+                        <strong>🔢 Giorno dell'anno:</strong> ${dayOfYear}° su ${isLeapYear ? 366 : 365}<br>
+                        <strong>📆 Settimana dell'anno:</strong> ${weekNumber}<br>
+                        <strong>✝️ Santo del giorno:</strong> ${saint}
+                    </div>
+                    <div style="text-align: right;">
+                        <strong>🎉 Festività:</strong> ${holiday || 'Nessuna festività in questo giorno'}<br>
+                        ${weatherHtml}
+                        <strong>♈ Segno zodiacale:</strong> ${zodiacSign}<br>
+                        <strong>🌟 Anno bisestile:</strong> ${isLeapYear ? 'Sì' : 'No'}
+                    </div>
                 </div>
             `;
 
@@ -1680,30 +1684,26 @@
         }
 
         async function fetchHistoricalWeather(city, date) {
-            // API KEY - Sostituisci con la tua chiave API OpenWeatherMap
-            const API_KEY = '1064ecc72b759163a061fce8b14248c3';
-
-            if (API_KEY === 'YOUR_OPENWEATHERMAP_API_KEY') {
-                return 'API key non configurata. Configura la tua chiave OpenWeatherMap per ottenere dati meteo storici.';
-            }
-
             try {
+                // Usa Open-Meteo API (gratuita, senza chiave API)
                 // Prima geocodifica la città per ottenere lat/lon
-                const geoResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${API_KEY}`);
+                const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=it&format=json`);
 
                 if (!geoResponse.ok) {
-                    console.error('Geocoding error:', geoResponse.status);
                     throw new Error('Errore nella geocodifica della città');
                 }
 
                 const geoData = await geoResponse.json();
 
-                if (!geoData || geoData.length === 0) {
+                if (!geoData.results || geoData.results.length === 0) {
                     return 'Città non trovata. Verifica il nome della città.';
                 }
 
-                const lat = geoData[0].lat;
-                const lon = geoData[0].lon;
+                const lat = geoData.results[0].latitude;
+                const lon = geoData.results[0].longitude;
+
+                // Formatta la data per Open-Meteo (YYYY-MM-DD)
+                const dateStr = date.toISOString().split('T')[0];
 
                 // Controlla se la data è oggi o nel futuro
                 const today = new Date();
@@ -1715,54 +1715,79 @@
 
                 if (isTodayOrFuture) {
                     // Per oggi o date future, usa meteo attuale
-                    const currentWeatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=it`);
+                    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`);
 
-                    if (!currentWeatherResponse.ok) {
+                    if (!weatherResponse.ok) {
                         throw new Error('Errore nel recupero dei dati meteo attuali');
                     }
 
-                    const currentWeatherData = await currentWeatherResponse.json();
+                    const weatherData = await weatherResponse.json();
 
-                    if (currentWeatherData.main && currentWeatherData.weather) {
-                        const temp = Math.round(currentWeatherData.main.temp);
-                        const description = currentWeatherData.weather[0].description;
-                        const humidity = currentWeatherData.main.humidity;
-                        const wind = Math.round(currentWeatherData.wind.speed);
+                    if (weatherData.current) {
+                        const temp = Math.round(weatherData.current.temperature_2m);
+                        const weatherCode = weatherData.current.weather_code;
+                        const humidity = weatherData.current.relative_humidity_2m;
+                        const wind = Math.round(weatherData.current.wind_speed_10m);
+                        const description = getWeatherDescription(weatherCode);
 
                         return `${temp}°C, ${description}, Umidità: ${humidity}%, Vento: ${wind} km/h`;
                     }
 
                     return 'Dati meteo non disponibili';
                 } else {
-                    // Per date passate, prova con dati storici (richiede abbonamento a pagamento)
-                    const timestamp = Math.floor(date.getTime() / 1000);
+                    // Per date passate, usa dati storici (gratuiti con Open-Meteo)
+                    const weatherResponse = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${dateStr}&end_date=${dateStr}&daily=temperature_2m_max,temperature_2m_min,weather_code,wind_speed_10m_max,relative_humidity_2m_mean&timezone=auto`);
 
-                    try {
-                        const weatherResponse = await fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${timestamp}&appid=${API_KEY}&units=metric&lang=it`);
-
-                        if (weatherResponse.ok) {
-                            const weatherData = await weatherResponse.json();
-
-                            if (weatherData.current) {
-                                const temp = Math.round(weatherData.current.temp);
-                                const description = weatherData.current.weather[0].description;
-                                const humidity = weatherData.current.humidity;
-                                const wind = Math.round(weatherData.current.wind_speed);
-
-                                return `${temp}°C, ${description}, Umidità: ${humidity}%, Vento: ${wind} km/h`;
-                            }
-                        }
-                    } catch (historicalError) {
-                        console.log('Dati storici non disponibili:', historicalError);
+                    if (!weatherResponse.ok) {
+                        throw new Error('Errore nel recupero dei dati meteo storici');
                     }
 
-                    // Se dati storici non disponibili, mostra messaggio informativo
-                    return 'Dati meteo storici non disponibili con piano gratuito. Richiede abbonamento OpenWeatherMap a pagamento.';
+                    const weatherData = await weatherResponse.json();
+
+                    if (weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 0) {
+                        const tempMax = Math.round(weatherData.daily.temperature_2m_max[0]);
+                        const tempMin = Math.round(weatherData.daily.temperature_2m_min[0]);
+                        const weatherCode = weatherData.daily.weather_code[0];
+                        const humidity = Math.round(weatherData.daily.relative_humidity_2m_mean[0]);
+                        const wind = Math.round(weatherData.daily.wind_speed_10m_max[0]);
+                        const description = getWeatherDescription(weatherCode);
+
+                        return `${tempMin}-${tempMax}°C, ${description}, Umidità: ${humidity}%, Vento max: ${wind} km/h`;
+                    }
+
+                    return 'Dati meteo storici non disponibili per questa data';
                 }
             } catch (error) {
                 console.error('Errore meteo:', error);
                 return 'Impossibile recuperare i dati meteo. Verifica la città.';
             }
+        }
+
+        function getWeatherDescription(code) {
+            const weatherCodes = {
+                0: 'Cielo sereno',
+                1: 'Prevalentemente sereno',
+                2: 'Parzialmente nuvoloso',
+                3: 'Nuvoloso',
+                45: 'Nebbia',
+                48: 'Nebbia con brina',
+                51: 'Pioviggine leggera',
+                53: 'Pioviggine moderata',
+                55: 'Pioviggine densa',
+                61: 'Pioggia leggera',
+                63: 'Pioggia moderata',
+                65: 'Pioggia forte',
+                71: 'Neve leggera',
+                73: 'Neve moderata',
+                75: 'Neve forte',
+                80: 'Rovesci temporaleschi leggeri',
+                81: 'Rovesci temporalescati moderati',
+                82: 'Rovesci temporalescati violenti',
+                95: 'Temporale',
+                96: 'Temporale con grandine leggera',
+                99: 'Temporale con grandine forte'
+            };
+            return weatherCodes[code] || 'Condizioni sconosciute';
         }
 
         function getWeekNumber(d) {
