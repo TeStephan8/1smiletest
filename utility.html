@@ -1082,16 +1082,7 @@
         });
 
         function updateDisplay() {
-            const now = new Date();
-            const dateTime = now.toLocaleString('it-IT', { 
-                day: '2-digit', 
-                month: '2-digit', 
-                year: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('calcDisplay').innerHTML = calcValue + '<span style="font-size: 0.6rem; float: right; color: var(--gold);">' + dateTime + '</span>';
+            document.getElementById('calcDisplay').textContent = calcValue;
             document.getElementById('receiptTotal').textContent = 'TOTALE CORRENTE: ' + fmtEuro(parseIt(calcValue) || 0);
         }
 
@@ -1537,6 +1528,8 @@
             const weekNumber = getWeekNumber(date);
             
             const zodiacSign = getZodiacSign(date.getDate(), date.getMonth() + 1);
+            const saint = getSaintOfDay(date.getDate(), date.getMonth() + 1);
+            const holiday = getItalianHoliday(date.getDate(), date.getMonth() + 1, year);
 
             const content = `
                 <div style="font-size: 2rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem;">${dayName}</div>
@@ -1545,6 +1538,8 @@
                     <strong>📅 Tempo trascorso:</strong> ${timeAgo}<br>
                     <strong>🔢 Giorno dell'anno:</strong> ${dayOfYear}° su ${isLeapYear ? 366 : 365}<br>
                     <strong>📆 Settimana dell'anno:</strong> ${weekNumber}<br>
+                    <strong>✝️ Santo del giorno:</strong> ${saint}<br>
+                    <strong>🎉 Festività:</strong> ${holiday || 'Nessuna festività in questo giorno'}<br>
                     <strong>♈ Segno zodiacale:</strong> ${zodiacSign}<br>
                     <strong>🌟 Anno bisestile:</strong> ${isLeapYear ? 'Sì' : 'No'}
                 </div>
@@ -1584,6 +1579,442 @@
                 }
             }
             return 'Capricorno';
+        }
+
+        function getSaintOfDay(day, month) {
+            const saints = {
+                // Gennaio
+                '1-1': 'Maria Santissima Madre di Dio',
+                '1-2': 'San Basilio Magno e San Gregorio Nazianzeno',
+                '1-3': 'Santissima Genoveffa',
+                '1-4': 'Santa Elisabetta Ann Seton',
+                '1-5': 'San Simone Stilita',
+                '1-6': 'Epifania del Signore',
+                '1-7': 'San Raimondo di Peñafort',
+                '1-8': 'San Giuseppe Tuan',
+                '1-9': 'Sant\'Adriano di Canterbury',
+                '1-10': 'San Gregorio di Nissa',
+                '1-11': 'San Tommaso di Cori',
+                '1-12': 'San Benedetto Biscop',
+                '1-13': 'Sant\'Ilario di Poitiers',
+                '1-14': 'San Felice di Nola',
+                '1-15': 'San Mauro',
+                '1-16': 'San Marcello I Papa',
+                '1-17': 'Sant\'Antonio Abate',
+                '1-18': 'Santa Prisca',
+                '1-19': 'San Mario e Santa Marta',
+                '1-20': 'San Fabiano Papa',
+                '1-21': 'Sant\'Agnese',
+                '1-22': 'San Vincenzo di Saragozza',
+                '1-23': 'San Giovanni Battista de La Salle',
+                '1-24': 'San Francesco di Sales',
+                '1-25': 'Conversione di San Paolo',
+                '1-26': 'Santi Timoteo e Tito',
+                '1-27': 'Sant\'Angela Merici',
+                '1-28': 'San Tommaso d\'Aquino',
+                '1-29': 'San Guglielmo',
+                '1-30': 'Santa Giacinta Marescotti',
+                '1-31': 'San Giovanni Bosco',
+                // Febbraio
+                '2-1': 'San Brizio di Tours',
+                '2-2': 'Presentazione del Signore',
+                '2-3': 'San Biagio',
+                '2-4': 'Sant\'Andrea Corsini',
+                '2-5': 'Sant\'Agata',
+                '2-6': 'San Paolo Miki e compagni',
+                '2-7': 'San Riccardo',
+                '2-8': 'San Girolamo Emiliani',
+                '2-9': 'San Miguel Febres Cordero',
+                '2-10': 'Santa Scolastica',
+                '2-11': 'Beato Giovanni da Triora',
+                '2-12': 'Santi Sette Fondatori',
+                '2-13': 'San Giovanni Battista della Concezione',
+                '2-14': 'San Cirillo e San Metodio',
+                '2-15': 'San Claudio di Besançon',
+                '2-16': 'Sant\'Onofrio',
+                '2-17': 'Sette Santi Fondatori',
+                '2-18': 'San Bernardo di Burgos',
+                '2-19': 'San Barbato',
+                '2-20': 'Santi Francisco e Jacinto',
+                '2-21': 'San Pietro Damiani',
+                '2-22': 'Cattedra di San Pietro',
+                '2-23': 'San Policarpo',
+                '2-24': 'San Giovanni di Matha',
+                '2-25': 'San Luigi Versiglia',
+                '2-26': 'San Porfirio',
+                '2-27': 'San Gabriele dell\'Addolorata',
+                '2-28': 'San Romano',
+                '2-29': 'San Ottavio',
+                // Marzo
+                '3-1': 'San Davide',
+                '3-2': 'San Carlo Luigi',
+                '3-3': 'San Cunegonda',
+                '3-4': 'San Casimiro',
+                '3-5': 'San Giovanni Giuseppe della Croce',
+                '3-6': 'Sant\'Oliva',
+                '3-7': 'Sant\'Eusebio',
+                '3-8': 'San Giovanni di Dio',
+                '3-9': 'San Francesca Romana',
+                '3-10': 'Santi Quaranta Martiri',
+                '3-11': 'San Costantino',
+                '3-12': 'San Teofane',
+                '3-13': 'Santa Cristina',
+                '3-14': 'Santa Matilde',
+                '3-15': 'San Longino',
+                '3-16': 'San Eriberto',
+                '3-17': 'San Patrizio',
+                '3-18': 'San Cirillo di Gerusalemme',
+                '3-19': 'San Giuseppe',
+                '3-20': 'San Giuseppe',
+                '3-21': 'San Nicola di Flüe',
+                '3-22': 'San Lea',
+                '3-23': 'San Turibio',
+                '3-24': 'San Guido',
+                '3-25': 'Annunciazione del Signore',
+                '3-26': 'San Ludovico',
+                '3-27': 'San Giovanni Damasceno',
+                '3-28': 'San Gontrano',
+                '3-29': 'San Bertrando',
+                '3-30': 'San Giovanni Clímaco',
+                '3-31': 'San Beniamino',
+                // Aprile
+                '4-1': 'San Ugo',
+                '4-2': 'San Francesco di Paola',
+                '4-3': 'San Riccardo di Chichester',
+                '4-4': 'Sant\'Isidoro',
+                '4-5': 'San Vincenzo Ferrer',
+                '4-6': 'San Guglielmo Esker',
+                '4-7': 'San Giovanni Battista de La Salle',
+                '4-8': 'Sant\'Alberto',
+                '4-9': 'San Gaetano',
+                '4-10': 'San Magdaleno',
+                '4-11': 'San Stanislao',
+                '4-12': 'San Giuseppe Moscati',
+                '4-13': 'San Martino I Papa',
+                '4-14': 'San Lidano',
+                '4-15': 'San Paterno',
+                '4-16': 'San Benedetto Giuseppe Labre',
+                '4-17': 'Sant\'Aniceto Papa',
+                '4-18': 'Sant\'Apollinare',
+                '4-19': 'San Leone IX Papa',
+                '4-20': 'San Marco',
+                '4-21': 'San Anselmo',
+                '4-22': 'San Soter Papa',
+                '4-23': 'San Giorgio',
+                '4-24': 'San Fidel',
+                '4-25': 'San Marco Evangelista',
+                '4-26': 'San Cleto Papa',
+                '4-27': 'San Pietro Canisio',
+                '4-28': 'San Luigi Maria',
+                '4-29': 'Santa Caterina da Siena',
+                '4-30': 'San Pio V Papa',
+                // Maggio
+                '5-1': 'San Giuseppe Lavoratore',
+                '5-2': 'Sant\'Atanasio',
+                '5-3': 'Santi Filippo e Giacomo',
+                '5-4': 'San Giovanni Nepomuceno',
+                '5-5': 'Sant\'Angelo',
+                '5-6': 'San Francesco di Girolamo',
+                '5-7': 'San Flavio',
+                '5-8': 'San Michele Arcangelo',
+                '5-9': 'San Gregorio Nazianzeno',
+                '5-10': 'San Giovanni di Avila',
+                '5-11': 'Sant\'Ignazio da Laconi',
+                '5-12': 'Santi Nereo e Achilleo',
+                '5-13': 'Nostra Signora di Fatima',
+                '5-14': 'San Mattia',
+                '5-15': 'San Domenico Savio',
+                '5-16': 'San Simone Stock',
+                '5-17': 'San Pasquale Baylon',
+                '5-18': 'San Giovanni I Papa',
+                '5-19': 'San Pietro Celestino',
+                '5-20': 'San Bernardino da Siena',
+                '5-21': 'San Cristoforo Magallanes',
+                '5-22': 'Santa Rita',
+                '5-23': 'San Giovanni Battista de Rossi',
+                '5-24': 'San Davide',
+                '5-25': 'San Beda il Venerabile',
+                '5-26': 'San Filippo Neri',
+                '5-27': 'Sant\'Agostino',
+                '5-28': 'San Luigi',
+                '5-29': 'San Massimiliano Kolbe',
+                '5-30': 'San Ferdinando III',
+                '5-31': 'Visitazione della Beata Vergine Maria',
+                // Giugno
+                '6-1': 'San Giustino',
+                '6-2': 'Santi Marcellino e Pietro',
+                '6-3': 'San Carlo Lwanga',
+                '6-4': 'San Francesco Caracciolo',
+                '6-5': 'San Bonifacio',
+                '6-6': 'San Norberto',
+                '6-7': 'Sant\'Antonio Maria Gianelli',
+                '6-8': 'San Medardo',
+                '6-9': 'San Efrem',
+                '6-10': 'Santi Getulio e Amedeo',
+                '6-11': 'San Barnaba',
+                '6-12': 'Santi Onofrio e Gaspare',
+                '6-13': 'Sant\'Antonio di Padova',
+                '6-14': 'Sant\'Eliseo',
+                '6-15': 'San Vito',
+                '6-16': 'Santi Quirico e Giulitta',
+                '6-17': 'San Ranieri',
+                '6-18': 'Santi Marco e Marcelliano',
+                '6-19': 'San Romualdo',
+                '6-20': 'San Silverio',
+                '6-21': 'San Luigi Gonzaga',
+                '6-22': 'San Paolino',
+                '6-23': 'San Giuseppe Cafasso',
+                '6-24': 'San Giovanni Battista',
+                '6-25': 'Sant\'Anna',
+                '6-26': 'Santi Vigilio e Giovanni',
+                '6-27': 'San Cirillo',
+                '6-28': 'San Ireneo',
+                '6-29': 'Santi Pietro e Paolo',
+                '6-30': 'Primi Martiri della Chiesa di Roma',
+                // Luglio
+                '7-1': 'San Tommaso',
+                '7-2': 'Visitazione della Beata Vergine Maria',
+                '7-3': 'San Tommaso',
+                '7-4': 'Santa Elisabetta del Portogallo',
+                '7-5': 'Sant\'Antonio Maria Zaccaria',
+                '7-6': 'Santa Maria Goretti',
+                '7-7': 'Sant\'Edoardo',
+                '7-8': 'Santi Aquila e Priscilla',
+                '7-9': 'San Giovanni Leonardi',
+                '7-10': 'Santi Rufino e Secondo',
+                '7-11': 'San Benedetto',
+                '7-12': 'San Giovanni Gualberto',
+                '7-13': 'San Enrico',
+                '7-14': 'San Camillo de Lellis',
+                '7-15': 'San Bonaventura',
+                '7-16': 'Maria Santissima del Carmelo',
+                '7-17': 'Sant\'Alessio',
+                '7-18': 'San Federico',
+                '7-19': 'San Giustino de Jacobis',
+                '7-20': 'Sant\'Apollinare',
+                '7-21': 'San Lorenzo da Brindisi',
+                '7-22': 'Santa Maria Maddalena',
+                '7-23': 'Santa Brigida',
+                '7-24': 'San Carlo Borromeo',
+                '7-25': 'San Giacomo',
+                '7-26': 'Santi Gioacchino e Anna',
+                '7-27': 'Santi Nazario e Celso',
+                '7-28': 'Santi Nazario e Celso',
+                '7-29': 'Santi Marta, Maria e Lazzaro',
+                '7-30': 'San Pietro Crisologo',
+                '7-31': 'Sant\'Ignazio di Loyola',
+                // Agosto
+                '8-1': 'Sant\'Alfonso Maria de Liguori',
+                '8-2': 'San Eusebio',
+                '8-3': 'Sant\'Agostino',
+                '8-4': 'San Giovanni Maria Vianney',
+                '8-5': 'Dedicazione della Basilica di Santa Maria Maggiore',
+                '8-6': 'Trasfigurazione del Signore',
+                '8-7': 'Santi Gaetano e Donato',
+                '8-8': 'San Domenico',
+                '8-9': 'Santa Teresa Benedetta della Croce',
+                '8-10': 'San Lorenzo',
+                '8-11': 'Santa Chiara',
+                '8-12': 'Santa Maria',
+                '8-13': 'San Massimiliano Kolbe',
+                '8-14': 'San Massimiliano Maria Kolbe',
+                '8-15': 'Assunzione di Maria',
+                '8-16': 'San Rocco',
+                '8-17': 'San Giacomo',
+                '8-18': 'Sant\'Elena',
+                '8-19': 'San Giovanni Eudes',
+                '8-20': 'San Bernardo',
+                '8-21': 'San Pio X',
+                '8-22': 'Santa Maria Regina',
+                '8-23': 'Santa Rosa da Lima',
+                '8-24': 'San Bartolomeo',
+                '8-25': 'San Luigi',
+                '8-26': 'Sant\'Alessandro',
+                '8-27': 'Santa Monica',
+                '8-28': 'Sant\'Agostino',
+                '8-29': 'Martyrdom of John the Baptist',
+                '8-30': 'Santi Felice e Adaucto',
+                '8-31': 'San Raimondo Nonnato',
+                // Settembre
+                '9-1': 'San Guglielmo',
+                '9-2': 'Santi Giusto e Pastore',
+                '9-3': 'San Gregorio',
+                '9-4': 'San Bonifacio',
+                '9-5': 'San Lorenzo Giustiniani',
+                '9-6': 'San Berardo',
+                '9-7': 'San Claudio',
+                '9-8': 'Natività della Beata Vergine Maria',
+                '9-9': 'San Pietro Claver',
+                '9-10': 'San Nicola da Tolentino',
+                '9-11': 'Santi Protasio e Gervasio',
+                '9-12': 'Santissimo Nome di Maria',
+                '9-13': 'San Giovanni Crisostomo',
+                '9-14': 'Esaltazione della Santa Croce',
+                '9-15': 'Addolorata',
+                '9-16': 'Santi Cornelio e Cipriano',
+                '9-17': 'San Roberto Bellarmino',
+                '9-18': 'San Giuseppe da Copertino',
+                '9-19': 'San Gennaro',
+                '9-20': 'Santi Andrea Kim e Paolo Chong',
+                '9-21': 'San Matteo',
+                '9-22': 'San Tommaso di Villanova',
+                '9-23': 'San Pio da Pietrelcina',
+                '9-24': 'San Gerardo',
+                '9-25': 'San Cleofa',
+                '9-26': 'Santi Cosma e Damiano',
+                '9-27': 'San Vincenzo de\' Paoli',
+                '9-28': 'San Wenceslao',
+                '9-29': 'Santi Arcangeli Michele, Gabriele e Raffaele',
+                '9-30': 'San Girolamo',
+                // Ottobre
+                '10-1': 'Santa Teresa del Bambino Gesù',
+                '10-2': 'Santi Angeli Custodi',
+                '10-3': 'San Francesco d\'Assisi',
+                '10-4': 'San Francesco d\'Assisi',
+                '10-5': 'Sant\'Anna',
+                '10-6': 'San Bruno',
+                '10-7': 'Madonna del Rosario',
+                '10-8': 'San Giovanni Leonardi',
+                '10-9': 'Santi Dionisio e compagni',
+                '10-10': 'San Daniele',
+                '10-11': 'San Giovanni XXIII',
+                '10-12': 'San Serafino',
+                '10-13': 'San Guglielmo',
+                '10-14': 'San Callisto I Papa',
+                '10-15': 'Santa Teresa d\'Avila',
+                '10-16': 'Santa Margherita Maria Alacoque',
+                '10-17': 'Sant\'Ignazio di Antiochia',
+                '10-18': 'San Luca Evangelista',
+                '10-19': 'Santi Giovanni de Brébeuf e compagni',
+                '10-20': 'San Caprasio',
+                '10-21': 'Sant\'Ilario',
+                '10-22': 'San Giovanni Paolo II',
+                '10-23': 'San Giovanni da Capestrano',
+                '10-24': 'San Luigi',
+                '10-25': 'Santi Crispino e Crispiniano',
+                '10-26': 'Santi Evaristo e compagni',
+                '10-27': 'Santa Emilia',
+                '10-28': 'Santi Simone e Giuda',
+                '10-29': 'Sant\'Arcangelo',
+                '10-30': 'Sant\'Alfonso',
+                '10-31': 'Sant\'Alfonso',
+                // Novembre
+                '11-1': 'Tutti i Santi',
+                '11-2': 'Commemorazione dei defunti',
+                '11-3': 'San Martino de Porres',
+                '11-4': 'San Carlo Borromeo',
+                '11-5': 'Santi Gallo e compagni',
+                '11-6': 'San Leonardo',
+                '11-7': 'San Carlo',
+                '11-8': 'Santi Quattro Coronati',
+                '11-9': 'Dedicazione della Basilica di San Giovanni in Laterano',
+                '11-10': 'San Leone I Papa',
+                '11-11': 'San Martino di Tours',
+                '11-12': 'San Giosafat',
+                '11-13': 'Santi Oreste e compagni',
+                '11-14': 'San Lorenzo',
+                '11-15': 'Sant\'Alberto',
+                '11-16': 'Santa Margherita',
+                '11-17': 'Santa Elisabetta d\'Ungheria',
+                '11-18': 'Dedicazione delle Basiliche di Pietro e Paolo',
+                '11-19': 'Santa Matilde',
+                '11-20': 'Sant\'Edoardo',
+                '11-21': 'Presentazione della Beata Vergine Maria',
+                '11-22': 'Santa Cecilia',
+                '11-23': 'San Clemente I Papa',
+                '11-24': 'Santi Andrea Dung-Lac e compagni',
+                '11-25': 'Santa Caterina d\'Alessandria',
+                '11-26': 'San Silvestro',
+                '11-27': 'San Francesco Antonio',
+                '11-28': 'San Giacomo della Marca',
+                '11-29': 'San Saturnino',
+                '11-30': 'San Andrea Apostolo',
+                // Dicembre
+                '12-1': 'Sant\'Edoardo',
+                '12-2': 'San Bibiana',
+                '12-3': 'San Francesco Saverio',
+                '12-4': 'San Giovanni Damasceno',
+                '12-5': 'San Sabas',
+                '12-6': 'San Nicola',
+                '12-7': 'Sant\'Ambrogio',
+                '12-8': 'Immacolata Concezione',
+                '12-9': 'San Juan Diego',
+                '12-10': 'Santa Eulalia',
+                '12-11': 'San Damaso I Papa',
+                '12-12': 'Nostra Signora di Guadalupe',
+                '12-13': 'Santa Lucia',
+                '12-14': 'San Giovanni della Croce',
+                '12-15': 'San Nino',
+                '12-16': 'Santi Adelaide e compagni',
+                '12-17': 'San Lazzaro',
+                '12-18': 'San Sebastiano',
+                '12-19': 'San Urbano',
+                '12-20': 'San Zosimo',
+                '12-21': 'San Pietro Canisio',
+                '12-22': 'San Francesco',
+                '12-23': 'San Giovanni',
+                '12-24': 'Vigilia di Natale',
+                '12-25': 'Natale del Signore',
+                '12-26': 'Santo Stefano',
+                '12-27': 'San Giovanni Evangelista',
+                '12-28': 'Santi Innocenti',
+                '12-29': 'San Tommaso Becket',
+                '12-30': 'San Ruggero',
+                '12-31': 'San Silvestro'
+            };
+
+            const key = `${month}-${day}`;
+            return saints[key] || 'Nessun santo particolare in questo giorno';
+        }
+
+        function getItalianHoliday(day, month, year) {
+            const holidays = {
+                '1-1': 'Capodanno',
+                '1-6': 'Epifania',
+                '4-25': 'Festa della Liberazione',
+                '5-1': 'Festa dei Lavoratori',
+                '6-2': 'Festa della Repubblica',
+                '8-15': 'Ferragosto (Assunzione)',
+                '11-1': 'Ognissanti',
+                '12-8': 'Immacolata Concezione',
+                '12-25': 'Natale',
+                '12-26': 'Santo Stefano'
+            };
+
+            const key = `${month}-${day}`;
+
+            // Pasqua (calcolo dinamico)
+            const easterDate = getEasterDate(year);
+            if (easterDate && easterDate.getDate() === day && easterDate.getMonth() + 1 === month) {
+                return 'Pasqua';
+            }
+
+            // Lunedì dell'Angelo (Pasquetta) - lunedì dopo Pasqua
+            const easterMonday = new Date(easterDate);
+            easterMonday.setDate(easterMonday.getDate() + 1);
+            if (easterMonday.getDate() === day && easterMonday.getMonth() + 1 === month) {
+                return 'Lunedì dell\'Angelo (Pasquetta)';
+            }
+
+            return holidays[key] || null;
+        }
+
+        function getEasterDate(year) {
+            const a = year % 19;
+            const b = Math.floor(year / 100);
+            const c = year % 100;
+            const d = Math.floor(b / 4);
+            const e = b % 4;
+            const f = Math.floor((b + 8) / 25);
+            const g = Math.floor((b - f + 1) / 3);
+            const h = (19 * a + b - d - g + 15) % 30;
+            const i = Math.floor(c / 4);
+            const k = c % 4;
+            const l = (32 + 2 * e + 2 * i - h - k) % 7;
+            const m = Math.floor((a + 11 * h + 22 * l) / 451);
+            const month = Math.floor((h + l - 7 * m + 114) / 31);
+            const day = ((h + l - 7 * m + 114) % 31) + 1;
+            return new Date(year, month - 1, day);
         }
 </script>
 
