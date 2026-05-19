@@ -718,7 +718,7 @@
                         <button class="calc-btn function" onclick="calcScrollUp()">↑</button>
                         
                         <button class="calc-btn number" onclick="calcAppend('0')" style="grid-column: span 2;">0</button>
-                        <button class="calc-btn number" onclick="calcAppend('.')">.</button>
+                        <button class="calc-btn number" onclick="calcAppend(',')">,</button>
                         <button class="calc-btn function" onclick="calcScrollDown()">⎘</button>
                     </div>
 
@@ -1140,6 +1140,7 @@
         // Parsing: converte da formato italiano a float
         function parseIt(s) {
             if (typeof s !== 'string') return parseFloat(s) || 0;
+            // Rimuove punti separatori migliaia, converte virgola in punto
             return parseFloat(s.replace(/\./g, '').replace(',', '.')) || 0;
         }
         let calcPrevious = '';
@@ -1156,8 +1157,9 @@
             if (document.getElementById('tab-finanziaria').classList.contains('active')) {
                 if (e.key >= '0' && e.key <= '9') {
                     calcAppend(e.key);
-                } else if (e.key === '.') {
-                    calcAppend('.');
+                } else if (e.key === '.' || e.key === ',' || e.key === 'Decimal') {
+                    e.preventDefault();
+                    calcAppend(',');
                 } else if (e.key === '+') {
                     calcAppend('+');
                 } else if (e.key === '-') {
@@ -1191,7 +1193,17 @@
                 calcSetOperator(val);
                 return;
             }
-            
+            // Gestione virgola decimale
+            if (val === ',') {
+                if (calcNewNumber) {
+                    calcValue = '0,';
+                    calcNewNumber = false;
+                } else if (!calcValue.includes(',')) {
+                    calcValue = calcValue + ',';
+                }
+                updateDisplay();
+                return;
+            }
             if (calcNewNumber) {
                 calcValue = val;
                 calcNewNumber = false;
@@ -1208,8 +1220,8 @@
         function calcSetOperator(op) {
             if (calcOperator && !calcNewNumber) {
                 // calcola risultato parziale
-                const prev = parseFloat(calcPrevious);
-                const current = parseFloat(calcValue);
+                const prev = parseIt(calcPrevious);
+                const current = parseIt(calcValue);
                 let result = 0;
                 switch(calcOperator) {
                     case '+': result = prev + current; break;
@@ -1219,7 +1231,7 @@
                 }
                 // aggiunge il numero corrente all'espressione
                 calcFullExpr += calcValue + ' ' + opSymbol(op) + ' ';
-                calcValue = result.toString();
+                calcValue = fmtDisplay(result);
                 updateDisplay();
             } else {
                 // primo operatore: inizia l'espressione
