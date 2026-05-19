@@ -1007,8 +1007,7 @@
 
         </div>
 
-        <!-- Tab 4: Cedolare Secca -->
-        <div id="tab-cedolare" class="tab-content">
+       <div id="tab-cedolare" class="tab-content">
             <h2>Cedolare Secca</h2>
             <p class="subtitle">Calcolo indicativo per capire se la cedolare secca può essere più conveniente rispetto alla tassazione ordinaria IRPEF.</p>
             
@@ -1022,9 +1021,9 @@
                     <div class="form-group">
                         <label>Aliquota IRPEF personale</label>
                         <select id="irpef">
-                            <option value="23">23%</option>
-                            <option value="35">35%</option>
-                            <option value="43">43%</option>
+                            <option value="23">23% (Fino a 28.000€)</option>
+                            <option value="35">35% (Da 28.001€ a 50.000€)</option>
+                            <option value="43">43% (Oltre 50.000€)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1039,6 +1038,23 @@
                         <input type="number" id="addizionali" value="2" step="0.1">
                     </div>
                 </div>
+
+                <div style="background: var(--white); border: 1px solid var(--blue-pale); border-radius: 10px; padding: 1.2rem; margin: 1.5rem 0; font-size: 0.9rem; line-height: 1.6; box-shadow: inset 0 2px 4px rgba(13,45,107,0.03);">
+                    <h4 style="color: var(--blue-dark); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem;">
+                        💡 Come scegliere i dati fiscali personali?
+                    </h4>
+                    <ul style="margin-left: 1.2rem; color: var(--gray-text); display: flex; flex-direction: column; gap: 0.6rem;">
+                        <li>
+                            <strong>Aliquota IRPEF personale:</strong> Seleziona lo scaglione in base al tuo reddito complessivo annuo (es. da lavoro, pensione o altri immobili). 
+                            Se non lo conosci, controlla il rigo <strong>"Reddito Complessivo"</strong> nel tuo ultimo modello <strong>730 (Rigo 11)</strong> o <strong>Redditi PF (Rigo RN1)</strong>.
+                        </li>
+                        <li>
+                            <strong>Aliquota addizionali (%):</strong> È la somma dell'addizionale regionale e comunale IRPEF (solitamente oscilla tra l'1.5% e il 3%). 
+                            Puoi trovare le tue percentuali esatte nell'ultimo <strong>730 (prospetto di liquidazione 730-3, righi 22 e 23 per la Regione; righi 27 e 28 per il Comune)</strong>, oppure inserire una media stimata del <strong>2%</strong>.
+                        </li>
+                    </ul>
+                </div>
+
                 <button class="btn-primary" onclick="calcolaCedolare()">⚡ Calcola Convenienza</button>
             </div>
 
