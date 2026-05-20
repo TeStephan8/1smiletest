@@ -645,8 +645,15 @@
             
             .util-nav-inner {grid-template-columns:auto 1fr;gap:.8rem}
             .util-nav-back{display:none}
-            .util-nav-tabs,.tabs-nav{justify-content:flex-end}
-            .tab-btn{font-size:.75rem;padding:.35rem .7rem}
+            .util-nav-tabs,.tabs-nav{justify-content:flex-end;overflow-x:auto;flex-wrap:nowrap}
+            .tab-btn{font-size:.7rem;padding:.3rem .6rem;white-space:nowrap}
+        }
+
+        @media (max-width: 768px) {
+            .util-nav-inner {grid-template-columns:1fr;gap:.5rem;padding:.5rem}
+            .tabs-nav{justify-content:center;overflow-x:auto;padding-bottom:.3rem}
+            .tab-btn{font-size:.65rem;padding:.25rem .5rem}
+            .util-nav-logo{display:none}
         }
     </style>
 </head>
